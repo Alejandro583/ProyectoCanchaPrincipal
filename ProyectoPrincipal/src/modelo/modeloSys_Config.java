@@ -93,5 +93,5 @@ public class modeloSys_Config
 
     public void setFactura_seq(int factura_seq) {
         this.factura_seq = factura_seq;
-    } 
+    }
 }
