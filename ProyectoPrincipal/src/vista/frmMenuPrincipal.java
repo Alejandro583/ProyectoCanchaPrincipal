@@ -46,7 +46,8 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jMenu2 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        PanelPrincipal = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
         txtNombre = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -54,7 +55,6 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         mr_cliente = new javax.swing.JMenuItem();
         mr_producto = new javax.swing.JMenuItem();
         mr_proveedor = new javax.swing.JMenuItem();
-        mr_cancha = new javax.swing.JMenuItem();
         m_Operacion = new javax.swing.JMenu();
         om_venta = new javax.swing.JMenuItem();
         om_compra = new javax.swing.JMenuItem();
@@ -72,16 +72,18 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
 
         jMenu5.setText("jMenu5");
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout PanelPrincipalLayout = new javax.swing.GroupLayout(PanelPrincipal);
+        PanelPrincipal.setLayout(PanelPrincipalLayout);
+        PanelPrincipalLayout.setHorizontalGroup(
+            PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 617, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        PanelPrincipalLayout.setVerticalGroup(
+            PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 383, Short.MAX_VALUE)
         );
 
@@ -122,9 +124,6 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
 
         mr_proveedor.setText("Proveedor");
         m_Registro.add(mr_proveedor);
-
-        mr_cancha.setText("Cancha");
-        m_Registro.add(mr_cancha);
 
         jMenuBar1.add(m_Registro);
 
@@ -176,13 +175,13 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(PanelPrincipal)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jDesktopPane1)
+                .addComponent(PanelPrincipal)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -191,12 +190,19 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mr_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mr_clienteActionPerformed
-
+        FrmICliente registroCliente = new FrmICliente();
+        PanelPrincipal.add(registroCliente);
+        registroCliente.setVisible(true);
         
     }//GEN-LAST:event_mr_clienteActionPerformed
 
     private void mr_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mr_productoActionPerformed
-        // TODO add your handling code here:
+        FrmIProducto registroProducto = new FrmIProducto();
+        PanelPrincipal.add(registroProducto);
+        registroProducto.setVisible(true);
+        m_Consulta.setVisible(false);
+        m_Operacion.setVisible(false);
+        
     }//GEN-LAST:event_mr_productoActionPerformed
 
     private void om_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_om_ventaActionPerformed
@@ -243,11 +249,12 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane PanelPrincipal;
     private javax.swing.JMenuItem cm_detalleCliente;
     private javax.swing.JMenuItem cm_detalleCompra;
     private javax.swing.JMenuItem cm_detalleVenta;
     private javax.swing.JMenuItem cm_stock;
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu5;
@@ -257,7 +264,6 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu m_Consulta;
     private javax.swing.JMenu m_Operacion;
     private javax.swing.JMenu m_Registro;
-    private javax.swing.JMenuItem mr_cancha;
     private javax.swing.JMenuItem mr_cliente;
     private javax.swing.JMenuItem mr_producto;
     private javax.swing.JMenuItem mr_proveedor;
