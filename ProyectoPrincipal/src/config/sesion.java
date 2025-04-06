@@ -18,7 +18,7 @@ public final class sesion extends conexion {
     private String Usuario;
     private String NombreUsuario;
     private String Cargo;
-    private int IdUsuario;
+    private int    IdUsuario;
     private String TituloMensaje = "UPE SOFTWARE";
     
     private String usuarioPrecio = "unitario";
