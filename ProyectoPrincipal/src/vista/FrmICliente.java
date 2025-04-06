@@ -18,8 +18,10 @@ public class FrmICliente extends javax.swing.JInternalFrame {
     abmCliente oAbmCliente = new abmCliente();
     modeloCliente oModeloCliente = new modeloCliente();
     sesion Osesion = new sesion();
-    public FrmICliente() {
+    frmMenuPrincipal oMenuprincipal;
+    public FrmICliente(frmMenuPrincipal menu) {
         initComponents();
+        oMenuprincipal = menu;
     }
 
     /**
@@ -42,6 +44,8 @@ public class FrmICliente extends javax.swing.JInternalFrame {
         txtEstado = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+
+        setIconifiable(true);
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnCancelar.setText("CANCELAR");
@@ -222,6 +226,8 @@ public class FrmICliente extends javax.swing.JInternalFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
+        oMenuprincipal.mostrarRegistros();
+        
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtEstadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEstadoKeyPressed
