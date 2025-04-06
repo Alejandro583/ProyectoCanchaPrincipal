@@ -190,19 +190,19 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mr_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mr_clienteActionPerformed
-        FrmICliente registroCliente = new FrmICliente();
+        FrmICliente registroCliente = new FrmICliente(this);
         PanelPrincipal.add(registroCliente);
         registroCliente.setVisible(true);
+        m_Consulta.setVisible(false);
+        m_Operacion.setVisible(false);
+        m_Registro.setVisible(false);
         
     }//GEN-LAST:event_mr_clienteActionPerformed
 
     private void mr_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mr_productoActionPerformed
         FrmIProducto registroProducto = new FrmIProducto();
         PanelPrincipal.add(registroProducto);
-        registroProducto.setVisible(true);
-        m_Consulta.setVisible(false);
-        m_Operacion.setVisible(false);
-        
+        registroProducto.setVisible(true);   
     }//GEN-LAST:event_mr_productoActionPerformed
 
     private void om_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_om_ventaActionPerformed
@@ -213,6 +213,12 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cm_detalleCompraActionPerformed
 
+    public void mostrarRegistros()
+    {
+        m_Consulta.setVisible(true);
+        m_Operacion.setVisible(true);
+        m_Registro.setVisible(true);
+    }
     /**
      * @param args the command line arguments
      */
