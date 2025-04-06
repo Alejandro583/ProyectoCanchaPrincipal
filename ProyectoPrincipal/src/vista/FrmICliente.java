@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package vista;
-
+import abm.abmCliente;
+import modelo.modeloCliente;
 import config.sesion;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,6 +15,8 @@ import config.sesion;
  */
 public class FrmICliente extends javax.swing.JInternalFrame {
 
+    abmCliente oAbmCliente = new abmCliente();
+    modeloCliente oModeloCliente = new modeloCliente();
     sesion Osesion = new sesion();
     public FrmICliente() {
         initComponents();
@@ -41,9 +45,19 @@ public class FrmICliente extends javax.swing.JInternalFrame {
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnGuardar.setText("GUARDAR");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Nombre");
@@ -81,6 +95,14 @@ public class FrmICliente extends javax.swing.JInternalFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Telefono");
+
+        txtEstado.setText("ACTIVO");
+        txtEstado.setEnabled(false);
+        txtEstado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtEstadoKeyPressed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Estado");
@@ -139,7 +161,7 @@ public class FrmICliente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnCancelar))
@@ -174,10 +196,61 @@ public class FrmICliente extends javax.swing.JInternalFrame {
     private void txtTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyPressed
         if(Osesion.verificarEnter(evt) == true)
         {
-            txtEstado.requestFocus();
+            btnGuardar.requestFocus();
+            if (agregarCliente() == true)
+            {
+                JOptionPane.showMessageDialog(null, "Cliente Agregado Exitosamente");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "El cliente con CI " + oModeloCliente.getCi() + " Ya existe");
+            }
         }
     }//GEN-LAST:event_txtTelefonoKeyPressed
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        
+        if (agregarCliente() == true)
+        {
+            JOptionPane.showMessageDialog(null, "Cliente Agregado Exitosamente");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "El cliente con CI " + oModeloCliente.getCi() + " Ya existe");
+        }   
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtEstadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEstadoKeyPressed
+        oModeloCliente.setEstado(1);
+        if (agregarCliente() == true)
+        {
+            JOptionPane.showMessageDialog(null, "Cliente Agregado Exitosamente");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "El cliente con CI " + oModeloCliente.getCi() + " Ya existe");
+        }
+    }//GEN-LAST:event_txtEstadoKeyPressed
+
+    public boolean agregarCliente()
+    {
+        oModeloCliente.setCi(txtCI.getText().trim());
+        oModeloCliente.setNombre(txtNombre.getText());
+        oModeloCliente.setTelefono(txtTelefono.getText());
+        
+        if (oAbmCliente.agregarCliente(oModeloCliente) == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }  
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
