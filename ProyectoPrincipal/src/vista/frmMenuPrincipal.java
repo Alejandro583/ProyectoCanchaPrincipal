@@ -245,6 +245,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         FrmICaja caja = new FrmICaja();
         PanelPrincipal.add(caja);
         caja.show();
+        caja.setVisible(true);
     }//GEN-LAST:event_om_cajaActionPerformed
 
     public void mostrarRegistros()
