@@ -19,9 +19,12 @@ public class FrmICliente extends javax.swing.JInternalFrame {
     modeloCliente oModeloCliente = new modeloCliente();
     sesion Osesion = new sesion();
     frmMenuPrincipal oMenuprincipal;
-    public FrmICliente(frmMenuPrincipal menu) {
+    String TipoOperacion = null;
+    public FrmICliente(frmMenuPrincipal menu,String operacion) {
         initComponents();
         oMenuprincipal = menu;
+        TipoOperacion = operacion;
+        btnGuardar.setText(operacion);
     }
 
     /**
@@ -203,7 +206,7 @@ public class FrmICliente extends javax.swing.JInternalFrame {
             btnGuardar.requestFocus();
             if (agregarCliente() == true)
             {
-                JOptionPane.showMessageDialog(null, "Cliente Agregado Exitosamente");
+                JOptionPane.showMessageDialog(null, "Cliente" + TipoOperacion + " Exitosamente");
             }
             else
             {
@@ -216,7 +219,7 @@ public class FrmICliente extends javax.swing.JInternalFrame {
         
         if (agregarCliente() == true)
         {
-            JOptionPane.showMessageDialog(null, "Cliente Agregado Exitosamente");
+                JOptionPane.showMessageDialog(null, "Cliente" + TipoOperacion + " Exitosamente");
         }
         else
         {

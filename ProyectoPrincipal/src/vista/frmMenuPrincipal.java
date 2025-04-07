@@ -65,6 +65,8 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         cm_detalleCompra = new javax.swing.JMenuItem();
         cm_detalleCliente = new javax.swing.JMenuItem();
         cm_stock = new javax.swing.JMenuItem();
+        m_Modificar = new javax.swing.JMenu();
+        mm_Cliente = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -169,6 +171,18 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(m_Consulta);
 
+        m_Modificar.setText("MODIFICAR");
+
+        mm_Cliente.setText("Cliente");
+        mm_Cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mm_ClienteActionPerformed(evt);
+            }
+        });
+        m_Modificar.add(mm_Cliente);
+
+        jMenuBar1.add(m_Modificar);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -190,7 +204,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mr_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mr_clienteActionPerformed
-        FrmICliente registroCliente = new FrmICliente(this);
+        FrmICliente registroCliente = new FrmICliente(this,"GUARDAR");
         PanelPrincipal.add(registroCliente);
         registroCliente.setVisible(true);
         m_Consulta.setVisible(false);
@@ -212,6 +226,15 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     private void cm_detalleCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cm_detalleCompraActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cm_detalleCompraActionPerformed
+
+    private void mm_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mm_ClienteActionPerformed
+        FrmICliente registroCliente = new FrmICliente(this,"MODIFICAR");
+        PanelPrincipal.add(registroCliente);
+        registroCliente.setVisible(true);
+        m_Consulta.setVisible(false);
+        m_Operacion.setVisible(false);
+        m_Registro.setVisible(false);
+    }//GEN-LAST:event_mm_ClienteActionPerformed
 
     public void mostrarRegistros()
     {
@@ -268,8 +291,10 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JMenu m_Consulta;
+    private javax.swing.JMenu m_Modificar;
     private javax.swing.JMenu m_Operacion;
     private javax.swing.JMenu m_Registro;
+    private javax.swing.JMenuItem mm_Cliente;
     private javax.swing.JMenuItem mr_cliente;
     private javax.swing.JMenuItem mr_producto;
     private javax.swing.JMenuItem mr_proveedor;

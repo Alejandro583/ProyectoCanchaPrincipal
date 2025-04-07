@@ -1,6 +1,5 @@
 package abm;
 
-import config.sesion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +23,7 @@ public class abmCliente extends config.conexion
         ResultSet resultado = null;        
         try 
         {
-            if (clienteExiste(pCliente.getCi()) == true)
+            if (clienteExiste(pCliente.getCi()) != null)
             {
                 return false;
             }
@@ -48,32 +47,103 @@ public class abmCliente extends config.conexion
         }
     }
     
-    public boolean clienteExiste(String cedula)
+    public modeloCliente clienteExiste(String cedula)
     {
         Connection conex = getAbrirConexion();
         PreparedStatement consulta = null;
         String sql;
         ResultSet resultado = null;
-        
+        modeloCliente cliente =  new modeloCliente();
+        cliente = null;
         try 
         {
-            sql = "SELECT Nombre FROM cliente WHERE Ci = ?";
+            sql = "SELECT * FROM cliente WHERE Ci = ?";
             consulta = conex.prepareStatement(sql);
             consulta.setString(1, cedula);
             resultado = consulta.executeQuery();
             if(resultado.next() == true)
             {
-                return true;
+                cliente.setCi(resultado.getString("Ci"));
+                cliente.setEstado(resultado.getInt("Estado"));
+                cliente.setNombre(resultado.getString("Nombre"));
+                cliente.setTelefono(resultado.getString("Telefono"));
+                cliente.setId_cliente(resultado.getInt("Id_cliente"));
+                return cliente;
             }
             else
             {
-                return false;
+                return cliente;
             }
         }
         catch (SQLException e) 
         {
             JOptionPane.showMessageDialog(null, e.getMessage());
-            return false;
+            return cliente;
         }
     }
+    //MODIFICAR PARA QUE RECIBA UN OBJETO DE TIPO CLIENTE
+    public boolean modificarCliente(String cedula)
+    {
+        modeloCliente cliente = clienteExiste(cedula);
+        if (cliente != null)
+        {
+            Connection conex = getAbrirConexion();
+            PreparedStatement consulta = null;
+            String sql; 
+            try 
+            {
+               sql = "UPDATE cliente SET Nombre = ?, Estado = ?,Telefono = ?,Ci = ? " + 
+                    "WHERE Ci = ?";
+               consulta = conex.prepareStatement(sql);
+               consulta.setString(1, cliente.getNombre());
+               consulta.setInt(2, cliente.getEstado());
+               consulta.setString(3, cliente.getTelefono());
+               consulta.setString(4, cliente.getCi());
+               consulta.setString(5, cedula);
+               consulta.executeUpdate();
+               return true; 
+            } 
+            catch (SQLException e) 
+            {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }
+            
+    }
+    
+    //MODIFICAR PARA QUE RECIBA UN OBJETO DE TIPO CLIENTE 
+     public boolean eliminarCliente(String cedula)
+    {
+        modeloCliente cliente = clienteExiste(cedula);
+        if (cliente != null)
+        {
+            Connection conex = getAbrirConexion();
+            PreparedStatement consulta = null;
+            String sql; 
+            try 
+            {
+               sql = "DELETE FROM cliente WHERE Ci = ?";
+               consulta = conex.prepareStatement(sql);
+               consulta.setString(1, cedula);
+               consulta.executeUpdate();
+               return true; 
+            } 
+            catch (SQLException e) 
+            {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }
+            
+    }
+    
 }
