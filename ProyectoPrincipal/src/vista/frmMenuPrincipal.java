@@ -143,6 +143,11 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         m_Operacion.add(om_compra);
 
         om_caja.setText("Caja");
+        om_caja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                om_cajaActionPerformed(evt);
+            }
+        });
         m_Operacion.add(om_caja);
 
         om_reserva.setText("Reserva");
@@ -235,6 +240,12 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         m_Operacion.setVisible(false);
         m_Registro.setVisible(false);
     }//GEN-LAST:event_mm_ClienteActionPerformed
+
+    private void om_cajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_om_cajaActionPerformed
+        FrmICaja caja = new FrmICaja();
+        PanelPrincipal.add(caja);
+        caja.show();
+    }//GEN-LAST:event_om_cajaActionPerformed
 
     public void mostrarRegistros()
     {
