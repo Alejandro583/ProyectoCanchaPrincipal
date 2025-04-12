@@ -172,11 +172,5 @@ public boolean aumentarTarjeta(double monto, int id_caja) {
         return false;
     }
 }
-
-
-    public boolean cerrarCaja(int idCaja) {
-        return eliminarCaja(idCaja); // Cierre lógico de caja
-    }
-
 }
 
