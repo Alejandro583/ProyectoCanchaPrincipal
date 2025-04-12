@@ -150,7 +150,7 @@ public class abmProducto extends config.conexion
         String sql; 
         try 
         {
-            sql = "UPDATE producto SET Estado = ? WHERE Ci = ?";
+            sql = "UPDATE producto SET Estado = ? WHERE Id_producto = ?";
             consulta = conex.prepareStatement(sql);
             consulta.setInt(1, pProducto.getEstado());
             consulta.setInt(2, pProducto.getId_producto());
@@ -184,5 +184,24 @@ public class abmProducto extends config.conexion
             return false;
         } 
     }
-  
+    public boolean disminuirStock(int cantidad,int id_producto)
+    {
+        Connection conex = getAbrirConexion();
+        PreparedStatement consulta = null;
+        String sql; 
+         try 
+        {
+            sql = "UPDATE producto SET Stock = Stock + ? WHERE Id_producto = ?";
+            consulta = conex.prepareStatement(sql);
+            consulta.setInt(1, cantidad);
+            consulta.setInt(2, id_producto);
+            consulta.executeUpdate();
+            return true; 
+        } 
+        catch (SQLException e) 
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return false;
+        } 
+    }
 }

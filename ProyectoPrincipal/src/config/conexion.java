@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 public class conexion {
     private String db = "cancha_sintetica";
     private String usuario = "root";
-    private String password = "";//COLOCAR CONTRASEÑA
+    private String password = "1234";//CAMBIAR CONTRASEÑA
     private String servidor = "localhost";
     private String puerto = "3306";
     private String url = "jdbc:mysql://" + servidor + ":" + puerto + "/" + db;

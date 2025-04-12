@@ -215,6 +215,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         m_Consulta.setVisible(false);
         m_Operacion.setVisible(false);
         m_Registro.setVisible(false);
+        m_Modificar.setVisible(false);
         
     }//GEN-LAST:event_mr_clienteActionPerformed
 
@@ -253,6 +254,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         m_Consulta.setVisible(true);
         m_Operacion.setVisible(true);
         m_Registro.setVisible(true);
+        m_Modificar.setVisible(true);
     }
     /**
      * @param args the command line arguments

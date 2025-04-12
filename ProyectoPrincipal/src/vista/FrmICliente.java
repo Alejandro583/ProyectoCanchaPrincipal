@@ -14,8 +14,8 @@ import javax.swing.JOptionPane;
  * @author tedyf
  */
 public class FrmICliente extends javax.swing.JInternalFrame {
-
-    abmCliente oAbmCliente = new abmCliente();
+   //MODIFICAR PARA QUE ENVIE CORRECTAMENTE LA SESION CUANDO TRABAJEMOS POR VISTA 
+    abmCliente oAbmCliente = new abmCliente(null);
     modeloCliente oModeloCliente = new modeloCliente();
     sesion Osesion = new sesion();
     frmMenuPrincipal oMenuprincipal;
@@ -48,7 +48,9 @@ public class FrmICliente extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
+        setClosable(true);
         setIconifiable(true);
+        setResizable(true);
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnCancelar.setText("CANCELAR");

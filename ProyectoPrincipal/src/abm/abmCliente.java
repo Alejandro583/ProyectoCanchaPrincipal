@@ -1,18 +1,47 @@
 package abm;
 
+import config.sesion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import modelo.modeloCliente;
 
 
 public class abmCliente extends config.conexion
 {  
-    public abmCliente()
+    sesion oSesion;
+    public abmCliente(sesion pSesion)
     {
-        
+        oSesion = pSesion;
+    }
+    
+    public DefaultTableModel cargarTabla(String condicion) {
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        modeloTabla.setColumnIdentifiers(new Object[]{"CODIGO","CEDULA","NOMBRE","TELEFONO"});
+
+        PreparedStatement preparaConsulta = null;
+        Connection conex = getAbrirConexion();
+        String sql = "";
+        ResultSet resultado = null;
+        try {
+            sql = "SELECT * FROM cliente " + condicion;
+            preparaConsulta = conex.prepareStatement(sql);
+            resultado = preparaConsulta.executeQuery();
+
+            while (resultado.next() == true) {
+                modeloTabla.addRow(new Object[]{
+                    resultado.getInt("Id_cliente"),
+                    resultado.getString("Ci"),
+                    resultado.getString("Nombre"),
+                    resultado.getString("Telefono"),});   
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e, oSesion.getTituloMensaje(), 1);
+        }
+        return modeloTabla;
     }
     
     public boolean agregarCliente(modeloCliente pCliente)
@@ -84,33 +113,31 @@ public class abmCliente extends config.conexion
     //MODIFICAR PARA QUE RECIBA UN OBJETO DE TIPO CLIENTE
     public boolean modificarCliente(modeloCliente pCliente)
     {
-            Connection conex = getAbrirConexion();
-            PreparedStatement consulta = null;
-            String sql; 
-            try 
-            {
-               sql = "UPDATE cliente SET Nombre = ?, Estado = ?,Telefono = ?,Ci = ? " + 
-                    "WHERE Ci = ?";
-               consulta = conex.prepareStatement(sql);
-               consulta.setString(1, pCliente.getNombre());
-               consulta.setInt(2, pCliente.getEstado());
-               consulta.setString(3, pCliente.getTelefono());
-               consulta.setString(4, pCliente.getCi());
-               consulta.setString(5, pCliente.getCi());
-               consulta.executeUpdate();
-               return true; 
-            } 
-            catch (SQLException e) 
-            {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-                return false;
-            }
-       }
+        Connection conex = getAbrirConexion();
+        PreparedStatement consulta = null;
+        String sql; 
+        try 
+        {
+            sql = "UPDATE cliente SET Nombre = ?, Estado = ?,Telefono = ?,Ci = ? " + 
+                "WHERE Ci = ?";
+            consulta = conex.prepareStatement(sql);
+            consulta.setString(1, pCliente.getNombre());
+            consulta.setInt(2, pCliente.getEstado());
+            consulta.setString(3, pCliente.getTelefono());
+            consulta.setString(4, pCliente.getCi());
+            consulta.setString(5, pCliente.getCi());
+            consulta.executeUpdate();
+            return true; 
+        } 
+        catch (SQLException e) 
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return false;
+        }
+    }
             
     
-    
-    //MODIFICAR PARA QUE RECIBA UN OBJETO DE TIPO CLIENTE 
-     public boolean eliminarCliente(modeloCliente pCliente)
+    public boolean eliminarCliente(modeloCliente pCliente)
     {
         Connection conex = getAbrirConexion();
         PreparedStatement consulta = null;
