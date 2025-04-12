@@ -82,11 +82,8 @@ public class abmCliente extends config.conexion
         }
     }
     //MODIFICAR PARA QUE RECIBA UN OBJETO DE TIPO CLIENTE
-    public boolean modificarCliente(String cedula)
+    public boolean modificarCliente(modeloCliente pCliente)
     {
-        modeloCliente cliente = clienteExiste(cedula);
-        if (cliente != null)
-        {
             Connection conex = getAbrirConexion();
             PreparedStatement consulta = null;
             String sql; 
@@ -95,11 +92,11 @@ public class abmCliente extends config.conexion
                sql = "UPDATE cliente SET Nombre = ?, Estado = ?,Telefono = ?,Ci = ? " + 
                     "WHERE Ci = ?";
                consulta = conex.prepareStatement(sql);
-               consulta.setString(1, cliente.getNombre());
-               consulta.setInt(2, cliente.getEstado());
-               consulta.setString(3, cliente.getTelefono());
-               consulta.setString(4, cliente.getCi());
-               consulta.setString(5, cedula);
+               consulta.setString(1, pCliente.getNombre());
+               consulta.setInt(2, pCliente.getEstado());
+               consulta.setString(3, pCliente.getTelefono());
+               consulta.setString(4, pCliente.getCi());
+               consulta.setString(5, pCliente.getCi());
                consulta.executeUpdate();
                return true; 
             } 
@@ -108,42 +105,31 @@ public class abmCliente extends config.conexion
                 JOptionPane.showMessageDialog(null, e.getMessage());
                 return false;
             }
-        }
-        else
-        {
-            return true;
-        }
+       }
             
-    }
+    
     
     //MODIFICAR PARA QUE RECIBA UN OBJETO DE TIPO CLIENTE 
-     public boolean eliminarCliente(String cedula)
+     public boolean eliminarCliente(modeloCliente pCliente)
     {
-        modeloCliente cliente = clienteExiste(cedula);
-        if (cliente != null)
+        Connection conex = getAbrirConexion();
+        PreparedStatement consulta = null;
+        String sql; 
+        try 
         {
-            Connection conex = getAbrirConexion();
-            PreparedStatement consulta = null;
-            String sql; 
-            try 
-            {
-               sql = "DELETE FROM cliente WHERE Ci = ?";
-               consulta = conex.prepareStatement(sql);
-               consulta.setString(1, cedula);
-               consulta.executeUpdate();
-               return true; 
-            } 
-            catch (SQLException e) 
-            {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-                return false;
-            }
-        }
-        else
+            sql = "UPDATE cliente SET Estado = ? WHERE Ci = ?";
+            consulta = conex.prepareStatement(sql);
+            consulta.setInt(1, pCliente.getEstado());
+            consulta.setString(2, pCliente.getCi());
+            consulta.executeUpdate();
+            return true; 
+        } 
+        catch (SQLException e) 
         {
-            return true;
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return false;
         }
-            
+       
     }
     
 }
