@@ -154,6 +154,7 @@ public class abmCaja extends conexion {
         return false;
     }
 }
+    
 
 public boolean aumentarTarjeta(double monto, int id_caja) {
     Connection conex = getAbrirConexion();
@@ -173,16 +174,20 @@ public boolean aumentarTarjeta(double monto, int id_caja) {
     }
 }
 
-public boolean restarTotal(double monto, int id_caja) {
+
+
+
+
+public boolean reversionTotal(double monto, int id_caja) {
     Connection conex = getAbrirConexion();
     PreparedStatement consulta = null;
     String sql;
-
     try {
-        sql = "UPDATE caja SET Total = Total - ? WHERE Id_caja = ?";
+        sql = "UPDATE caja SET Efectivo = Efectivo - ?, Total = Total - ? WHERE Id_caja = ?";
         consulta = conex.prepareStatement(sql);
         consulta.setDouble(1, monto);
-        consulta.setInt(2, id_caja);
+        consulta.setDouble(2, monto);
+        consulta.setInt(3, id_caja);
         consulta.executeUpdate();
         return true;
     } catch (SQLException e) {
