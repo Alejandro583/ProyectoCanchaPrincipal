@@ -172,5 +172,23 @@ public boolean aumentarTarjeta(double monto, int id_caja) {
         return false;
     }
 }
+
+public boolean restarTotal(double monto, int id_caja) {
+    Connection conex = getAbrirConexion();
+    PreparedStatement consulta = null;
+    String sql;
+
+    try {
+        sql = "UPDATE caja SET Total = Total - ? WHERE Id_caja = ?";
+        consulta = conex.prepareStatement(sql);
+        consulta.setDouble(1, monto);
+        consulta.setInt(2, id_caja);
+        consulta.executeUpdate();
+        return true;
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+        return false;
+    }
+}
 }
 
