@@ -136,6 +136,43 @@ public class abmCaja extends conexion {
             return false;
         }
     }
+    
+    public boolean aumentarEfectivo(double monto, int id_caja) {
+    Connection conex = getAbrirConexion();
+    PreparedStatement consulta = null;
+    String sql;
+    try {
+        sql = "UPDATE caja SET efectivo = efectivo + ?, total = total + ? WHERE id_caja = ?";
+        consulta = conex.prepareStatement(sql);
+        consulta.setDouble(1, monto);
+        consulta.setDouble(2, monto);
+        consulta.setInt(3, id_caja);
+        consulta.executeUpdate();
+        return true;
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+        return false;
+    }
+}
+
+public boolean aumentarTarjeta(double monto, int id_caja) {
+    Connection conex = getAbrirConexion();
+    PreparedStatement consulta = null;
+    String sql;
+    try {
+        sql = "UPDATE caja SET tarjeta = tarjeta + ?, total = total + ? WHERE id_caja = ?";
+        consulta = conex.prepareStatement(sql);
+        consulta.setDouble(1, monto);
+        consulta.setDouble(2, monto);
+        consulta.setInt(3, id_caja);
+        consulta.executeUpdate();
+        return true;
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+        return false;
+    }
+}
+
 
     public boolean cerrarCaja(int idCaja) {
         return eliminarCaja(idCaja); // Cierre lógico de caja
