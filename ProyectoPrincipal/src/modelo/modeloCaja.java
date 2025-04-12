@@ -1,34 +1,93 @@
 package modelo;
 
+import java.sql.Date;
+
 public class modeloCaja {
-    private int id_caja;
-    private double total;
-    private double efectivo;
-    private double tarjeta;
-    private String fecha; // o puedes usar java.sql.Date si lo preferís
-    private boolean estado;
-    private int fk_usuario;
+    private int Id_caja;
+    private double Total;
+    private double Efectivo;
+    private double Tarjeta;
+    private Date Fecha; 
+    private boolean Estado;
+    private int Fk_usuario;
 
-    // Getters y setters
-    public int getId_caja() { return id_caja; }
-    public void setId_caja(int id_caja) { this.id_caja = id_caja; }
 
-    public double getTotal() { return total; }
-    public void setTotal(double total) { this.total = total; }
+   
 
-    public double getEfectivo() { return efectivo; }
-    public void setEfectivo(double efectivo) { this.efectivo = efectivo; }
+//Constructor
+    public modeloCaja() 
+    {
+        
+    }
+    
+    //Constructor Con Parametros
+    public modeloCaja(int Id_caja, double Total, double Ffectivo, double Tarjeta, Date Fecha, boolean Estado, int Fk_usuario) {
+        this.Id_caja = Id_caja;
+        this.Total = Total;
+        this.Efectivo = Efectivo;
+        this.Tarjeta = Tarjeta;
+        this.Fecha = Fecha;
+        this.Estado = Estado;
+        this.Fk_usuario= Fk_usuario;
+    }
 
-    public double getTarjeta() { return tarjeta; }
-    public void setTarjeta(double tarjeta) { this.tarjeta = tarjeta; }
+    
+  // Getters y setters
+    public int getId_caja() {
+        return Id_caja;
+    }
 
-    public String getFecha() { return fecha; }
-    public void setFecha(String fecha) { this.fecha = fecha; }
+    public void setId_caja(int Id_caja) {
+        this.Id_caja = Id_caja;
+    }
 
-    public boolean isEstado() { return estado; }
-    public void setEstado(boolean estado) { this.estado = estado; }
+    public double getTotal() {
+        return Total;
+    }
 
-    public int getFk_usuario() { return fk_usuario; }
-    public void setFk_usuario(int fk_usuario) { this.fk_usuario = fk_usuario; }
+    public void setTotal(double Total) {
+        this.Total = Total;
+    }
+
+    public double getEfectivo() {
+        return Efectivo;
+    }
+
+    public void setEfectivo(double Efectivo) {
+        this.Efectivo = Efectivo;
+    }
+
+    public double getTarjeta() {
+        return Tarjeta;
+    }
+
+    public void setTarjeta(double Tarjeta) {
+        this.Tarjeta = Tarjeta;
+    }
+
+    public Date getFecha() {
+        return Fecha;
+    }
+
+    public void setFecha(Date Fecha) {
+        this.Fecha = Fecha;
+    }
+
+    public boolean isEstado() {
+        return Estado;
+    }
+
+    public void setEstado(boolean Estado) {
+        this.Estado = Estado;
+    }
+
+    public int getFk_usuario() {
+        return Fk_usuario;
+    }
+
+    public void setFk_usuario(int Fk_usuario) {
+        this.Fk_usuario = Fk_usuario;
+    }
+    
 }
-
+    

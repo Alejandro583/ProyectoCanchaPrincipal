@@ -59,13 +59,13 @@ public class abmCaja extends conexion {
 
             if (rs.next()) {
                 caja = new modeloCaja();
-                caja.setId_caja(rs.getInt("id_caja"));
-                caja.setTotal(rs.getDouble("total"));
-                caja.setEfectivo(rs.getDouble("efectivo"));
-                caja.setTarjeta(rs.getDouble("tarjeta"));
-                caja.setFecha(rs.getString("fecha"));
-                caja.setEstado(rs.getBoolean("estado"));
-                caja.setFk_usuario(rs.getInt("fk_usuario"));
+                caja.setId_caja(rs.getInt("Id_caja"));
+                caja.setTotal(rs.getDouble("Total"));
+                caja.setEfectivo(rs.getDouble("Efectivo"));
+                caja.setTarjeta(rs.getDouble("Tarjeta"));
+                caja.setFecha(rs.getDate("Fecha"));
+                caja.setEstado(rs.getBoolean("Estado"));
+                caja.setFk_usuario(rs.getInt("Fk_usuario"));
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -81,14 +81,14 @@ public class abmCaja extends conexion {
 
         Connection conex = getAbrirConexion();
         PreparedStatement ps = null;
-        String sql = "INSERT INTO caja (total, efectivo, tarjeta, fecha, estado, fk_usuario) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO caja (Total, Efectivo, Tarjeta, Fecha, Estado, Fk_usuario) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             ps = conex.prepareStatement(sql);
             ps.setDouble(1, caja.getTotal());
             ps.setDouble(2, caja.getEfectivo());
             ps.setDouble(3, caja.getTarjeta());
-            ps.setString(4, caja.getFecha());
+            ps.setDate(4, caja.getFecha());
             ps.setBoolean(5, caja.isEstado());
             ps.setInt(6, caja.getFk_usuario());
             ps.execute();
@@ -102,14 +102,14 @@ public class abmCaja extends conexion {
     public boolean modificarCaja(modeloCaja caja) {
         Connection conex = getAbrirConexion();
         PreparedStatement ps = null;
-        String sql = "UPDATE caja SET total = ?, efectivo = ?, tarjeta = ?, fecha = ?, estado = ?, fk_usuario = ? WHERE id_caja = ?";
+        String sql = "UPDATE caja SET total = ?, Efectivo = ?, Tarjeta = ?, Fecha = ?, Estado = ?, Fk_usuario = ? WHERE Id_caja = ?";
 
         try {
             ps = conex.prepareStatement(sql);
             ps.setDouble(1, caja.getTotal());
             ps.setDouble(2, caja.getEfectivo());
             ps.setDouble(3, caja.getTarjeta());
-            ps.setString(4, caja.getFecha());
+            ps.setDate(4, caja.getFecha());
             ps.setBoolean(5, caja.isEstado());
             ps.setInt(6, caja.getFk_usuario());
             ps.setInt(7, caja.getId_caja());
@@ -124,7 +124,7 @@ public class abmCaja extends conexion {
     public boolean eliminarCaja(int idCaja) {
         Connection conex = getAbrirConexion();
         PreparedStatement ps = null;
-        String sql = "UPDATE caja SET estado = 0 WHERE id_caja = ?";
+        String sql = "UPDATE caja SET Estado = 0 WHERE Id_caja = ?";
 
         try {
             ps = conex.prepareStatement(sql);
@@ -142,7 +142,7 @@ public class abmCaja extends conexion {
     PreparedStatement consulta = null;
     String sql;
     try {
-        sql = "UPDATE caja SET efectivo = efectivo + ?, total = total + ? WHERE id_caja = ?";
+        sql = "UPDATE caja SET Efectivo = Efectivo + ?, Total = Total + ? WHERE Id_caja = ?";
         consulta = conex.prepareStatement(sql);
         consulta.setDouble(1, monto);
         consulta.setDouble(2, monto);
@@ -160,7 +160,7 @@ public boolean aumentarTarjeta(double monto, int id_caja) {
     PreparedStatement consulta = null;
     String sql;
     try {
-        sql = "UPDATE caja SET tarjeta = tarjeta + ?, total = total + ? WHERE id_caja = ?";
+        sql = "UPDATE caja SET Tarjeta = Tarjeta + ?, Total = Total + ? WHERE Id_caja = ?";
         consulta = conex.prepareStatement(sql);
         consulta.setDouble(1, monto);
         consulta.setDouble(2, monto);
