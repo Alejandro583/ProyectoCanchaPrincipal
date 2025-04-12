@@ -18,7 +18,7 @@ public class abmCompra extends conexion {
         DefaultTableModel modeloTabla = new DefaultTableModel();
         modeloTabla.setColumnIdentifiers(new Object[]{
             "CÓDIGO", "FACTURA NRO", "TIPO COMPRA", "FECHA", "SUBTOTAL",
-            "IVA 0%", "IVA 5%", "IVA 10%", "TOTAL NETO", "SALDO", "ESTADO"
+            "TOTAL NETO", "SALDO"
         });
 
         try (Connection conex = getAbrirConexion();
@@ -47,7 +47,7 @@ public class abmCompra extends conexion {
         return modeloTabla;
     }
 
-    public modeloCompra compraExiste(int idCompra) {
+    public modeloCompra cargarCompra(int idCompra) {
         modeloCompra compra = null;
 
         try (Connection conex = getAbrirConexion();
@@ -63,12 +63,8 @@ public class abmCompra extends conexion {
                 compra.setTipo_compra(resultado.getString("Tipo_compra"));
                 compra.setFecha(resultado.getDate("Fecha"));
                 compra.setSubtotal(resultado.getDouble("Subtotal"));
-                compra.setIva0(resultado.getDouble("Iva0"));
-                compra.setIva5(resultado.getDouble("Iva5"));
-                compra.setIva10(resultado.getDouble("Iva10"));
                 compra.setTotal_neto(resultado.getDouble("Total_neto"));
                 compra.setSaldo(resultado.getDouble("Saldo"));
-                compra.setEstado(resultado.getInt("Estado"));
                 compra.setFk_usuario(resultado.getInt("Fk_usuario"));
                 compra.setFk_proveedor(resultado.getInt("Fk_proveedor"));
             }
@@ -81,7 +77,7 @@ public class abmCompra extends conexion {
     }
 
     public boolean agregarCompra(modeloCompra compra) {
-        if (compraExiste(compra.getId_compra()) != null) {
+        if (cargarCompra(compra.getId_compra()) != null) {
             return false;
         }
 

@@ -21,7 +21,7 @@ public class modeloCaja {
     }
     
     //Constructor Con Parametros
-    public modeloCaja(int Id_caja, double Total, double Ffectivo, double Tarjeta, Date Fecha, boolean Estado, int Fk_usuario) {
+    public modeloCaja(int Id_caja, double Total, double Efectivo, double Tarjeta, Date Fecha, boolean Estado, int Fk_usuario) {
         this.Id_caja = Id_caja;
         this.Total = Total;
         this.Efectivo = Efectivo;
