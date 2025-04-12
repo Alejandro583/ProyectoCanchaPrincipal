@@ -133,7 +133,6 @@ public class comandosABM extends conexion {
             JOptionPane.showMessageDialog(null, "Error: " + e, oSesion.getTituloMensaje(), 1);
             return false;
         }
-
     }
 
 }
