@@ -14,39 +14,6 @@ public class abmCompra extends conexion {
         oSesion = pSesion;
     }
 
-    public DefaultTableModel cargarTabla(String condicion) {
-        DefaultTableModel modeloTabla = new DefaultTableModel();
-        modeloTabla.setColumnIdentifiers(new Object[]{
-            "CÓDIGO", "FACTURA NRO", "TIPO COMPRA", "FECHA", "SUBTOTAL",
-            "TOTAL NETO", "SALDO"
-        });
-
-        try (Connection conex = getAbrirConexion();
-             PreparedStatement consulta = conex.prepareStatement("SELECT * FROM compra " + condicion);
-             ResultSet resultado = consulta.executeQuery()) {
-
-            while (resultado.next()) {
-                modeloTabla.addRow(new Object[]{
-                    resultado.getInt("Id_compra"),
-                    resultado.getString("Factura_nro"),
-                    resultado.getString("Tipo_compra"),
-                    resultado.getDate("Fecha"),
-                    resultado.getDouble("Subtotal"),
-                    resultado.getDouble("Iva0"),
-                    resultado.getDouble("Iva5"),
-                    resultado.getDouble("Iva10"),
-                    resultado.getDouble("Total_neto"),
-                    resultado.getDouble("Saldo"),
-                    resultado.getInt("Estado")
-                });
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e, oSesion.getTituloMensaje(), 1);
-        }
-
-        return modeloTabla;
-    }
-
     public modeloCompra cargarCompra(int idCompra) {
         modeloCompra compra = null;
 
