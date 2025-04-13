@@ -19,14 +19,14 @@ public class abmCaja extends conexion {
     
        public DefaultTableModel cargarTabla(String condicion) {
         DefaultTableModel modeloTabla = new DefaultTableModel();
-        modeloTabla.setColumnIdentifiers(new Object[]{"CODIGO","TOTAL","EFECTIVO","TARJETA", "FECHA", "ESTADO"});
+        modeloTabla.setColumnIdentifiers(new Object[]{"CÓDIGO","TOTAL","EFECTIVO","TARJETA", "FECHA", "ESTADO"});
 
         PreparedStatement preparaConsulta = null;
         Connection conex = getAbrirConexion();
         String sql = "";
         ResultSet resultado = null;
         try {
-            sql = "SELECT * FROM producto " + condicion;
+            sql = "SELECT * FROM caja " + condicion;
             preparaConsulta = conex.prepareStatement(sql);
             resultado = preparaConsulta.executeQuery();
 

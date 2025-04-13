@@ -19,7 +19,7 @@ public class abmCompraDetalle extends conexion {
 
     public DefaultTableModel cargarTabla(String condicion) {
         DefaultTableModel modeloTabla = new DefaultTableModel();
-        modeloTabla.setColumnIdentifiers(new Object[]{"CODIGO", "PRODUCTO", "CANTIDAD", "COSTO", "IVA", "COSTO MEDIO", "FK COMPRA", "FK PRODUCTO", "ESTADO"});
+        modeloTabla.setColumnIdentifiers(new Object[]{"CÓDIGO", "PRODUCTO", "CANTIDAD", "COSTO", "IVA", "COSTO MEDIO", "CÓDIGO COMPRA", "CÓDIGO PRODUCTO", "ESTADO"});
 
         Connection conex = getAbrirConexion();
         PreparedStatement ps = null;
