@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.modeloCancha;
 import modelo.modeloProducto;
+import modelo.modeloReserva;
 
 
 public class abmCancha extends config.conexion
@@ -20,7 +21,7 @@ public class abmCancha extends config.conexion
         oSesion = pSesion;
     }
     
-     public DefaultTableModel cargarTabla(String condicion) {
+    public DefaultTableModel cargarTabla(String condicion) {
         DefaultTableModel modeloTabla = new DefaultTableModel();
         modeloTabla.setColumnIdentifiers(new Object[]{"CODIGO","DISPONIBLE","PRECIO","MANTENIMINTO"});
 
@@ -114,7 +115,8 @@ public class abmCancha extends config.conexion
         {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return false;
-        }
-       
+        }   
     }
+     
+     
 }

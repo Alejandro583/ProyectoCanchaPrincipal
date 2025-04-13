@@ -174,10 +174,6 @@ public boolean aumentarTarjeta(double monto, int id_caja) {
     }
 }
 
-
-
-
-
 public boolean reversionTotal(double monto, int id_caja) {
     Connection conex = getAbrirConexion();
     PreparedStatement consulta = null;
