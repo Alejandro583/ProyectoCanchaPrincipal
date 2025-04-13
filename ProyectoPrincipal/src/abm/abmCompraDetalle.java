@@ -49,6 +49,38 @@ public class abmCompraDetalle extends conexion {
 
         return modeloTabla;
     }
+    public modeloCompraDetalle compraDetalleExiste(int id_compra_detalle) {
+    Connection conex = getAbrirConexion();
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    modeloCompraDetalle detalle = null;
+
+    String sql = "SELECT * FROM compra_detalle WHERE Id_compra_detalle = ?";
+
+    try {
+        ps = conex.prepareStatement(sql);
+        ps.setInt(1, id_compra_detalle);
+        rs = ps.executeQuery();
+
+        if (rs.next()) {
+            detalle = new modeloCompraDetalle();
+            detalle.setId_compra_detalle(rs.getInt("Id_compra_detalle"));
+            detalle.setCosto(rs.getDouble("Costo"));
+            detalle.setCantidad(rs.getInt("Cantidad"));
+            detalle.setCompra_producto(rs.getString("Compra_producto"));
+            detalle.setCosto_medio(rs.getDouble("Costo_medio"));
+            detalle.setIva(rs.getInt("Iva"));
+            detalle.setEstado(rs.getInt("Estado"));
+            detalle.setFk_compra(rs.getInt("Fk_compra"));
+            detalle.setFk_producto(rs.getInt("Fk_producto"));
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al verificar detalle: " + e.getMessage(), oSesion.getTituloMensaje(), 1);
+    }
+
+    return detalle;
+}
+
 
     public boolean agregarDetalle(modeloCompraDetalle detalle) {
         Connection conex = getAbrirConexion();

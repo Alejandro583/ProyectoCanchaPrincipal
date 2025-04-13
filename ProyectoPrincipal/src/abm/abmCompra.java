@@ -4,7 +4,6 @@ import config.conexion;
 import config.sesion;
 import java.sql.*;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import modelo.modeloCompra;
 
 public class abmCompra extends conexion {
