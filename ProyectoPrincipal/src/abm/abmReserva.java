@@ -162,5 +162,40 @@ public class abmReserva extends conexion {
 
         return false; // En caso de error o si no se insertó ninguna fila
     }
+    
+    
+    public modeloReserva reservaExiste(int pId_reserva) {
+    Connection conex = getAbrirConexion();
+    PreparedStatement consulta = null;
+    String sql;
+    ResultSet resultado = null;
+    modeloReserva reserva = new modeloReserva();
+    reserva = null;
+    
+    try {
+        sql = "SELECT * FROM reserva WHERE Id_reserva = ?";
+        consulta = conex.prepareStatement(sql);
+        consulta.setInt(1, pId_reserva);
+        resultado = consulta.executeQuery();
+        
+        if (resultado.next() == true) {
+            reserva = new modeloReserva();
+            reserva.setId_reserva(resultado.getInt("Id_reserva"));
+            reserva.setHorario_inicio(resultado.getString("Horario_inicio"));
+            reserva.setHorario_fin(resultado.getString("Horario_fin"));
+            reserva.setObs(resultado.getString("Obs"));
+            reserva.setFk_cancha(resultado.getInt("Fk_cancha"));
+            reserva.setFk_cliente(resultado.getInt("Fk_cliente"));
+            return reserva;
+        } else {
+            return reserva; // null
+        }
+        
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+        return reserva; // null
+    }
+}
+
 
 }

@@ -83,7 +83,7 @@ public class abmProducto extends config.conexion
     }
      
      
-    public boolean agregarProducto(modeloProducto pProducto)
+    public boolean cargarProducto(modeloProducto pProducto)
     {
         Connection conex = getAbrirConexion();
         PreparedStatement consulta = null;
@@ -202,6 +202,29 @@ public class abmProducto extends config.conexion
         {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return false;
+        } 
+    }
+    
+    public int stockDisponible(int id_producto)
+    {
+        Connection conex = getAbrirConexion();
+        PreparedStatement consulta = null;
+        String sql; 
+        ResultSet resultado = null;
+        int cantidadStock;
+         try 
+        {
+            sql = "SELECT Stcok FROM producto WHERE Id_producto = ?";
+            consulta = conex.prepareStatement(sql);
+            consulta.setInt(1, id_producto);
+            resultado = consulta.executeQuery();
+            cantidadStock = resultado.getInt("Stock");
+            return cantidadStock;
+        } 
+        catch (SQLException e) 
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return 0;
         } 
     }
 }

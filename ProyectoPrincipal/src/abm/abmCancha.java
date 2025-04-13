@@ -73,6 +73,7 @@ public class abmCancha extends config.conexion
         }
     }
     
+    
     public boolean modificarCancha(modeloCancha pCancha)
     {
         Connection conex = getAbrirConexion();
@@ -118,5 +119,30 @@ public class abmCancha extends config.conexion
         }   
     }
      
-     
-}
+    public modeloCancha canchaExiste(modeloCancha pCancha)
+    {
+        Connection conex = getAbrirConexion();
+        PreparedStatement consulta = null;
+        String sql;
+        ResultSet resultado = null;
+        modeloCancha cancha =  new modeloCancha();
+        cancha = null;
+       try {
+            sql = "SELECT * FROM cancha WHERE Id_cancha = ?";
+            consulta = conex.prepareStatement(sql);
+            consulta.setInt(1, pCancha.getId_cancha());
+            resultado = consulta.executeQuery();
+            cancha.setDisponible(resultado.getString("Disponible"));
+            cancha.setId_cancha(resultado.getInt("Id_cancha"));
+            cancha.setMantenimiento(resultado.getString("Mantenimiento"));
+            cancha.setPrecio(resultado.getFloat("Precio"));
+            return cancha;
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e, oSesion.getTituloMensaje(), 1);
+        }
+        return cancha;
+    }
+       
+} 
+

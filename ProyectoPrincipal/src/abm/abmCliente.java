@@ -155,8 +155,6 @@ public class abmCliente extends config.conexion
         {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return false;
-        }
-       
-    }
-    
+        }   
+    } 
 }
