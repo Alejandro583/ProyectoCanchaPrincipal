@@ -41,6 +41,36 @@ public class abmProveedor extends conexion {
             return false;
         }
     }
+    
+    public modeloProveedor proveedorExiste(String criterio, String valor) {
+    Connection conex = getAbrirConexion();
+    PreparedStatement consulta = null;
+    ResultSet resultado = null;
+    modeloProveedor proveedor = null;
+    
+    String sql = "SELECT * FROM Proveedor WHERE " + criterio + " = ? AND Estado = 1";
+
+    try {
+        consulta = conex.prepareStatement(sql);
+        consulta.setString(1, valor);
+        resultado = consulta.executeQuery();
+        
+        if (resultado.next()) {
+            proveedor = new modeloProveedor();
+            proveedor.setIdProveedor(resultado.getInt("Id_proveedor"));
+            proveedor.setRuc(resultado.getString("Ruc"));
+            proveedor.setNombre(resultado.getString("Nombre"));
+            proveedor.setTelefono(resultado.getString("Telefono"));
+            proveedor.setDireccion(resultado.getString("Direccion"));
+            proveedor.setEstado(resultado.getInt("Estado"));
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al buscar proveedor: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    return proveedor;
+}
+
 
     public boolean modificarProveedor(modeloProveedor proveedor) {
         Connection conex = getAbrirConexion();
@@ -108,5 +138,6 @@ public class abmProveedor extends conexion {
 
         return modeloTabla;
     }
+    
 }
 

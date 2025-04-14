@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package abm;
 
 import java.sql.Connection;
@@ -11,8 +6,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import modelo.modeloUsuario;
+import javax.swing.table.DefaultTableModel;
+import config.conexion;
+import config.sesion;
 
-public class abmUsuario extends config.conexion {
+public class abmUsuario extends conexion {
+
+    private sesion oSesion;
+
+    // Constructor sin sesión
+    public abmUsuario() {
+        oSesion = new sesion();
+    }
+
+    // Constructor con sesión
+    public abmUsuario(sesion sesionActiva) {
+        this.oSesion = sesionActiva;
+    }
 
     public boolean agregarUsuario(modeloUsuario u) {
         Connection conex = getAbrirConexion();
@@ -29,7 +39,7 @@ public class abmUsuario extends config.conexion {
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al agregar usuario: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al agregar usuario: " + e.getMessage(), oSesion.getTituloMensaje(), JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
@@ -56,7 +66,7 @@ public class abmUsuario extends config.conexion {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al buscar usuario: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al buscar usuario: " + e.getMessage(), oSesion.getTituloMensaje(), JOptionPane.ERROR_MESSAGE);
         }
 
         return u;
@@ -78,7 +88,7 @@ public class abmUsuario extends config.conexion {
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar usuario: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al modificar usuario: " + e.getMessage(), oSesion.getTituloMensaje(), JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
@@ -95,9 +105,38 @@ public class abmUsuario extends config.conexion {
             return true;
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar usuario: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al eliminar usuario: " + e.getMessage(), oSesion.getTituloMensaje(), JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
-}
 
+    // 🆕 Método para cargar los usuarios en una grilla
+    public DefaultTableModel cargarTabla(String condicion) {
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        modeloTabla.setColumnIdentifiers(new Object[]{"ID", "NOMBRE COMPLETO", "USUARIO", "CONTRASEÑA", "CARGO"});
+
+        PreparedStatement preparaConsulta = null;
+        Connection conex = getAbrirConexion();
+        ResultSet resultado = null;
+        String sql = "SELECT * FROM Usuario " + condicion;
+
+        try {
+            preparaConsulta = conex.prepareStatement(sql);
+            resultado = preparaConsulta.executeQuery();
+
+            while (resultado.next()) {
+                modeloTabla.addRow(new Object[]{
+                    resultado.getInt("Id_usuario"),
+                    resultado.getString("Nombre_usuario"),
+                    resultado.getString("Usuario"),
+                    resultado.getString("Contrasenha"),
+                    resultado.getString("Cargo")
+                });
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), oSesion.getTituloMensaje(), JOptionPane.ERROR_MESSAGE);
+        }
+
+        return modeloTabla;
+    }
+}
