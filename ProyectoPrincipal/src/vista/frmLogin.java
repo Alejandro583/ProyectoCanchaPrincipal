@@ -6,6 +6,7 @@
 package vista;
 
 import config.sesion;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -98,6 +99,15 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/llaveLogin.png"))); // NOI18N
 
+        txtUsuario.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        txtUsuario.setForeground(new java.awt.Color(153, 153, 153));
+        txtUsuario.setText("Ingresar usuario");
+        txtUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtUsuarioMousePressed(evt);
+            }
+        });
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsuarioActionPerformed(evt);
@@ -109,6 +119,15 @@ public class frmLogin extends javax.swing.JFrame {
             }
         });
 
+        txtPassword.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        txtPassword.setForeground(new java.awt.Color(153, 153, 153));
+        txtPassword.setText("***************");
+        txtPassword.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtPasswordMousePressed(evt);
+            }
+        });
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPasswordActionPerformed(evt);
@@ -123,6 +142,8 @@ public class frmLogin extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         jButton1.setText("ACEPTAR");
+        jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jButton1.setBorderPainted(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -132,6 +153,8 @@ public class frmLogin extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         jButton2.setText("CANCELAR");
+        jButton2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jButton2.setBorderPainted(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -243,6 +266,28 @@ public class frmLogin extends javax.swing.JFrame {
             controlarAcceso();
         }
     }//GEN-LAST:event_txtPasswordKeyPressed
+
+    private void txtUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMousePressed
+     if(txtUsuario.getText().equals("Ingresar usuario")) {
+        txtUsuario.setText("");
+        txtUsuario.setForeground(Color.black);
+    }
+    if (String.valueOf(txtPassword.getPassword()).isEmpty()) {
+        txtPassword.setText("");
+        txtPassword.setForeground(Color.gray);
+    }
+    }//GEN-LAST:event_txtUsuarioMousePressed
+
+    private void txtPasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMousePressed
+        if (String.valueOf(txtPassword.getPassword()).equals("***************")) {
+            txtPassword.setText("");
+            txtPassword.setForeground(Color.black);
+        }
+        if (txtUsuario.getText().isEmpty()) {
+        txtUsuario.setText("Ingresar usuario");
+        txtUsuario.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_txtPasswordMousePressed
     public void controlarAcceso()
     {
         String usuario = txtUsuario.getText();
