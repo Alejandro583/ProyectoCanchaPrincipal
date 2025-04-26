@@ -82,11 +82,11 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         PanelPrincipal.setLayout(PanelPrincipalLayout);
         PanelPrincipalLayout.setHorizontalGroup(
             PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 617, Short.MAX_VALUE)
+            .addGap(0, 597, Short.MAX_VALUE)
         );
         PanelPrincipalLayout.setVerticalGroup(
             PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 383, Short.MAX_VALUE)
+            .addGap(0, 382, Short.MAX_VALUE)
         );
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 51));
@@ -99,7 +99,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 392, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,8 +194,11 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelPrincipal)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PanelPrincipal)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,13 +212,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mr_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mr_clienteActionPerformed
-        FrmICliente registroCliente = new FrmICliente(this,"GUARDAR");
-        PanelPrincipal.add(registroCliente);
-        registroCliente.setVisible(true);
-        m_Consulta.setVisible(false);
-        m_Operacion.setVisible(false);
-        m_Registro.setVisible(false);
-        m_Modificar.setVisible(false);
+     
         
     }//GEN-LAST:event_mr_clienteActionPerformed
 
@@ -234,12 +231,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cm_detalleCompraActionPerformed
 
     private void mm_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mm_ClienteActionPerformed
-        FrmICliente registroCliente = new FrmICliente(this,"MODIFICAR");
-        PanelPrincipal.add(registroCliente);
-        registroCliente.setVisible(true);
-        m_Consulta.setVisible(false);
-        m_Operacion.setVisible(false);
-        m_Registro.setVisible(false);
+        
     }//GEN-LAST:event_mm_ClienteActionPerformed
 
     private void om_cajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_om_cajaActionPerformed

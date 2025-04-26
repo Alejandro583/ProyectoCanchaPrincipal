@@ -6,7 +6,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.horariosCancha;
@@ -21,20 +24,25 @@ public class abmReserva extends conexion {
         oSesion = pSesion;
     }
 
-    public DefaultTableModel cargarHorarios(int idCanchaSeleccionada) {
+    public abmReserva() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public DefaultComboBoxModel cargarHorarios(int idCanchaSeleccionada,String fechaReserva) {
         List<Franja> franjas = horariosCancha.generarHorarios();
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.setColumnIdentifiers(new Object[]{"HORARIO", "ESTADO"});
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+       // modelo.setColumnIdentifiers(new Object[]{"HORARIO", "ESTADO"});
 
         try (Connection conex = getAbrirConexion()) {
             for (Franja franja : franjas) {
 
-                boolean reservado = estaReservado(franja.inicio, franja.fin, idCanchaSeleccionada);
-
-                modelo.addRow(new Object[]{
-                    franja.inicio + " - " + franja.fin,
-                    reservado ? "Ocupado" : "Disponible"
-                });
+                boolean reservado = estaReservado(franja.inicio, franja.fin, idCanchaSeleccionada,fechaReserva);
+                String valor;
+                if(!reservado)
+                {
+                    valor = String.valueOf(franja.inicio) +" - "+ String.valueOf(franja.fin);
+                    modelo.addElement(valor);
+                }
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), oSesion.getTituloMensaje(), JOptionPane.ERROR_MESSAGE);
@@ -44,7 +52,7 @@ public class abmReserva extends conexion {
 
     public DefaultTableModel cargarReservas() {
         DefaultTableModel modeloTabla = new DefaultTableModel();
-        modeloTabla.setColumnIdentifiers(new Object[]{"Observación", "Cliente", "Cancha", "Inicio", "Fin"});
+        modeloTabla.setColumnIdentifiers(new Object[]{"Observación", "Cliente", "Cancha", "Inicio", "Fin" ,});
 
         PreparedStatement ps = null;
         Connection conex = getAbrirConexion();
@@ -76,33 +84,30 @@ public class abmReserva extends conexion {
         return modeloTabla;
     }
 
-    public boolean estaReservado(String inicio, String fin, int idCancha) {
-        String sql = "SELECT COUNT(*) FROM reserva WHERE Fk_cancha = ? AND "
-                + "((Horario_inicio >= ? AND Horario_inicio < ?) OR "
-                + "(Horario_fin > ? AND Horario_fin <= ?) OR "
-                + "(Horario_inicio <= ? AND Horario_fin >= ?))";
+   public boolean estaReservado(String inicio, String fin, int idCancha, String fechaReserva) {
+    String sql = "SELECT COUNT(*) FROM reserva WHERE Fk_cancha = ? "
+               + "AND Horario_inicio < ? AND Horario_fin > ? "
+               + "AND Fecha_reserva = ?"; // Se agrega la condición de la fecha
 
-        try (Connection conex = getAbrirConexion();
-                PreparedStatement ps = conex.prepareStatement(sql)) {
+    try (Connection conex = getAbrirConexion();
+         PreparedStatement ps = conex.prepareStatement(sql)) {
 
-            ps.setInt(1, idCancha);
-            ps.setString(2, inicio);
-            ps.setString(3, fin);
-            ps.setString(4, inicio);
-            ps.setString(5, fin);
-            ps.setString(6, inicio);
-            ps.setString(7, fin);
+        ps.setInt(1, idCancha);
+        ps.setString(2, fin);   // fin del bloque consultado
+        ps.setString(3, inicio); // inicio del bloque consultado
+        ps.setString(4, fechaReserva); // La fecha de reserva que se pasa
 
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt(1) > 0;
-                }
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        return false;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return false;
+}
+
 
     public boolean modificarReserva(modeloReserva reserva) {
         Connection conex = getAbrirConexion();
@@ -143,7 +148,7 @@ public class abmReserva extends conexion {
 
     public boolean agregarReserva(modeloReserva reserva) {
         Connection conex = getAbrirConexion();
-        String sql = "INSERT INTO reserva (Obs, Horario_inicio, Horario_fin, Fk_cancha, Fk_cliente) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO reserva (Obs, Horario_inicio, Horario_fin, Fk_cancha, Fk_cliente,Fecha_reserva) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement ps = conex.prepareStatement(sql)) {
             // Establecer los parámetros de la consulta
@@ -152,6 +157,7 @@ public class abmReserva extends conexion {
             ps.setString(3, reserva.getHorario_fin()); // Horario de fin de la reserva
             ps.setInt(4, reserva.getFk_cancha()); // ID de la cancha
             ps.setInt(5, reserva.getFk_cliente()); // ID del cliente
+            ps.setString(6, reserva.getFechaReserva());
 
             int filasAfectadas = ps.executeUpdate(); // Ejecutar la inserción
 
@@ -197,5 +203,22 @@ public class abmReserva extends conexion {
     }
 }
 
+    public DefaultComboBoxModel<String> cargarFechas() {
+    DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+
+    // Formato de fecha (podés cambiarlo si querés)
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM");
+
+    // Día de hoy
+    LocalDate hoy = LocalDate.now();
+
+    // Agregar hoy y los próximos 7 días
+    for (int i = 0; i <= 7; i++) {
+        LocalDate fecha = hoy.plusDays(i);
+        modelo.addElement(fecha.format(formato));
+    }
+
+    return modelo;
+}
 
 }

@@ -23,8 +23,8 @@ public class horariosCancha {
 
         // Generamos franjas horarias de 1 hora
         for (int i = horaInicio; i < horaFin; i++) {
-            String desde = String.format("%02d:00:00", i);
-            String hasta = String.format("%02d:00:00", i + 1);
+            String desde = String.format("%02d:00", i);
+            String hasta = String.format("%02d:00", i + 1);
             franjas.add(new Franja(desde, hasta));
         }
 

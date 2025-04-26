@@ -9,7 +9,8 @@ public class modeloReserva
     private String Obs;
     private int Fk_cancha;
     private int Fk_cliente;
-
+    private String FechaReserva;
+    
     public modeloReserva() {
     }
 
@@ -20,6 +21,14 @@ public class modeloReserva
         this.Obs = Obs;
         this.Fk_cancha = Fk_cancha;
         this.Fk_cliente = Fk_cliente;
+    }
+
+    public String getFechaReserva() {
+        return FechaReserva;
+    }
+
+    public void setFechaReserva(String FechaReserva) {
+        this.FechaReserva = FechaReserva;
     }
 
     public int getId_reserva() {

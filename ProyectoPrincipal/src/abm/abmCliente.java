@@ -83,7 +83,6 @@ public class abmCliente extends config.conexion
         String sql;
         ResultSet resultado = null;
         modeloCliente cliente =  new modeloCliente();
-        cliente = null;
         try 
         {
             sql = "SELECT * FROM cliente WHERE Ci = ?";
@@ -101,13 +100,13 @@ public class abmCliente extends config.conexion
             }
             else
             {
-                return cliente;
+                return null;
             }
         }
         catch (SQLException e) 
         {
             JOptionPane.showMessageDialog(null, e.getMessage());
-            return cliente;
+            return null;
         }
     }
     //MODIFICAR PARA QUE RECIBA UN OBJETO DE TIPO CLIENTE
@@ -157,4 +156,41 @@ public class abmCliente extends config.conexion
             return false;
         }   
     } 
+    
+    public int obtenerIdClientePorCedula(String cedula) {
+    Connection conex = getAbrirConexion();
+    PreparedStatement consulta = null;
+    String sql;
+    ResultSet resultado = null;
+    int idCliente = -1;  // Retorna -1 si no se encuentra el cliente
+    
+    try {
+        // Consulta SQL para obtener el ID del cliente por su cédula
+        sql = "SELECT Id_cliente FROM cliente WHERE Ci = ?";
+        consulta = conex.prepareStatement(sql);
+        consulta.setString(1, cedula);
+        resultado = consulta.executeQuery();
+        
+        if (resultado.next()) {
+            // Si el cliente existe, obtener el ID
+            idCliente = resultado.getInt("Id_cliente");
+        }
+        
+    } catch (SQLException e) {
+        // Manejo de error en caso de excepción
+        JOptionPane.showMessageDialog(null, e.getMessage());
+    } finally {
+        // Cerrar recursos
+        try {
+            if (resultado != null) resultado.close();
+            if (consulta != null) consulta.close();
+            if (conex != null) conex.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    
+    return idCliente;
+}
+
 }

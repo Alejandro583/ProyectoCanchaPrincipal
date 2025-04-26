@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.modeloCancha;
@@ -47,6 +48,31 @@ public class abmCancha extends config.conexion
         return modeloTabla;
     }
      
+
+public DefaultComboBoxModel cargarComboBox(String condicion) {
+    DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel<>();
+
+    PreparedStatement preparaConsulta = null;
+    Connection conex = getAbrirConexion();
+    String sql = "";
+    ResultSet resultado = null;
+
+    try {
+        sql = "SELECT * FROM cancha " + condicion;
+        preparaConsulta = conex.prepareStatement(sql);
+        resultado = preparaConsulta.executeQuery();
+
+        while (resultado.next()) {
+            String nombreCancha = resultado.getString("Nombre"); // asumiendo que el campo se llama "Nombre"
+            modeloCombo.addElement(nombreCancha);
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), oSesion.getTituloMensaje(), JOptionPane.ERROR_MESSAGE);
+    }
+
+    return modeloCombo;
+}
+
     public boolean agregarCancha(modeloCancha pCancha)
     {
         Connection conex = getAbrirConexion();
@@ -143,6 +169,29 @@ public class abmCancha extends config.conexion
         }
         return cancha;
     }
+    
+    public int obtenerIdCanchaPorNombre(String nombreCancha) {
+    int idCancha = -1; // Valor por defecto si no encuentra
+
+    String sql = "SELECT Id_cancha FROM cancha WHERE Nombre = ?";
+
+    try (Connection conex = getAbrirConexion(); 
+         PreparedStatement ps = conex.prepareStatement(sql)) {
+
+        ps.setString(1, nombreCancha);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            idCancha = rs.getInt("Id_cancha");
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al buscar el ID de la cancha: " + e.getMessage());
+    }
+
+    return idCancha;
+}
+
        
 } 
 
