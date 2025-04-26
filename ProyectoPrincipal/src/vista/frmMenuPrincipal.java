@@ -217,7 +217,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mr_clienteActionPerformed
 
     private void mr_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mr_productoActionPerformed
-        FrmIProducto registroProducto = new FrmIProducto();
+        FrmImodificarCliRE registroProducto = new FrmImodificarCliRE();
         PanelPrincipal.add(registroProducto);
         registroProducto.setVisible(true);   
     }//GEN-LAST:event_mr_productoActionPerformed

@@ -6,6 +6,10 @@
 package vista;
 
 import abm.abmCliente;
+import abm.abmReserva;
+import javax.swing.JOptionPane;
+import modelo.modeloCliente;
+import modelo.modeloReserva;
 
 /**
  *
@@ -16,11 +20,36 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
     /**
      * Creates new form FrmIclienteReserva
      */
-    abmCliente oAbmCliente;
+    abmCliente oAbmCliente = new abmCliente(null);
+    abmReserva oAbmReserva = new abmReserva();
+    modeloReserva oModeloReserva;
+    modeloCliente oModeloCliente;
+    //Esta variable sirva para realizar las consultas de manera correcta supongamos que el usuario 
+    //seleciono para modificar reserva en la consulta estan involucradas dos tamblas en cambio en la consulta de cliente 
+    //solo una tabla entonces cuando el cliente entre en reserva esta variable va a tener un valor y si entra en cliente va a estar vacia
+    //variable va a definir 
+    String opcion1 = "";
+    String valorRecibido;
+    FrmClienteReserva oFrmPrincipal;
     public FrmIclienteReserva() {
         initComponents();
+        //grillaClienteReserva.setModel(oAbmCliente.cargarTabla(""));
     }
 
+    public FrmIclienteReserva(String opcionMostrar,FrmClienteReserva frm) {
+        initComponents();
+        oFrmPrincipal = frm;
+        valorRecibido = opcionMostrar;
+        if (opcionMostrar.equals("CLIENTE"))
+        {
+            grillaClienteReserva.setModel(oAbmCliente.cargarTabla(""));
+        }
+        else
+        {
+            grillaClienteReserva.setModel(oAbmReserva.cargarReservas(""));
+            opcion1 = "cl.";
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,8 +66,9 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
         txtBuscador = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         grillaClienteReserva = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar1 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -81,17 +111,24 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(grillaClienteReserva);
 
-        jButton1.setText("ELIMINAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("MODIFICAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnModificar.setText("MODIFICAR");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar1.setText("ELIMINAR");
+        btnEliminar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminar1ActionPerformed(evt);
             }
         });
 
@@ -103,22 +140,22 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbxBuscarCr, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(124, 124, 124))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(30, 30, 30)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(311, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cbxBuscarCr, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,14 +166,12 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
                     .addComponent(cbxBuscarCr, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(316, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(38, 38, 38)))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -146,36 +181,87 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscadorActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        int filaSeleccionada = grillaClienteReserva.getSelectedRow(); // obtengo la fila seleccionada
+        FrmImodificarCliRE oFrmmodificarCliente = new FrmImodificarCliRE();
+        oFrmPrincipal.mostrarPanel(oFrmmodificarCliente);
+        if(valorRecibido.equals("CLIENTE"))
+        {
+            this.setVisible(false);
+            modeloCliente cliente = new modeloCliente();
+            if (filaSeleccionada != -1) { // si hay una fila seleccionada
+                String  cedula = (grillaClienteReserva.getValueAt(filaSeleccionada, 1).toString()); // columna 0 = primera columna
+                oModeloCliente = new modeloCliente();
+                oModeloCliente.setCi(cedula);
+                cliente = oAbmCliente.clienteExiste(cedula);
+                this.setVisible(false);
+                oFrmmodificarCliente.modificarcliente(cliente);
+            }
+        }
+        else
+        {
+            if (filaSeleccionada != -1) { // si hay una fila seleccionada
+                int  id = Integer.parseInt(grillaClienteReserva.getValueAt(filaSeleccionada, 0).toString()); // columna 0 = primera columna
+                oModeloReserva= new modeloReserva();
+                oModeloReserva.setId_reserva(id);
+                oModeloReserva = oAbmReserva.reservaExiste(id);
+                oModeloCliente = oAbmCliente.clienteExiste(oModeloReserva.getFk_cliente());
+                this.setVisible(false);
+                oFrmmodificarCliente.modificarReserva(oModeloReserva,oModeloCliente);
+            }
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscadorActionPerformed
-        
+        mostrarBusqueda();
     }//GEN-LAST:event_btnBuscadorActionPerformed
+
+    private void btnEliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar1ActionPerformed
+        int filaSeleccionada = grillaClienteReserva.getSelectedRow(); // obtengo la fila seleccionada
+        if (filaSeleccionada != -1 && valorRecibido.equals("RESERVA")) { // si hay una fila seleccionada
+            int  id = Integer.parseInt(grillaClienteReserva.getValueAt(filaSeleccionada, 0).toString()); // columna 0 = primera columna
+            oModeloReserva = new modeloReserva();
+            oModeloReserva.setId_reserva(id);
+            oAbmReserva.eliminarReserva(oModeloReserva);
+            JOptionPane.showMessageDialog(null, "Reserva eliminada Correctamente");
+            this.setVisible(false);
+        }
+        if (filaSeleccionada != -1 && valorRecibido.equals("CLIENTE")) { // si hay una fila seleccionada
+            int  id = Integer.parseInt(grillaClienteReserva.getValueAt(filaSeleccionada, 0).toString()); // columna 0 = primera columna
+            oModeloCliente = new modeloCliente();
+            oModeloCliente.setId_cliente(id);
+            oAbmCliente.eliminarCliente(oModeloCliente);
+            JOptionPane.showMessageDialog(null, "Cliente eliminado Correctamente");
+            this.setVisible(false);
+        }
+        
+    }//GEN-LAST:event_btnEliminar1ActionPerformed
 
     public void mostrarBusqueda()
     {
          if (cbxBuscarCr.getSelectedIndex() == 0)
         {
-            grillaClienteReserva.setModel(oAbmCliente.cargarTabla(" WHERE Ci = " + txtBuscador.getText()));
+            grillaClienteReserva.setModel(oAbmCliente.cargarTabla(" AND "+opcion1+"Ci = " + txtBuscador.getText()));
         }
         else
         {
-            grillaClienteReserva.setModel(oAbmCliente.cargarTabla(" WHERE Nombre LIKE '%" + txtBuscador.getText()+"%'"));
+            grillaClienteReserva.setModel(oAbmCliente.cargarTabla(" AND "+opcion1+"Nombre LIKE '%" + txtBuscador.getText()+"%'"));
         }
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscador;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEliminar1;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JComboBox<String> cbxBuscarCr;
     private javax.swing.JTable grillaClienteReserva;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;

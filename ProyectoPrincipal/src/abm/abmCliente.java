@@ -27,7 +27,7 @@ public class abmCliente extends config.conexion
         String sql = "";
         ResultSet resultado = null;
         try {
-            sql = "SELECT * FROM cliente " + condicion;
+            sql = "SELECT * FROM cliente WHERE Estado = 1 " + condicion ;
             preparaConsulta = conex.prepareStatement(sql);
             resultado = preparaConsulta.executeQuery();
 
@@ -109,6 +109,40 @@ public class abmCliente extends config.conexion
             return null;
         }
     }
+    
+    public modeloCliente clienteExiste(int cedula)
+    {
+        Connection conex = getAbrirConexion();
+        PreparedStatement consulta = null;
+        String sql;
+        ResultSet resultado = null;
+        modeloCliente cliente =  new modeloCliente();
+        try 
+        {
+            sql = "SELECT * FROM cliente WHERE Id_cliente = ?";
+            consulta = conex.prepareStatement(sql);
+            consulta.setInt(1, cedula);
+            resultado = consulta.executeQuery();
+            if(resultado.next() == true)
+            {
+                cliente.setCi(resultado.getString("Ci"));
+                cliente.setEstado(resultado.getInt("Estado"));
+                cliente.setNombre(resultado.getString("Nombre"));
+                cliente.setTelefono(resultado.getString("Telefono"));
+                cliente.setId_cliente(resultado.getInt("Id_cliente"));
+                return cliente;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        catch (SQLException e) 
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return null;
+        }
+    }
     //MODIFICAR PARA QUE RECIBA UN OBJETO DE TIPO CLIENTE
     public boolean modificarCliente(modeloCliente pCliente)
     {
@@ -143,10 +177,10 @@ public class abmCliente extends config.conexion
         String sql; 
         try 
         {
-            sql = "UPDATE cliente SET Estado = ? WHERE Ci = ?";
+            sql = "UPDATE cliente SET Estado = ? WHERE Id_cliente = ?";
             consulta = conex.prepareStatement(sql);
             consulta.setInt(1, pCliente.getEstado());
-            consulta.setString(2, pCliente.getCi());
+            consulta.setInt(2, pCliente.getId_cliente());
             consulta.executeUpdate();
             return true; 
         } 

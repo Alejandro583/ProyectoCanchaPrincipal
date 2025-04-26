@@ -252,6 +252,11 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         });
 
         jButton1.setText("CANCELAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("RESERVAR");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -397,7 +402,6 @@ public class FrmClienteReserva extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addComponent(cbxFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelPrincipalLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -515,11 +519,16 @@ public class FrmClienteReserva extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+        FrmIclienteReserva oFrmClienteReserva = new FrmIclienteReserva("CLIENTE",this);
+        PanelPrincipal.add(oFrmClienteReserva);
+        oFrmClienteReserva.setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+        FrmIclienteReserva oFrmClienteReserva = new FrmIclienteReserva("RESERVA",this);
+        PanelPrincipal.add(oFrmClienteReserva);
+        oFrmClienteReserva.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void txtBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarClienteActionPerformed
@@ -634,15 +643,19 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtTelefonoKeyPressed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public void mostrarBusqueda()
     {
          if (cbxBuscar.getSelectedIndex() == 0)
         {
-            grillaCliente.setModel(oAbmCliente.cargarTabla(" WHERE Ci = " + txtBuscarCliente.getText()));
+            grillaCliente.setModel(oAbmCliente.cargarTabla(" AND Ci = " + txtBuscarCliente.getText()));
         }
         else
         {
-            grillaCliente.setModel(oAbmCliente.cargarTabla(" WHERE Nombre LIKE '%" + txtBuscarCliente.getText()+"%'"));
+            grillaCliente.setModel(oAbmCliente.cargarTabla(" AND Nombre LIKE '%" + txtBuscarCliente.getText()+"%'"));
         }
     }
     /**
@@ -678,6 +691,12 @@ public class FrmClienteReserva extends javax.swing.JFrame {
                 new FrmClienteReserva().setVisible(true);
             }
         });
+    }
+    
+    public void mostrarPanel(FrmImodificarCliRE frm)
+    {
+        PanelPrincipal.add(frm);
+        frm.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

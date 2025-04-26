@@ -50,17 +50,17 @@ public class abmReserva extends conexion {
         return modelo;
     }
 
-    public DefaultTableModel cargarReservas() {
+    public DefaultTableModel cargarReservas(String condicion) {
         DefaultTableModel modeloTabla = new DefaultTableModel();
-        modeloTabla.setColumnIdentifiers(new Object[]{"Observación", "Cliente", "Cancha", "Inicio", "Fin" ,});
+        modeloTabla.setColumnIdentifiers(new Object[]{"ID","Observación", "Cliente", "Cancha", "Inicio", "Fin" ,});
 
         PreparedStatement ps = null;
         Connection conex = getAbrirConexion();
-        String sql = "SELECT r.Obs, cl.Nombre AS Cliente, c.Nombre AS Cancha, r.Horario_inicio, r.Horario_fin "
+        String sql = "SELECT r.Id_reserva,r.Obs, cl.Nombre AS Cliente, c.Nombre AS Cancha, r.Horario_inicio, r.Horario_fin "
                 + "FROM reserva r "
                 + "JOIN cliente cl ON r.Fk_cliente = cl.Id_cliente "
                 + "JOIN cancha c ON r.Fk_cancha = c.Id_cancha "
-                + "ORDER BY r.Horario_inicio";
+                + "ORDER BY r.Horario_inicio " + condicion ;
 
         ResultSet rs = null;
 
@@ -70,6 +70,7 @@ public class abmReserva extends conexion {
 
             while (rs.next()) {
                 modeloTabla.addRow(new Object[]{
+                    rs.getInt("Id_reserva"),
                     rs.getString("Obs"),
                     rs.getString("Cliente"),
                     rs.getString("Cancha"),
