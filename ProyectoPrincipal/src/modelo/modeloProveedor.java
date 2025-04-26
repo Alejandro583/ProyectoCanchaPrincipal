@@ -61,5 +61,9 @@ public class modeloProveedor {
     public void setEstado(int estado) {
         this.estado = estado;
     }
+
+    public void setId_proveedor(int aInt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
 
