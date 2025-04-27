@@ -2,40 +2,37 @@
 package vista;
 
 import abm.abmProducto;
+import abm.abmProveedor;
 import config.sesion;
 import javax.swing.JOptionPane;
 import modelo.modeloProducto;
+import modelo.modeloProveedor;
 
 /**
  *
  * @author tedyf
  */
-public class FrmIProducto extends javax.swing.JInternalFrame {
+public class FrmIProveedor extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form FrmIProducto
-     */
-    FrmProducto ofrmProducto;
-    abmProducto oAbmProducto = new abmProducto(null);
-    modeloProducto oModeloProducto;
+    FrmProveedor ofrmProveedor;
+    abmProveedor oAbmProveedor = new abmProveedor();
+    modeloProveedor oModeloProveedor;
     String opcion;
     sesion Osesion = new sesion();
-    public FrmIProducto(String operacion,modeloProducto oproducto,FrmProducto pFrmProducto) {
+
+    public FrmIProveedor(String operacion, modeloProveedor oProveedor, FrmProveedor pFrmProveedor) {
         initComponents();
         opcion = operacion;
-        ofrmProducto = pFrmProducto;
-        if(opcion.equals("GUARDAR"))
-        {
+        ofrmProveedor = pFrmProveedor;
+        if (opcion.equals("GUARDAR")) {
             btnGuardar.setText(opcion);
-        }
-        else
-        {
+        } else { // MODIFICAR
             btnGuardar.setText(opcion);
-            txtCosto.setText(oproducto.getCosto()+"");
-            txtPrecio.setText(oproducto.getPrecio()+"");
-            txtProducto.setText(oproducto.getNombre_producto());
-            txtStock.setText(oproducto.getStock()+"");
-            txtCodigo.setText(oproducto.getId_producto()+"");
+            txtCodigo.setText(String.valueOf(oProveedor.getIdProveedor()));
+            txtRuc.setText(oProveedor.getRuc());
+            txtNombre.setText(oProveedor.getNombre());
+            txtTelefono.setText(oProveedor.getTelefono());
+            txtDireccion.setText(oProveedor.getDireccion());
         }
     }
     
@@ -53,12 +50,12 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        DIRECCION = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtProducto = new javax.swing.JTextField();
-        txtCosto = new javax.swing.JTextField();
-        txtStock = new javax.swing.JTextField();
-        txtPrecio = new javax.swing.JTextField();
+        txtRuc = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         cbxProveedor = new javax.swing.JComboBox<>();
@@ -67,44 +64,44 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("REGISTRO PRODUCTO");
+        jLabel1.setText("REGISTRO Proveedor");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setText("Producto");
+        jLabel2.setText("RUC");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setText("Precio");
+        jLabel3.setText("NOMBRE");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setText("Costo");
+        jLabel4.setText("TELEFONO");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel5.setText("Stock");
+        DIRECCION.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        DIRECCION.setText("Direccion");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Proveedor");
 
-        txtProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtRuc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtProductoKeyPressed(evt);
+                txtRucKeyPressed(evt);
             }
         });
 
-        txtCosto.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtCostoKeyPressed(evt);
+                txtTelefonoKeyPressed(evt);
             }
         });
 
-        txtStock.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtStockKeyPressed(evt);
+                txtDireccionKeyPressed(evt);
             }
         });
 
-        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtPrecioKeyPressed(evt);
+                txtNombreKeyPressed(evt);
             }
         });
 
@@ -146,19 +143,19 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPrecio))
+                        .addComponent(txtNombre))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCosto))
+                        .addComponent(txtTelefono))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(DIRECCION, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtStock)
+                            .addComponent(txtDireccion)
                             .addComponent(cbxProveedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -173,7 +170,7 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txtProducto))))
+                            .addComponent(txtRuc))))
                 .addGap(93, 93, 93))
         );
         layout.setVerticalGroup(
@@ -182,20 +179,20 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                    .addComponent(txtRuc, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(DIRECCION, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
@@ -216,89 +213,78 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         realizarOperacion();
-        ofrmProducto.actualizarTabla();
+        ofrmProveedor.actualizarTabla();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void txtProductoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductoKeyPressed
+    private void txtRucKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRucKeyPressed
         if(Osesion.verificarEnter(evt) == true)
         {
-            txtPrecio.requestFocus();
+            txtNombre.requestFocus();
         }
-    }//GEN-LAST:event_txtProductoKeyPressed
+    }//GEN-LAST:event_txtRucKeyPressed
 
-    private void txtPrecioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyPressed
+    private void txtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyPressed
         if(Osesion.verificarEnter(evt) == true)
         {
-            txtCosto.requestFocus();
+            txtTelefono.requestFocus();
         }
-    }//GEN-LAST:event_txtPrecioKeyPressed
+    }//GEN-LAST:event_txtNombreKeyPressed
 
-    private void txtCostoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoKeyPressed
+    private void txtTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyPressed
         if(Osesion.verificarEnter(evt) == true)
         {
-            txtStock.requestFocus();
+            txtDireccion.requestFocus();
         }
-    }//GEN-LAST:event_txtCostoKeyPressed
+    }//GEN-LAST:event_txtTelefonoKeyPressed
 
     
-    private void txtStockKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStockKeyPressed
+    private void txtDireccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyPressed
         if(Osesion.verificarEnter(evt) == true)
         {
             cbxProveedor.requestFocus();
         }
-    }//GEN-LAST:event_txtStockKeyPressed
+    }//GEN-LAST:event_txtDireccionKeyPressed
 
     private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoKeyPressed
 
-    public void realizarOperacion()
-    {
-        oModeloProducto = new modeloProducto();
-        if (opcion.equals("GUARDAR"))
-        {
-            oModeloProducto.setCosto(Float.parseFloat(txtCosto.getText()));
-            oModeloProducto.setEstado(1);
-            oModeloProducto.setNombre_producto(txtProducto.getText());
-            oModeloProducto.setPrecio(Float.parseFloat(txtPrecio.getText()));
-            oModeloProducto.setStock(Integer.parseInt(txtStock.getText())); 
-            oModeloProducto.setFk_proveedor(1);
-            boolean resultado = oAbmProducto.cargarProducto(oModeloProducto);
-            if (resultado)
-            {
-                JOptionPane.showMessageDialog(null, "Producto Agregado Correctamente");
+    private void realizarOperacion() {
+        oModeloProveedor = new modeloProveedor();
+        oModeloProveedor.setRuc(txtRuc.getText());
+        oModeloProveedor.setNombre(txtNombre.getText());
+        oModeloProveedor.setTelefono(txtTelefono.getText());
+        oModeloProveedor.setDireccion(txtDireccion.getText());
+        oModeloProveedor.setEstado(1); // Activo
+
+        boolean resultado;
+
+        if (opcion.equals("GUARDAR")) {
+            resultado = oAbmProveedor.agregarProveedor(oModeloProveedor);
+            if (resultado) {
+                JOptionPane.showMessageDialog(null, "Proveedor agregado correctamente");
                 this.dispose();
-            }else
-            {
-                JOptionPane.showMessageDialog(null, "Error al Guardar el Producto");
-                
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al guardar el proveedor");
             }
-        }else
-        {
-            oModeloProducto.setCosto(Float.parseFloat(txtCosto.getText()));
-            oModeloProducto.setEstado(1);
-            oModeloProducto.setId_producto(Integer.parseInt(txtCodigo.getText()));
-            oModeloProducto.setNombre_producto(txtProducto.getText());
-            oModeloProducto.setPrecio(Float.parseFloat(txtPrecio.getText()));
-            oModeloProducto.setStock(Integer.parseInt(txtStock.getText())); 
-            oModeloProducto.setFk_proveedor(1);
-            boolean resultado = oAbmProducto.modificarProducto(oModeloProducto);
-            if (resultado)
-            {
-                JOptionPane.showMessageDialog(null, "Producto Modificado Correctamente");
+        } else { // MODIFICAR
+            oModeloProveedor.setIdProveedor(Integer.parseInt(txtCodigo.getText()));
+            resultado = oAbmProveedor.modificarProveedor(oModeloProveedor);
+            if (resultado) {
+                JOptionPane.showMessageDialog(null, "Proveedor modificado correctamente");
                 this.dispose();
-            }else
-            {
-                JOptionPane.showMessageDialog(null, "Error al Modificar el Producto");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al modificar el proveedor");
             }
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel DIRECCION;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cbxProveedor;
@@ -306,13 +292,12 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtCosto;
-    private javax.swing.JTextField txtPrecio;
-    private javax.swing.JTextField txtProducto;
-    private javax.swing.JTextField txtStock;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtRuc;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
