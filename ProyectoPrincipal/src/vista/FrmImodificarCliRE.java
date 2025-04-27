@@ -9,6 +9,7 @@ import abm.abmCancha;
 import abm.abmCliente;
 import abm.abmReserva;
 import config.sesion;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import modelo.modeloCliente;
 import modelo.modeloReserva;
@@ -106,6 +107,11 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
         cbxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         cbxCancha1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cbxCancha1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCancha1ActionPerformed(evt);
+            }
+        });
 
         cbxFecha1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
@@ -261,6 +267,10 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void cbxCancha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCancha1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxCancha1ActionPerformed
+
 
     public void modificarcliente(modeloCliente cliente)
     {
@@ -279,23 +289,41 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
         fecha.setVisible(false);
         
     }
-     public void modificarReserva(modeloReserva reserva,modeloCliente cliente)
-    {
-        abmReserva oAbmReservae = new abmReserva(null);
-        abmCancha oAbmCancha =  new abmCancha(null);
-        oModeloCliente = cliente;
-        oModeloreserva = reserva;
-        txtCi.setText(oModeloCliente.getCi());
-        txtNombre.setText(oModeloCliente.getNombre());
-        txtTelefono.setText(oModeloCliente.getTelefono());
-        txtObservacion.setText(reserva.getObs());
-        cbxFecha1.setSelectedItem(oModeloreserva.getFechaReserva());
-        cbxHorario.addItem(oModeloreserva.getHorario_inicio()+" - "+oModeloreserva.getHorario_fin());
-        cbxCancha1.setModel(oAbmCancha.cargarComboBox(""));
-        cbxFecha1.setModel(oAbmReservae.cargarFechas());
-        cbxHorario.setModel(oAbmReservae.cargarHorarios(1,cbxFecha1.getItemAt(0)));
-        oModeloreserva = reserva;
+     public void modificarReserva(modeloReserva reserva, modeloCliente cliente) {
+    abmReserva oAbmReservae = new abmReserva(null);
+    abmCancha oAbmCancha = new abmCancha(null);
+
+    oModeloCliente = cliente;
+    oModeloreserva = reserva;
+
+    txtCi.setText(oModeloCliente.getCi());
+    txtNombre.setText(oModeloCliente.getNombre());
+    txtTelefono.setText(oModeloCliente.getTelefono());
+    txtObservacion.setText(reserva.getObs());
+
+    // Cargamos los combos primero
+    cbxCancha1.setModel(oAbmCancha.cargarComboBox(""));
+    cbxFecha1.setModel(oAbmReservae.cargarFechas());
+    cbxHorario.setModel(oAbmReservae.cargarHorarios(1, oModeloreserva.getFechaReserva()));
+
+    // Ahora seleccionamos los valores correctos
+    seleccionarItemPorNombre(cbxFecha1, oModeloreserva.getFechaReserva());
+    seleccionarItemPorNombre(cbxHorario, oModeloreserva.getHorario_inicio() + " - " + oModeloreserva.getHorario_fin());
+}
+
+     
+     
+public void seleccionarItemPorNombre(JComboBox<String> comboBox, String nombreABuscar) {
+    for (int i = 0; i < comboBox.getItemCount(); i++) {
+        String item = comboBox.getItemAt(i);
+        if (item.equalsIgnoreCase(nombreABuscar)) { // Comparación sin distinguir mayúsculas/minúsculas
+            comboBox.setSelectedIndex(i);
+            break;
+        }
     }
+}
+
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnModificar;
