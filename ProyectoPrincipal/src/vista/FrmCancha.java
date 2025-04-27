@@ -6,6 +6,7 @@
 package vista;
 
 import abm.abmCancha;
+import config.sesion;
 import javax.swing.JOptionPane;
 import modelo.modeloCancha;
 
@@ -16,10 +17,19 @@ import modelo.modeloCancha;
 public class FrmCancha extends javax.swing.JFrame {
 
     modeloCancha oModeloCancha;
-    abmCancha oAbmCancha = new abmCancha();
+    abmCancha oAbmCancha;
+    sesion oSesion;
+    FrmMenuCancha oFrmMenuCancha;
     public FrmCancha() {
         initComponents();
+    }
+    public FrmCancha(sesion pSesion,FrmMenuCancha oMenuCancha) {
+        initComponents();
+        oSesion = pSesion;
+        oFrmMenuCancha = oMenuCancha;
+        oAbmCancha = new abmCancha(oSesion);
         grillaCancha.setModel(oAbmCancha.cargarTabla(""));
+        Usuario.setText(oSesion.getNombreUsuario());
     }
 
     /**
@@ -40,6 +50,7 @@ public class FrmCancha extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
+        Usuario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,7 +58,7 @@ public class FrmCancha extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("CANCHAS");
+        jLabel1.setText("REGISTROS DE CANCHAS");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -109,11 +120,16 @@ public class FrmCancha extends javax.swing.JFrame {
             }
         });
 
+        Usuario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Usuario.setForeground(new java.awt.Color(255, 255, 255));
+        Usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/personaLogin.png"))); // NOI18N
+
         panelCancha.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelCancha.setLayer(btnModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelCancha.setLayer(btnEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelCancha.setLayer(btnCancelar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelCancha.setLayer(btnAgregar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelCancha.setLayer(Usuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelCanchaLayout = new javax.swing.GroupLayout(panelCancha);
         panelCancha.setLayout(panelCanchaLayout);
@@ -121,8 +137,13 @@ public class FrmCancha extends javax.swing.JFrame {
             panelCanchaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
             .addGroup(panelCanchaLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelCanchaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelCanchaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Usuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelCanchaLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
@@ -141,7 +162,9 @@ public class FrmCancha extends javax.swing.JFrame {
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 83, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -183,7 +206,7 @@ public class FrmCancha extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.setVisible(false);
+        oFrmMenuCancha.setVisible(true);
         this.dispose();
         
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -249,6 +272,7 @@ public class FrmCancha extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Usuario;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;

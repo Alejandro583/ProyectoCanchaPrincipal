@@ -23,8 +23,15 @@ public class FrmClienteReserva extends javax.swing.JFrame {
     abmReserva oAbmReserva = new abmReserva();
     sesion oSesion = new sesion();
     modeloCliente oModeloCliente;
-    public FrmClienteReserva() {
+    FrmMenuCancha oFrmMenuCancha;
+    public FrmClienteReserva()
+    {
+        
+    }
+    public FrmClienteReserva(sesion pSesion,FrmMenuCancha oCancha) {
         initComponents();
+        oSesion = pSesion;
+        oFrmMenuCancha = oCancha;
         oAbmCliente = new abmCliente(oSesion);
         oAbCancha = new  abmCancha(oSesion);
         grillaCliente.setModel(oAbmCliente.cargarTabla(""));
@@ -32,6 +39,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         cbxCancha.setModel(oAbCancha.cargarComboBox("")); 
         cbxHorarios1.setModel(oAbmReserva.cargarHorarios(1,cbxFecha.getSelectedItem().toString()));
         txtBuscarCliente.requestFocus();
+        Usuario.setText(pSesion.getNombreUsuario());
     }
 
     /**
@@ -79,6 +87,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        Usuario = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -321,7 +330,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
                         .addComponent(btnBuscar)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(21, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPrincipalLayout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(147, 147, 147))))
@@ -449,15 +458,24 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel3.setFocusTraversalPolicyProvider(true);
 
+        Usuario.setForeground(new java.awt.Color(255, 255, 255));
+        Usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/personaLogin.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 870, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 53, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jMenuBar1.setBackground(new java.awt.Color(102, 255, 102));
@@ -644,6 +662,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTelefonoKeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        oFrmMenuCancha.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -701,6 +720,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane PanelPrincipal;
+    private javax.swing.JLabel Usuario;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JComboBox<String> cbxBuscar;
     private javax.swing.JComboBox<String> cbxCancha;

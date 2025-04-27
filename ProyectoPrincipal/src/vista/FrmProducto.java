@@ -20,11 +20,20 @@ public class FrmProducto extends javax.swing.JFrame {
      * Creates new form FrmProducto
      */
     modeloProducto oModeloProducto;
-    abmProducto oAbmProducto = new abmProducto(null);
-    sesion oSesion = new sesion();
-    public FrmProducto() {
+    abmProducto oAbmProducto;
+    sesion oSesion;
+    FrmMenuCancha oFrmMenuCancha;
+    public FrmProducto()
+    {
+        
+    }
+    public FrmProducto(sesion psesion,FrmMenuCancha oCancha) {
         initComponents();
+        oSesion = psesion;
+        oFrmMenuCancha = oCancha;
         txtBuscarProducto.requestFocus();
+        oAbmProducto = new abmProducto(oSesion);
+        Usuario.setText(oSesion.getNombreUsuario());
         actualizarTabla();
     }
 
@@ -40,6 +49,7 @@ public class FrmProducto extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         panelProducto = new javax.swing.JDesktopPane();
         btnBuscar = new javax.swing.JButton();
         txtBuscarProducto = new javax.swing.JTextField();
@@ -51,6 +61,7 @@ public class FrmProducto extends javax.swing.JFrame {
         btnModificar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        Usuario = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -69,15 +80,25 @@ public class FrmProducto extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 0));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("REGISTRO PRODUCTOS");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(137, 137, 137)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 64, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         panelProducto.setBackground(new java.awt.Color(255, 255, 255));
@@ -145,6 +166,8 @@ public class FrmProducto extends javax.swing.JFrame {
             }
         });
 
+        Usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/personaLogin.png"))); // NOI18N
+
         panelProducto.setLayer(btnBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelProducto.setLayer(txtBuscarProducto, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelProducto.setLayer(cbxProducto, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -154,6 +177,7 @@ public class FrmProducto extends javax.swing.JFrame {
         panelProducto.setLayer(btnModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelProducto.setLayer(btnCancelar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelProducto.setLayer(btnEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelProducto.setLayer(Usuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelProductoLayout = new javax.swing.GroupLayout(panelProducto);
         panelProducto.setLayout(panelProductoLayout);
@@ -181,8 +205,13 @@ public class FrmProducto extends javax.swing.JFrame {
                 .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
             .addGroup(panelProductoLayout.createSequentialGroup()
-                .addGap(203, 203, 203)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelProductoLayout.createSequentialGroup()
+                        .addGap(203, 203, 203)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelProductoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelProductoLayout.setVerticalGroup(
@@ -204,7 +233,8 @@ public class FrmProducto extends javax.swing.JFrame {
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(Usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -242,6 +272,7 @@ public class FrmProducto extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
+        oFrmMenuCancha.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
@@ -289,6 +320,7 @@ public class FrmProducto extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
+    
     public void buscarProducto()
     {
         if(cbxProducto.getSelectedIndex() == 0)
@@ -341,6 +373,7 @@ public class FrmProducto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Usuario;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
@@ -349,6 +382,7 @@ public class FrmProducto extends javax.swing.JFrame {
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cbxProducto;
     private javax.swing.JTable grillaProducto;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

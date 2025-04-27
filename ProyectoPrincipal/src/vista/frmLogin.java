@@ -20,7 +20,7 @@ public class frmLogin extends javax.swing.JFrame {
      * Creates new form frmLogin
      */
     sesion oSesion = new sesion();
-    frmMenuPrincipal Omenu;
+    FrmMenuCancha Omenu;
     public frmLogin() {
         initComponents();
     }
@@ -294,7 +294,7 @@ public class frmLogin extends javax.swing.JFrame {
         String pass = String.valueOf(txtPassword.getPassword());
         if (oSesion.verificarAcceso(usuario, pass) == true)
         {
-            Omenu = new frmMenuPrincipal(oSesion);
+            Omenu = new FrmMenuCancha(oSesion);
             Omenu.setVisible(true);
             Omenu.setExtendedState(Omenu.MAXIMIZED_BOTH);
             this.dispose();
