@@ -28,7 +28,7 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
         initComponents();
         opcion = operacion;
         ofrmProducto = pFrmProducto;
-        if(opcion.equals("AGREGAR"))
+        if(opcion.equals("GUARDAR"))
         {
             btnGuardar.setText(opcion);
         }

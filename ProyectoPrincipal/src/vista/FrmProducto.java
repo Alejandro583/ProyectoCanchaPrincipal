@@ -245,7 +245,7 @@ public class FrmProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        FrmIProducto oFrmIProducto = new FrmIProducto("AGREGAR",oModeloProducto,this);
+        FrmIProducto oFrmIProducto = new FrmIProducto("GUARDAR",oModeloProducto,this);
         panelProducto.add(oFrmIProducto);
         oFrmIProducto.setVisible(true);
     }//GEN-LAST:event_btnAgregarActionPerformed

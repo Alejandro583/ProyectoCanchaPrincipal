@@ -89,7 +89,7 @@ public class abmProducto extends config.conexion
         ResultSet resultado = null;        
         try 
         {
-            if (productoExiste(pProducto) != null)
+            if (productoExiste(pProducto) == null)
             {
                 return false;
             }
