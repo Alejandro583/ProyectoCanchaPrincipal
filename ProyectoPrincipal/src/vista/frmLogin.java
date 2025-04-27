@@ -257,6 +257,7 @@ public class frmLogin extends javax.swing.JFrame {
         if (oSesion.verificarEnter(evt) == true)
         {
             txtPassword.requestFocus();
+            txtPassword.setText("");
         }
     }//GEN-LAST:event_txtUsuarioKeyPressed
 
