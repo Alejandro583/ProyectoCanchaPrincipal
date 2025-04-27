@@ -55,7 +55,7 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
         cbxCancha1 = new javax.swing.JComboBox<>();
         cbxFecha1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Fecha");
@@ -116,10 +116,10 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setText("MODIFICAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnModificar.setText("MODIFICAR");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnModificarActionPerformed(evt);
             }
         });
 
@@ -177,7 +177,7 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(436, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(39, 39, 39)))
         );
         layout.setVerticalGroup(
@@ -225,7 +225,7 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(102, 102, 102)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(285, Short.MAX_VALUE)))
         );
 
@@ -253,12 +253,12 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtTelefonoKeyPressed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -277,7 +277,7 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
         observacion.setVisible(false);
         horario.setVisible(false);
         fecha.setVisible(false);
-        oAbmcliente.modificarCliente(cliente);
+        
     }
      public void modificarReserva(modeloReserva reserva,modeloCliente cliente)
     {
@@ -294,11 +294,11 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
         cbxCancha1.setModel(oAbmCancha.cargarComboBox(""));
         cbxFecha1.setModel(oAbmReservae.cargarFechas());
         cbxHorario.setModel(oAbmReservae.cargarHorarios(1,cbxFecha1.getItemAt(0)));
-        //oAbmReservae.modificarReserva(reserva);
         oModeloreserva = reserva;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnModificar;
     private javax.swing.JLabel cancha;
     private javax.swing.JComboBox<String> cbxCancha1;
     private javax.swing.JComboBox<String> cbxFecha1;
@@ -306,7 +306,6 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
     private javax.swing.JLabel fecha;
     private javax.swing.JLabel horario;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

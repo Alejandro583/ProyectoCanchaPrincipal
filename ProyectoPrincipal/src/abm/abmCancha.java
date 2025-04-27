@@ -21,32 +21,38 @@ public class abmCancha extends config.conexion
     {
         oSesion = pSesion;
     }
+    public abmCancha() 
+    {
+       
+    }
     
     public DefaultTableModel cargarTabla(String condicion) {
-        DefaultTableModel modeloTabla = new DefaultTableModel();
-        modeloTabla.setColumnIdentifiers(new Object[]{"CODIGO","DISPONIBLE","PRECIO","MANTENIMINTO"});
+    DefaultTableModel modeloTabla = new DefaultTableModel();
+    modeloTabla.setColumnIdentifiers(new Object[]{"CODIGO", "DISPONIBLE", "PRECIO", "MANTENIMIENTO","NOMBRE"});
 
-        PreparedStatement preparaConsulta = null;
-        Connection conex = getAbrirConexion();
-        String sql = "";
-        ResultSet resultado = null;
-        try {
-            sql = "SELECT * FROM cancha " + condicion;
-            preparaConsulta = conex.prepareStatement(sql);
-            resultado = preparaConsulta.executeQuery();
+    String sql = "SELECT * FROM cancha WHERE Disponible LIKE 'S%'";
 
-            while (resultado.next() == true) {
-                modeloTabla.addRow(new Object[]{
-                    resultado.getInt("Id_cancha"),
-                    resultado.getString("Disponible"),
-                    resultado.getFloat("Precio"),
-                    resultado.getString("Mantenimiento"),});   
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e, oSesion.getTituloMensaje(), 1);
+    try (Connection conex = getAbrirConexion();
+         PreparedStatement preparaConsulta = conex.prepareStatement(sql);
+         ResultSet resultado = preparaConsulta.executeQuery()) {
+
+        while (resultado.next()) {
+            modeloTabla.addRow(new Object[]{
+                resultado.getInt("Id_cancha"),
+                resultado.getString("Disponible"),
+                resultado.getFloat("Precios"),
+                resultado.getString("Mantenimiento"),
+                resultado.getString("Nombre")    
+            });
         }
-        return modeloTabla;
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
     }
+
+    return modeloTabla;
+}
+
      
 
 public DefaultComboBoxModel cargarComboBox(String condicion) {
@@ -58,7 +64,7 @@ public DefaultComboBoxModel cargarComboBox(String condicion) {
     ResultSet resultado = null;
 
     try {
-        sql = "SELECT * FROM cancha " + condicion;
+        sql = "SELECT * FROM cancha WHERE Disponible LIKE '%S%' " + condicion;
         preparaConsulta = conex.prepareStatement(sql);
         resultado = preparaConsulta.executeQuery();
 
@@ -82,12 +88,13 @@ public DefaultComboBoxModel cargarComboBox(String condicion) {
         try 
         {
            
-            sql = "INSERT INTO cancha(Disponible,Precio,Mantenimiento)" + 
-                    "VALUES (?,?,?)";
+            sql = "INSERT INTO cancha(Disponible,Precios,Mantenimiento,Nombre)" + 
+                    "VALUES (?,?,?,?)";
             consulta = conex.prepareStatement(sql);
             consulta.setString(1, pCancha.getDisponible());
             consulta.setFloat(2, pCancha.getPrecio());
             consulta.setString(3, pCancha.getMantenimiento());
+            consulta.setString(4, pCancha.getNombre());
             consulta.execute();
             return true;
                 
@@ -107,13 +114,14 @@ public DefaultComboBoxModel cargarComboBox(String condicion) {
         String sql; 
         try 
         {
-            sql = "UPDATE cancha SET Disponible = ?, Precio = ?,Mantenimiento = ? " + 
+            sql = "UPDATE cancha SET Disponible = ?, Precios = ?,Mantenimiento = ? , Nombre = ?" + 
                 "WHERE Id_cancha = ?";
             consulta = conex.prepareStatement(sql);
             consulta.setString(1, pCancha.getDisponible());
             consulta.setFloat(2, pCancha.getPrecio());
             consulta.setString(3, pCancha.getMantenimiento());
-            consulta.setInt(4, pCancha.getId_cancha());
+            consulta.setString(4, pCancha.getNombre());
+            consulta.setInt(5, pCancha.getId_cancha());
             consulta.executeUpdate();
             return true; 
         } 
@@ -124,17 +132,16 @@ public DefaultComboBoxModel cargarComboBox(String condicion) {
         }
     }
  
-     public boolean eliminarCliente(modeloCancha pCancha)
+     public boolean eliminarCancha(modeloCancha pCancha)
     {
         Connection conex = getAbrirConexion();
         PreparedStatement consulta = null;
         String sql; 
         try 
         {
-            sql = "UPDATE cancha SET Disponible = ? WHERE Id_cancha = ?";
+            sql = "UPDATE cancha SET Disponible = 'NO' WHERE Id_cancha = ?";
             consulta = conex.prepareStatement(sql);
-            consulta.setString(1, pCancha.getDisponible());
-            consulta.setInt(2, pCancha.getId_cancha());
+            consulta.setInt(1, pCancha.getId_cancha());
             consulta.executeUpdate();
             return true; 
         } 
@@ -149,25 +156,27 @@ public DefaultComboBoxModel cargarComboBox(String condicion) {
     {
         Connection conex = getAbrirConexion();
         PreparedStatement consulta = null;
-        String sql;
+        String sql = "";
         ResultSet resultado = null;
-        modeloCancha cancha =  new modeloCancha();
-        cancha = null;
+       
        try {
             sql = "SELECT * FROM cancha WHERE Id_cancha = ?";
             consulta = conex.prepareStatement(sql);
             consulta.setInt(1, pCancha.getId_cancha());
             resultado = consulta.executeQuery();
-            cancha.setDisponible(resultado.getString("Disponible"));
-            cancha.setId_cancha(resultado.getInt("Id_cancha"));
-            cancha.setMantenimiento(resultado.getString("Mantenimiento"));
-            cancha.setPrecio(resultado.getFloat("Precio"));
-            return cancha;
+            if(resultado.next()){
+            pCancha.setDisponible(resultado.getString("Disponible"));
+            pCancha.setId_cancha(resultado.getInt("Id_cancha"));
+            pCancha.setMantenimiento(resultado.getString("Mantenimiento"));
+            pCancha.setPrecio(resultado.getFloat("Precios"));
+            pCancha.setNombre(resultado.getString("Nombre"));
+            return pCancha;
+            }
             
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e, oSesion.getTituloMensaje(), 1);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
-        return cancha;
+        return pCancha;
     }
     
     public int obtenerIdCanchaPorNombre(String nombreCancha) {

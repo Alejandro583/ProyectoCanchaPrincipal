@@ -28,7 +28,7 @@ public class abmProducto extends config.conexion
         String sql = "";
         ResultSet resultado = null;
         try {
-            sql = "SELECT * FROM producto " + condicion;
+            sql = "SELECT * FROM producto WHERE Stock > 0 AND Estado = 1 " + condicion;
             preparaConsulta = conex.prepareStatement(sql);
             resultado = preparaConsulta.executeQuery();
 
@@ -40,45 +40,43 @@ public class abmProducto extends config.conexion
                     resultado.getInt("Stock"),});   
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e, oSesion.getTituloMensaje(), 1);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
         return modeloTabla;
     }
 
-     public modeloProducto productoExiste(int pId_producto)
+     public modeloProducto productoExiste(modeloProducto pProducto)
     {
         Connection conex = getAbrirConexion();
         PreparedStatement consulta = null;
         String sql;
         ResultSet resultado = null;
-        modeloProducto producto =  new modeloProducto();
-        producto = null;
         try 
         {
             sql = "SELECT * FROM producto WHERE Id_producto = ?";
             consulta = conex.prepareStatement(sql);
-            consulta.setInt(1, pId_producto);
+            consulta.setInt(1, pProducto.getId_producto());
             resultado = consulta.executeQuery();
             if(resultado.next() == true)
             {
-                producto.setCosto(resultado.getFloat("Costo"));
-                producto.setEstado(resultado.getInt("Estado"));
-                producto.setFk_proveedor(resultado.getInt("Fk_proveedor"));
-                producto.setId_producto(resultado.getInt("Id_producto"));
-                producto.setNombre_producto(resultado.getString("Nombre_producto"));
-                producto.setPrecio(resultado.getFloat("Precio"));
-                producto.setStock(resultado.getInt("Stock"));
-                return producto;
+                pProducto.setCosto(resultado.getFloat("Costo"));
+                pProducto.setEstado(resultado.getInt("Estado"));
+                pProducto.setFk_proveedor(resultado.getInt("Fk_proveedor"));
+                pProducto.setId_producto(resultado.getInt("Id_producto"));
+                pProducto.setNombre_producto(resultado.getString("Nombre_producto"));
+                pProducto.setPrecio(resultado.getFloat("Precio"));
+                pProducto.setStock(resultado.getInt("Stock"));
+                return pProducto;
             }
             else
             {
-                return producto;
+                return pProducto;
             }
         }
         catch (SQLException e) 
         {
             JOptionPane.showMessageDialog(null, e.getMessage());
-            return producto;
+            return pProducto;
         }
     }
      
@@ -91,7 +89,7 @@ public class abmProducto extends config.conexion
         ResultSet resultado = null;        
         try 
         {
-            if (productoExiste(pProducto.getId_producto()) != null)
+            if (productoExiste(pProducto) != null)
             {
                 return false;
             }
@@ -133,6 +131,7 @@ public class abmProducto extends config.conexion
             consulta.setFloat(4, pProducto.getCosto());
             consulta.setInt(5, pProducto.getFk_proveedor());
             consulta.setInt(6, pProducto.getEstado());
+            consulta.setInt(7, pProducto.getId_producto());
             consulta.executeUpdate();
             return true; 
         } 
@@ -150,10 +149,9 @@ public class abmProducto extends config.conexion
         String sql; 
         try 
         {
-            sql = "UPDATE producto SET Estado = ? WHERE Id_producto = ?";
+            sql = "UPDATE producto SET Estado = 0 WHERE Id_producto = ?";
             consulta = conex.prepareStatement(sql);
-            consulta.setInt(1, pProducto.getEstado());
-            consulta.setInt(2, pProducto.getId_producto());
+            consulta.setInt(1, pProducto.getId_producto());
             consulta.executeUpdate();
             return true; 
         } 
@@ -191,7 +189,7 @@ public class abmProducto extends config.conexion
         String sql; 
          try 
         {
-            sql = "UPDATE producto SET Stock = Stock + ? WHERE Id_producto = ?";
+            sql = "UPDATE producto SET Stock = Stock - ? WHERE Id_producto = ?";
             consulta = conex.prepareStatement(sql);
             consulta.setInt(1, cantidad);
             consulta.setInt(2, id_producto);
@@ -214,7 +212,7 @@ public class abmProducto extends config.conexion
         int cantidadStock;
          try 
         {
-            sql = "SELECT Stcok FROM producto WHERE Id_producto = ?";
+            sql = "SELECT Stock FROM producto WHERE Id_producto = ?";
             consulta = conex.prepareStatement(sql);
             consulta.setInt(1, id_producto);
             resultado = consulta.executeQuery();

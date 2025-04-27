@@ -7,6 +7,7 @@ public class modeloCancha
     private String  Disponible;
     private float   Precio;
     private String  Mantenimiento;
+    private String Nombre;
 
     //Constructor
     public modeloCancha() 
@@ -26,6 +27,15 @@ public class modeloCancha
     public int getId_cancha() {
         return Id_cancha;
     }
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
+    }
+    
 
     public void setId_cancha(int Id_cancha) {
         this.Id_cancha = Id_cancha;
