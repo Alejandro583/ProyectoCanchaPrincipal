@@ -7,11 +7,13 @@ package vista;
 
 import abm.abmCancha;
 import abm.abmCliente;
+import abm.abmDetalleVenta;
 import abm.abmReserva;
 import config.sesion;
 import javax.swing.JOptionPane;
 import modelo.modeloCliente;
 import modelo.modeloReserva;
+
 
 /**
  *
@@ -24,6 +26,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
     sesion oSesion = new sesion();
     modeloCliente oModeloCliente;
     FrmMenuCancha oFrmMenuCancha;
+    abmDetalleVenta oAbmDetalleVenta;
     public FrmClienteReserva()
     {
         
@@ -666,6 +669,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         oModeloReserva.setFechaReserva(cbxFecha.getSelectedItem().toString());
         oModeloReserva.setObs(txtObservacion.getText());
         oAbmReserva.agregarReserva(oModeloReserva);
+        
         JOptionPane.showMessageDialog(null, "Reserva Guardado correctamente");
         
         //actualizamos el horario
