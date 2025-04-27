@@ -348,9 +348,20 @@ public class FrmProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        
+        int filaSeleccionada = grillaProducto.getSelectedRow();
+        oModeloProducto = new modeloProducto();
+        if (filaSeleccionada != -1) { // si hay una fila seleccionada
+            int  id = Integer.parseInt(grillaProducto.getValueAt(filaSeleccionada, 0).toString()); // columna 0 = primera columna
+            oModeloProducto.setId_producto(id);
+            oModeloProducto = oAbmProducto.productoExiste(oModeloProducto);   
+        }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
+    public modeloProducto productoSeleccionado()
+    {
+        return oModeloProducto;
+    }
+    
     
     public void buscarProducto()
     {
