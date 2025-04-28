@@ -5,8 +5,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.horariosCancha;
 import modelo.modeloProducto;
 
 
@@ -14,10 +17,39 @@ public class abmProducto extends config.conexion
 {
     sesion oSesion;
 
+    modeloProducto oModeloProducto = new modeloProducto();
     public abmProducto(sesion pSesion) 
     {
         oSesion = pSesion;
     }
+    
+    
+   public DefaultComboBoxModel cargarProducto() {
+    DefaultComboBoxModel modelo = new DefaultComboBoxModel<>();
+
+    String sql = "SELECT Id_producto, Nombre_producto FROM producto WHERE Estado = 1"; // opcionalmente filtramos por Estado=1 si quieres solo activos
+
+    try (Connection conex = getAbrirConexion();
+         PreparedStatement stmt = conex.prepareStatement(sql);
+         ResultSet rs = stmt.executeQuery()) {
+
+        while (rs.next()) {
+            int idProducto = rs.getInt("Id_producto");
+            String nombreProducto = rs.getString("Nombre_producto");
+
+            // Puedes cargar el id y nombre juntos si quieres mostrar más información
+            String valor = idProducto + " - " + nombreProducto;
+
+            modelo.addElement(valor);
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), oSesion.getTituloMensaje(), JOptionPane.ERROR_MESSAGE);
+    }
+    
+    return modelo;
+}
+
+    
     
     public DefaultTableModel cargarTabla(String condicion) {
         DefaultTableModel modeloTabla = new DefaultTableModel();
