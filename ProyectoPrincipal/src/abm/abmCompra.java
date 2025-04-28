@@ -3,6 +3,9 @@ package abm;
 import config.conexion;
 import config.sesion;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import modelo.modeloCompra;
 
@@ -125,5 +128,24 @@ public class abmCompra extends conexion {
             return false;
         }
     }
+    
+    
+    public DefaultComboBoxModel<String> cargarFechas() {
+    DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+
+    // Formato de fecha (podés cambiarlo si querés)
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM");
+
+    // Día de hoy
+    LocalDate hoy = LocalDate.now();
+
+    // Agregar hoy y los próximos 7 días
+    for (int i = 0; i <= 7; i++) {
+        LocalDate fecha = hoy.plusDays(i);
+        modelo.addElement(fecha.format(formato));
+    }
+
+    return modelo;
+}
 }
 

@@ -114,6 +114,11 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
         });
 
         cbxFecha1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cbxFecha1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxFecha1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Cancelar.png"))); // NOI18N
@@ -274,6 +279,10 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
     private void cbxCancha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCancha1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxCancha1ActionPerformed
+
+    private void cbxFecha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFecha1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxFecha1ActionPerformed
 
 
     public void modificarcliente(modeloCliente cliente)
