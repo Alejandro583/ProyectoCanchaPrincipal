@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import modelo.modeloProveedor;
 import config.conexion;
 import java.sql.*;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.modeloProveedor;
@@ -134,6 +135,31 @@ public class abmProveedor extends conexion {
 
         return modeloTabla;
     }
+    public DefaultComboBoxModel cargarProveedor() {
+    DefaultComboBoxModel modelo = new DefaultComboBoxModel<>();
+
+    String sql = "SELECT Id_proveedor, Nombre FROM proveedor WHERE Estado = 1"; // Solo proveedores activos
+
+    try (Connection conex = getAbrirConexion();
+         PreparedStatement stmt = conex.prepareStatement(sql);
+         ResultSet rs = stmt.executeQuery()) {
+
+        while (rs.next()) {
+            int idProveedor = rs.getInt("Id_proveedor");
+            String nombreProveedor = rs.getString("Nombre");
+
+            // Formato: id - nombre
+            String valor = idProveedor + " - " + nombreProveedor;
+
+            modelo.addElement(valor);
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+    }
+    
+    return modelo;
+}
+
     
 }
 
