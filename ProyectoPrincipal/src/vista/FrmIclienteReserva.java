@@ -35,6 +35,7 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
         initComponents();
         //grillaClienteReserva.setModel(oAbmCliente.cargarTabla(""));
     }
+    
 
     public FrmIclienteReserva(String opcionMostrar,FrmClienteReserva frm) {
         initComponents();

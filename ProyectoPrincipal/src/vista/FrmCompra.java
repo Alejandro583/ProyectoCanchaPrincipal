@@ -23,15 +23,16 @@ public class FrmCompra extends javax.swing.JFrame {
         
     }
     
-    FrmIProveedor oFrmIProveedor = new FrmIProveedor(oSesion,this);
-    FrmIProducto oFrmIProducto = new FrmIProducto(oSesion, this);
+    FrmProveedor oFrmProveedor;
+    FrmIProducto oFrmIProducto;
     public FrmCompra(sesion pSesion, FrmMenuCancha oMenuCancha) {
         initComponents();
         oSesion = pSesion;
         
         oFrmMenuCancha = oMenuCancha;
         oAbmCompra = new abmCompra(oSesion);
-       
+        oFrmProveedor = new FrmProveedor(oSesion,oMenuCancha);
+        oFrmProveedor = new FrmProveedor(oSesion,oMenuCancha);
         
     }
 
@@ -600,8 +601,8 @@ public class FrmCompra extends javax.swing.JFrame {
 
     private void btnProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductoActionPerformed
         
-        FrmIProducto oFrmIProducto = new FrmIProducto(oSesion, this);
-        oFrmIProducto.setVisible(true);
+        FrmProducto oFrmProducto = new FrmProducto(oSesion, oFrmMenuCancha);
+        oFrmProducto.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnProductoActionPerformed
 

@@ -10,8 +10,10 @@ import abm.abmCliente;
 import abm.abmDetalleVenta;
 import abm.abmReserva;
 import config.sesion;
+import java.math.BigDecimal;
 import javax.swing.JOptionPane;
 import modelo.modeloCliente;
+import modelo.modeloDetalleVenta;
 import modelo.modeloReserva;
 
 
@@ -27,6 +29,8 @@ public class FrmClienteReserva extends javax.swing.JFrame {
     modeloCliente oModeloCliente;
     FrmMenuCancha oFrmMenuCancha;
     abmDetalleVenta oAbmDetalleVenta;
+    modeloDetalleVenta oModeloDetllaVenta;
+    int recibirIdVenta;
     public FrmClienteReserva()
     {
         
@@ -42,6 +46,8 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         cbxCancha.setModel(oAbCancha.cargarComboBox("")); 
         cbxHorarios1.setModel(oAbmReserva.cargarHorarios(1,cbxFecha.getSelectedItem().toString()));
         txtBuscarCliente.requestFocus();
+        oAbmDetalleVenta = new abmDetalleVenta();
+        oModeloDetllaVenta = new modeloDetalleVenta();
         Usuario.setText(pSesion.getNombreUsuario());
     }
 
@@ -650,6 +656,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
             oModeloCliente.setNombre(txtNombre.getText());
             oModeloCliente.setTelefono(txtTelefono.getText());
             oAbmCliente.agregarCliente(oModeloCliente);
+            
         }
         oModeloCliente = oAbmCliente.clienteExiste(txtCI.getText());
         //int idCliente = oAbmCliente.obtenerIdClientePorCedula(oModeloCliente.getCi());
@@ -669,6 +676,14 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         oModeloReserva.setFechaReserva(cbxFecha.getSelectedItem().toString());
         oModeloReserva.setObs(txtObservacion.getText());
         oAbmReserva.agregarReserva(oModeloReserva);
+        oModeloDetllaVenta.setCantidad(1);
+        oModeloDetllaVenta.setCosto(BigDecimal.ZERO);
+        oModeloDetllaVenta.setPrecio(BigDecimal.valueOf(100000));
+        oModeloDetllaVenta.setVenta_producto(BigDecimal.ZERO);
+        oModeloDetllaVenta.setCantidad(1);
+        oModeloDetllaVenta.setFk_reserva(oModeloReserva.getId_reserva());
+        oModeloDetllaVenta.setId_venta_detalle(recibirIdVenta);
+        oAbmDetalleVenta.agregarDetalleVenta(oModeloDetllaVenta);
         
         JOptionPane.showMessageDialog(null, "Reserva Guardado correctamente");
         
