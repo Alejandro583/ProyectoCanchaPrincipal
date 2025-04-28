@@ -3,6 +3,7 @@
 package vista;
 
 import abm.abmCompra;
+import abm.abmProducto;
 import config.sesion;
 import java.sql.Date;
 import modelo.modeloCompra;
@@ -16,6 +17,7 @@ public class FrmCompra extends javax.swing.JFrame {
     abmCompra oAbmCompra;
     sesion oSesion;
     FrmMenuCancha oFrmMenuCancha;
+    abmProducto oAbmProducto;
    
     public FrmCompra() {
         initComponents();
@@ -34,6 +36,8 @@ public class FrmCompra extends javax.swing.JFrame {
         oAbmCompra = new abmCompra(oSesion);
         oFrmProveedor = new FrmProveedor(oSesion,oMenuCancha);
         oFrmProveedor = new FrmProveedor(oSesion,oMenuCancha);
+        oAbmProducto = new abmProducto(pSesion);
+        cbxProducto.setModel(oAbmProducto.cargarProducto());
         
     }
 
@@ -74,13 +78,14 @@ public class FrmCompra extends javax.swing.JFrame {
         jLabel37 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnProveedores = new javax.swing.JButton();
-        btnProducto = new javax.swing.JButton();
         btnCompraDetalle = new javax.swing.JButton();
+        cbxProducto = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        btnProducto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(900, 600));
@@ -373,17 +378,16 @@ public class FrmCompra extends javax.swing.JFrame {
             }
         });
 
-        btnProducto.setText("PRODUCTO");
-        btnProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProductoActionPerformed(evt);
-            }
-        });
-
         btnCompraDetalle.setText("DETALLES DE COMPRAS");
         btnCompraDetalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCompraDetalleActionPerformed(evt);
+            }
+        });
+
+        cbxProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxProductoActionPerformed(evt);
             }
         });
 
@@ -392,8 +396,7 @@ public class FrmCompra extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(btnProducto)
+                .addComponent(cbxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnProveedores)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -405,9 +408,9 @@ public class FrmCompra extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnProducto)
                     .addComponent(btnProveedores)
-                    .addComponent(btnCompraDetalle))
+                    .addComponent(btnCompraDetalle)
+                    .addComponent(cbxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -430,7 +433,7 @@ public class FrmCompra extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
                 .addGap(37, 37, 37))
         );
 
@@ -471,6 +474,13 @@ public class FrmCompra extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btnProducto.setText("PRODUCTO");
+        btnProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -488,7 +498,10 @@ public class FrmCompra extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(panelProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(166, 166, 166)
+                                .addComponent(btnProducto)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -499,7 +512,9 @@ public class FrmCompra extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelEncabezado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
+                .addGap(24, 24, 24)
+                .addComponent(btnProducto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -640,6 +655,12 @@ public class FrmCompra extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void cbxProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProductoActionPerformed
+         
+        
+        
+    }//GEN-LAST:event_cbxProductoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -681,6 +702,7 @@ public class FrmCompra extends javax.swing.JFrame {
     private javax.swing.JButton btnCompraDetalle;
     private javax.swing.JButton btnProducto;
     private javax.swing.JButton btnProveedores;
+    private javax.swing.JComboBox<String> cbxProducto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
