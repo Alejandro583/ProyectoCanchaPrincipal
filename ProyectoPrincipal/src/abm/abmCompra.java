@@ -27,7 +27,7 @@ public class abmCompra extends conexion {
                 compra.setId_compra(resultado.getInt("Id_compra"));
                 compra.setFactura_nro(resultado.getString("Factura_nro"));
                 compra.setTipo_compra(resultado.getString("Tipo_compra"));
-                compra.setFecha(resultado.getDate("Fecha"));
+                compra.setFecha(resultado.getString("Fecha"));
                 compra.setSubtotal(resultado.getDouble("Subtotal"));
                 compra.setIva0(resultado.getDouble("Iva0"));
                 compra.setIva5(resultado.getDouble("Iva5"));
@@ -61,7 +61,7 @@ public class abmCompra extends conexion {
             consulta.setInt(1, compra.getId_compra());
             consulta.setString(2, compra.getFactura_nro());
             consulta.setString(3, compra.getTipo_compra());
-            consulta.setDate(4, compra.getFecha());
+            consulta.setString(4, compra.getFecha());
             consulta.setDouble(5, compra.getSubtotal());
             consulta.setDouble(6, compra.getIva0());
             consulta.setDouble(7, compra.getIva5());
@@ -90,7 +90,7 @@ public class abmCompra extends conexion {
             consulta.setInt(1, compra.getId_compra());
             consulta.setString(2, compra.getFactura_nro());
             consulta.setString(3, compra.getTipo_compra());
-            consulta.setDate(4, compra.getFecha());
+            consulta.setString(4, compra.getFecha());
             consulta.setDouble(5, compra.getSubtotal());
             consulta.setDouble(6, compra.getIva0());
             consulta.setDouble(7, compra.getIva5());
