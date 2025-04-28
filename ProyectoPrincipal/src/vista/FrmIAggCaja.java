@@ -5,6 +5,8 @@
  */
 package vista;
 
+import modelo.modeloCaja;
+
 /**
  *
  * @author HP
@@ -16,6 +18,10 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
      */
     public FrmIAggCaja() {
         initComponents();
+    }
+
+    FrmIAggCaja(String modificar, modeloCaja oModeloCaja, FrmCaja aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

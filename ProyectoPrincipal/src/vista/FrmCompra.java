@@ -22,6 +22,9 @@ public class FrmCompra extends javax.swing.JFrame {
        
         
     }
+    
+    FrmIProveedor oFrmIProveedor = new FrmIProveedor(oSesion,this);
+    FrmIProducto oFrmIProducto = new FrmIProducto(oSesion, this);
     public FrmCompra(sesion pSesion, FrmMenuCancha oMenuCancha) {
         initComponents();
         oSesion = pSesion;

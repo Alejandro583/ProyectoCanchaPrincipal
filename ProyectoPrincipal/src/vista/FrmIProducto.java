@@ -38,6 +38,10 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
             txtCodigo.setText(oproducto.getId_producto()+"");
         }
     }
+
+    FrmIProducto(sesion oSesion, FrmCompra aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 
     /**

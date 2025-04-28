@@ -35,6 +35,10 @@ public class FrmIProveedor extends javax.swing.JInternalFrame {
             txtDireccion.setText(oProveedor.getDireccion());
         }
     }
+
+    FrmIProveedor(sesion oSesion, FrmCompra aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 
     /**

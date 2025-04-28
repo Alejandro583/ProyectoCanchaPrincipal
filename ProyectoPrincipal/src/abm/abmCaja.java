@@ -191,5 +191,13 @@ public boolean reversionTotal(double monto, int id_caja) {
         return false;
     }
 }
+
+    public modeloCaja CargarCaja(modeloCaja oModeloCaja) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean eliminarCaja(modeloCaja oModeloCaja) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
 
