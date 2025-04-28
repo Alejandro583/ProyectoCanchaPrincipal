@@ -6,7 +6,7 @@ public class modeloCompra {
     private int Id_compra;
     private String Factura_nro;
     private String Tipo_compra;
-    private Date Fecha;
+    private String Fecha;
     private double Subtotal;
     private double Iva0;
     private double Iva5;
@@ -22,7 +22,7 @@ public class modeloCompra {
     }
 
     // Constructor con parámetros
-    public modeloCompra(int Id_compra, String Factura_nro, String Tipo_compra, Date Fecha,
+    public modeloCompra(int Id_compra, String Factura_nro, String Tipo_compra, String Fecha,
                         double Subtotal, double Iva0, double Iva5, double Iva10, double Total_neto,
                         double Saldo, int Estado, int Fk_usuario, int Fk_proveedor) {
         this.Id_compra = Id_compra;
@@ -65,11 +65,11 @@ public class modeloCompra {
         this.Tipo_compra = Tipo_compra;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return Fecha;
     }
 
-    public void setFecha(Date Fecha) {
+    public void setFecha(String Fecha) {
         this.Fecha = Fecha;
     }
 

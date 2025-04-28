@@ -4,6 +4,7 @@ package vista;
 
 import abm.abmCompra;
 import config.sesion;
+import java.sql.Date;
 import modelo.modeloCompra;
 
 
@@ -579,8 +580,26 @@ public class FrmCompra extends javax.swing.JFrame {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         
+        
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+    public void Aceptar(){
+        
+       int Id_compra = Integer.parseInt(txtCompraId.getText());
+       String Factura_nro = txtFactura.getText();
+       String Tipo_compra;
+       String Fecha = txtFecha.getText();
+       double Subtotal = Double.parseDouble(txtSubtotal.getText());
+       double Iva0 = Double.parseDouble(txtIva.getText());
+       double Iva5 = Double.parseDouble(txtIva5.getText());
+       double Iva10 = Double.parseDouble(txtIva10.getText());
+       double Total_neto = Double.parseDouble(txtTotalNeto.getText());
+       double Saldo;
+       int Estado;
+       int Fk_usuario;
+       int Fk_proveedor; 
+       
+    }
     private void txtIva10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIva10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIva10ActionPerformed

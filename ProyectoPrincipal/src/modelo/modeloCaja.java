@@ -89,5 +89,9 @@ public class modeloCaja {
         this.Fk_usuario = Fk_usuario;
     }
     
+    
+  
+    
+    
 }
     

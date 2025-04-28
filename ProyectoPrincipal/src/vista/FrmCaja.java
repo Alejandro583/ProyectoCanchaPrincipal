@@ -18,7 +18,7 @@ public class FrmCaja extends javax.swing.JFrame {
         initComponents();
        
     }
-    FrmIAggCaja oFrmCaja = new FrmIAggCaja("MODIFICAR",oModeloCaja,this);
+    //FrmIAggCaja oFrmCaja = new FrmIAggCaja("MODIFICAR",oModeloCaja,this);
     
     public FrmCaja(sesion pSesion,FrmMenuCancha oMenuCancha) {
         initComponents();
