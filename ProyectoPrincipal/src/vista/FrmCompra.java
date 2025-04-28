@@ -1,21 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 package vista;
 
-/**
- *
- * @author HP
- */
-public class FrmCompra extends javax.swing.JFrame {
+import abm.abmCompra;
+import config.sesion;
+import modelo.modeloCompra;
 
-    /**
-     * Creates new form FrmCompra
-     */
+public class FrmCompra extends javax.swing.JFrame {
+     sesion oSesion = new sesion();
+   
+    modeloCompra oModeloCompra;
+    abmCompra oAbmCompra;
+    //sesion oSesion;
+    FrmMenuCancha oFrmMenuCancha;
+   
     public FrmCompra() {
         initComponents();
+        
+       
+        
+    }
+    public FrmCompra(sesion pSesion, FrmMenuCancha oMenuCancha) {
+        initComponents();
+        oSesion = pSesion;
+        
+        oFrmMenuCancha = oMenuCancha;
+        oAbmCompra = new abmCompra(oSesion);
+       
+        
     }
 
     /**
@@ -54,13 +66,13 @@ public class FrmCompra extends javax.swing.JFrame {
         txtIva10 = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        btnAceptar = new javax.swing.JButton();
         btnProveedores = new javax.swing.JButton();
         btnProducto = new javax.swing.JButton();
+        btnCompraDetalle = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        btnCompraDetalle = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(900, 600));
@@ -76,6 +88,12 @@ public class FrmCompra extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText("COMPRA ID");
+
+        txtCompraId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCompraIdActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -335,13 +353,6 @@ public class FrmCompra extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btnAceptar.setText("ACEPTAR");
-        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptarActionPerformed(evt);
-            }
-        });
-
         btnProveedores.setText("PROVEEDORES");
         btnProveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -350,19 +361,26 @@ public class FrmCompra extends javax.swing.JFrame {
         });
 
         btnProducto.setText("PRODUCTO");
+        btnProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductoActionPerformed(evt);
+            }
+        });
+
+        btnCompraDetalle.setText("DETALLES DE COMPRAS");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(btnProducto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnProveedores)
-                .addGap(26, 26, 26)
-                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCompraDetalle)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,7 +389,7 @@ public class FrmCompra extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnProducto)
                     .addComponent(btnProveedores)
-                    .addComponent(btnAceptar))
+                    .addComponent(btnCompraDetalle))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -394,28 +412,33 @@ public class FrmCompra extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                 .addGap(37, 37, 37))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btnCompraDetalle.setText("DETALLES DE COMPRAS");
+        btnAceptar.setText("ACEPTAR");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(btnCompraDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(91, 91, 91)
+                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnCompraDetalle, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAceptar)
                 .addContainerGap())
         );
 
@@ -437,7 +460,7 @@ public class FrmCompra extends javax.swing.JFrame {
                             .addComponent(panelProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 80, Short.MAX_VALUE))))
+                        .addGap(0, 67, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -454,7 +477,7 @@ public class FrmCompra extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(panelSubtotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(105, 105, 105))
+                .addGap(103, 103, 103))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -480,7 +503,7 @@ public class FrmCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigoProductoFocusLost
 
     private void txtCodigoProductoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoProductoKeyPressed
-        if (Osesion.verificarEnter(evt) == true) {
+        if (oSesion.verificarEnter(evt) == true) {
             txtCantidad.requestFocus();
         }
     }//GEN-LAST:event_txtCodigoProductoKeyPressed
@@ -491,7 +514,7 @@ public class FrmCompra extends javax.swing.JFrame {
 
     private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
 
-        if (Osesion.verificarEnter(evt) == true) {
+        if (oSesion.verificarEnter(evt) == true) {
             txtPrecioVenta.requestFocus();
         }
     }//GEN-LAST:event_txtCantidadKeyPressed
@@ -533,12 +556,25 @@ public class FrmCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIva10ActionPerformed
 
     private void btnProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedoresActionPerformed
-        // TODO add your handling code here:
+       FrmIProveedor oFrmIProveedor = new FrmIProveedor(oSesion,this);
+        oFrmIProveedor.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnProveedoresActionPerformed
 
     private void txtCodigoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoProductoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoProductoActionPerformed
+
+    private void txtCompraIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCompraIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCompraIdActionPerformed
+
+    private void btnProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductoActionPerformed
+        
+        FrmIProducto oFrmProducto = new FrmProducto(oSesion,this);
+        oFrmProducto.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnProductoActionPerformed
 
     /**
      * @param args the command line arguments
