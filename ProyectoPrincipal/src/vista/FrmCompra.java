@@ -43,11 +43,10 @@ public class FrmCompra extends javax.swing.JFrame {
         oFrmProveedor = new FrmProveedor(oSesion,oMenuCancha);
         oFrmProducto = new FrmProducto(oSesion,oMenuCancha);
         oAbmProducto = new abmProducto(pSesion);
+        oAbmProveedor = new abmProveedor();
         cbxProducto.setModel(oAbmProducto.cargarProducto());
         cbxFecha.setModel(oAbmCompra.cargarFechas());
-        seleccionarItemPorNombre(cbxProducto, cbxProducto.getSelectedItem().toString()); 
-        
-        
+        cbxProveedor.setModel(oAbmProveedor.cargarProveedor());    
     }
 
     /**
