@@ -352,14 +352,14 @@ public class FrmProducto extends javax.swing.JFrame {
         oModeloProducto = new modeloProducto();
         if (filaSeleccionada != -1) { // si hay una fila seleccionada
             int  id = Integer.parseInt(grillaProducto.getValueAt(filaSeleccionada, 0).toString()); // columna 0 = primera columna
-            oModeloProducto.setId_producto(id);
-            oModeloProducto = oAbmProducto.productoExiste(oModeloProducto);   
+            productoSeleccionado(id);
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
-    public modeloProducto productoSeleccionado()
+    public void  productoSeleccionado(int id )
     {
-        return oModeloProducto;
+        oModeloProducto.setId_producto(id);
+        oModeloProducto = oAbmProducto.productoExiste(oModeloProducto);
     }
     
     
