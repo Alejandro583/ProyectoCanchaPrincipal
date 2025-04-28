@@ -1,21 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vista;
 
-/**
- *
- * @author HP
- */
+import abm.abmCaja;
+import config.sesion;
+import javax.swing.JOptionPane;
+import modelo.modeloCaja;
+
+
+
 public class FrmCaja extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmCaja
-     */
+    modeloCaja oModeloCaja;
+    abmCaja oAbmCaja;
+    sesion oSesion;
+    FrmMenuCancha oFrmMenuCancha;
     public FrmCaja() {
         initComponents();
+       
+    }
+    
+    public FrmCaja(sesion pSesion,FrmMenuCancha oMenuCancha) {
+        initComponents();
+        
+        oSesion = pSesion;
+        oFrmMenuCancha = oMenuCancha;
+        oAbmCaja = new abmCaja(oSesion);
+        grillaCaja.setModel(oAbmCaja.cargarTabla(""));
+        //Usuario.setText(oSesion.getNombreUsuario());
+       
     }
 
     /**
@@ -27,19 +39,21 @@ public class FrmCaja extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panelCaja = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         grillaCaja = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btnEliminar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 500));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        panelCaja.setBackground(new java.awt.Color(255, 255, 255));
 
         grillaCaja.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -58,8 +72,32 @@ public class FrmCaja extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnEliminar.setText("ELIMINAR");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnAgregar.setText("AGREGAR");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        btnModificar.setText("MODIFICAR");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -67,19 +105,27 @@ public class FrmCaja extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnAgregar))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(76, 76, 76)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAgregar)
-                .addGap(27, 27, 27)
-                .addComponent(btnEliminar)
-                .addGap(28, 28, 28))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnModificar)
+                    .addComponent(btnEliminar))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnAgregar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(0, 102, 51));
@@ -93,54 +139,104 @@ public class FrmCaja extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(264, 264, 264)
+                .addGap(256, 256, 256)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addGap(31, 31, 31))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+        javax.swing.GroupLayout panelCajaLayout = new javax.swing.GroupLayout(panelCaja);
+        panelCaja.setLayout(panelCajaLayout);
+        panelCajaLayout.setHorizontalGroup(
+            panelCajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelCajaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelCajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
+                    .addGroup(panelCajaLayout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panelCajaLayout.setVerticalGroup(
+            panelCajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCajaLayout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelCaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelCaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        FrmIAggCaja oFrmCaja = new FrmIAggCaja();
+        panelCaja.add(oFrmCaja);
+        oFrmCaja.setVisible(true);
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+       int filaSeleccionada = grillaCaja.getSelectedRow();
+        oModeloCaja = new modeloCaja();
+        if (filaSeleccionada != -1) { 
+            int  id = Integer.parseInt(grillaCaja.getValueAt(filaSeleccionada, 0).toString()); 
+            oModeloCaja.setId_caja(id);
+            oModeloCaja = oAbmCaja.CargarCaja(oModeloCaja);
+            boolean resultado = oAbmCaja.eliminarCaja(oModeloCaja);
+            if(resultado)
+            {
+                JOptionPane.showMessageDialog(null, "Caja Eliminado correctamente");
+                actualizarTabla();
+            }else
+            {
+                JOptionPane.showMessageDialog(null, "Error al Eliminar");
+            }
+            
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    public void actualizarTabla()
+    {
+        grillaCaja.setModel(oAbmCaja.cargarTabla(""));
+    }
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        oFrmMenuCancha.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        int filaSeleccionada = grillaCaja.getSelectedRow();
+        oModeloCaja = new modeloCaja();
+        if (filaSeleccionada != -1) { 
+            int  id = Integer.parseInt(grillaCaja.getValueAt(filaSeleccionada, 0).toString()); 
+            oModeloCaja.setId_caja(id);
+            oModeloCaja = oAbmCaja.CargarCaja(oModeloCaja);
+            FrmIAggCaja oFrmCaja = new FrmIAggCaja("MODIFICAR",oModeloCaja,this);
+            panelCaja.add(oFrmCaja);
+            oFrmCaja.setVisible(true);
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,12 +275,14 @@ public class FrmCaja extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JTable grillaCaja;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel panelCaja;
     // End of variables declaration//GEN-END:variables
 }

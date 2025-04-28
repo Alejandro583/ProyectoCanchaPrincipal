@@ -1,21 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vista;
 
-/**
- *
- * @author HP
- */
+import abm.abmCompraDetalle;
+import config.sesion;
+import modelo.modeloCompraDetalle;
+
 public class FrmICompraDetalle extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmCompraDetalle
-     */
+    modeloCompraDetalle oModeloCaCompraDetalle;
+    abmCompraDetalle oAbmCompraDetallea;
+    sesion oSesion;
+    FrmMenuCancha oFrmMenuCancha;
     public FrmICompraDetalle() {
         initComponents();
+    }
+    
+    public FrmICompraDetalle(sesion pSesion,FrmMenuCancha oMenuCancha) {
+        initComponents();
+        oSesion = pSesion;
+        oFrmMenuCancha = oMenuCancha;
+        oAbmCompraDetallea = new abmCompraDetalle(oSesion);
+        grillaCompraDetalle.setModel(oAbmCompraDetallea.cargarTabla(""));
     }
 
     /**
@@ -35,6 +40,7 @@ public class FrmICompraDetalle extends javax.swing.JInternalFrame {
         btnEliminar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -90,19 +96,33 @@ public class FrmICompraDetalle extends javax.swing.JInternalFrame {
         });
 
         btnAgregar.setText("AGREGAR");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(35, 35, 35)
                 .addComponent(btnModificar)
-                .addGap(27, 27, 27)
+                .addGap(31, 31, 31)
                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,7 +131,8 @@ public class FrmICompraDetalle extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
                     .addComponent(btnModificar)
-                    .addComponent(btnEliminar))
+                    .addComponent(btnEliminar)
+                    .addComponent(btnCancelar))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -144,12 +165,22 @@ public class FrmICompraDetalle extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        oFrmMenuCancha.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JTable grillaCompraDetalle;
