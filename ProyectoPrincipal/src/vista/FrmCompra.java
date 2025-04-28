@@ -8,6 +8,7 @@ import config.sesion;
 import java.sql.Date;
 import javax.swing.JComboBox;
 import modelo.modeloCompra;
+import modelo.modeloProducto;
 
 
 public class FrmCompra extends javax.swing.JFrame {
@@ -19,7 +20,7 @@ public class FrmCompra extends javax.swing.JFrame {
     sesion oSesion;
     FrmMenuCancha oFrmMenuCancha;
     abmProducto oAbmProducto;
-   
+    modeloProducto oModeloProducto = new modeloProducto();
     public FrmCompra() {
         initComponents();
         
@@ -40,6 +41,7 @@ public class FrmCompra extends javax.swing.JFrame {
         oAbmProducto = new abmProducto(pSesion);
         cbxProducto.setModel(oAbmProducto.cargarProducto());
         cbxFecha.setModel(oAbmCompra.cargarFechas());
+        seleccionarItemPorNombre(cbxProducto, cbxProducto.getSelectedItem().toString()); 
         
     }
 
@@ -102,6 +104,7 @@ public class FrmCompra extends javax.swing.JFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText("COMPRA ID");
 
+        txtCompraId.setEnabled(false);
         txtCompraId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCompraIdActionPerformed(evt);
@@ -112,6 +115,7 @@ public class FrmCompra extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("FACTURA");
 
+        txtFactura.setEnabled(false);
         txtFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFacturaActionPerformed(evt);
@@ -172,6 +176,7 @@ public class FrmCompra extends javax.swing.JFrame {
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel23.setText("CODIGO");
 
+        txtCodigoProducto.setEnabled(false);
         txtCodigoProducto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCodigoProductoFocusLost(evt);
@@ -613,7 +618,7 @@ public class FrmCompra extends javax.swing.JFrame {
        int Id_compra = Integer.parseInt(txtCompraId.getText());
        String Factura_nro = txtFactura.getText();
        String Tipo_compra;
-       String Fecha = txtFecha.getText();
+       //String Fecha = txtFecha.getText();
        double Subtotal = Double.parseDouble(txtSubtotal.getText());
        double Iva0 = Double.parseDouble(txtIva.getText());
        double Iva5 = Double.parseDouble(txtIva5.getText());
@@ -667,7 +672,7 @@ public class FrmCompra extends javax.swing.JFrame {
 
     private void cbxProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProductoActionPerformed
          
-        
+        seleccionarItemPorNombre(cbxProducto, cbxProducto.getSelectedItem().toString());
         
     }//GEN-LAST:event_cbxProductoActionPerformed
 
@@ -711,14 +716,14 @@ public class FrmCompra extends javax.swing.JFrame {
     }
     
     public void seleccionarItemPorNombre(JComboBox<String> comboBox, String nombreABuscar) {
-    for (int i = 0; i < comboBox.getItemCount(); i++) {
-        String item = comboBox.getItemAt(i);
-        if (item.equalsIgnoreCase(nombreABuscar)) { // Comparación sin distinguir mayúsculas/minúsculas
-            comboBox.setSelectedIndex(i);
-            break;
-        }
-    }
+    String[] partes = nombreABuscar.split(" - ");
+    int idBuscado = Integer.parseInt(partes[0].trim());
+    oModeloProducto.setId_producto(idBuscado);
+    oModeloProducto = oAbmProducto.productoExiste(oModeloProducto);
+    txtPrecioVenta.setText(oModeloProducto.getCosto()+"");
 }
+
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
