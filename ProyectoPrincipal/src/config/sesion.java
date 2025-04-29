@@ -1,5 +1,6 @@
 package config;
 
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -371,6 +372,10 @@ public final class sesion extends conexion {
         }else{
             return false;
         }
+    }
+
+    public boolean verificarEnter(ActionEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
         
 }

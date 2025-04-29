@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vista;
 
 import abm.abmProducto;
@@ -10,15 +6,9 @@ import config.sesion;
 import javax.swing.JOptionPane;
 import modelo.modeloProducto;
 
-/**
- *
- * @author tedyf
- */
+
 public class FrmProducto extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmProducto
-     */
     modeloProducto oModeloProducto;
     abmProducto oAbmProducto;
     sesion oSesion;
