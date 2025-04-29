@@ -10,7 +10,7 @@ public class conexion {
     private String db = "cancha_sintetica";
     private String usuario = "root";
 
-    private String password = "12345";//CAMBIAR CONTRASEÑA
+    private String password = "1234";//CAMBIAR CONTRASEÑA
 
     private String servidor = "localhost";
     private String puerto = "3306";
