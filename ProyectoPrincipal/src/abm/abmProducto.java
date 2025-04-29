@@ -281,6 +281,24 @@ public class abmProducto extends config.conexion
         }
         return lista;
     }
+    public modeloProducto buscarProductoPorId(int idProducto) throws Exception {
+    modeloProducto p = null;
+    String sql = "SELECT * FROM producto WHERE Id_producto = ?";
+    try (Connection cn = getAbrirConexion();
+         PreparedStatement ps = cn.prepareStatement(sql)) {
+        ps.setInt(1, idProducto);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                p = new modeloProducto();
+                p.setId_producto(rs.getInt("Id_producto"));
+                p.setNombre_producto(rs.getString("Nombre_producto"));
+                p.setPrecio(rs.getFloat("Precio"));
+            }
+        }
+    }
+    return p;
+}
+
     
     
 }

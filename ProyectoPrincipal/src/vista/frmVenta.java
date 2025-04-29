@@ -1,15 +1,20 @@
 package vista;
 
 
+
+import abm.abmVenta;
 import abm.abmProducto;
 import config.sesion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.modeloProducto;
+import modelo.modeloVenta;
 
 
 
@@ -19,21 +24,36 @@ public class frmVenta extends javax.swing.JFrame {
     sesion oSesion;
     
     public frmVenta() {
-        initComponents();
-        this.oSesion = new sesion(); // Para evitar null pointer si no se pasa sesión
-        inicializarTabla();
-        cargarClientes();
-        cargarProductos("");
-    }
+    initComponents();
+    this.oSesion = new sesion();
+    inicializarTabla();
+    cargarClientes();
+    cargarProductos("");
+    
+    // 👉 Aquí agregás el ActionListener:
+    BtnBuscarProducto.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            BtnBuscarProductoActionPerformed(evt);
+        }
+    });
+}
     
     
     public frmVenta(sesion pSesion) {
-         initComponents();
-        this.oSesion = pSesion;
-        inicializarTabla();
-        cargarClientes();
-        cargarProductos("");
-    }
+    initComponents();
+    this.oSesion = pSesion;
+    inicializarTabla();
+    cargarClientes();
+    cargarProductos("");
+    
+    // 👉 Aquí también agregás:
+    BtnBuscarProducto.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            BtnBuscarProductoActionPerformed(evt);
+        }
+    });
+}
+
     
     private void inicializarTabla() {
         DefaultTableModel modeloTabla = new DefaultTableModel(
@@ -50,6 +70,12 @@ public class frmVenta extends javax.swing.JFrame {
             grilla.getColumnModel().getColumn(4).setPreferredWidth(100); // Subtotal
         }
     }
+  
+    
+  
+    
+    
+
 
     private void cargarClientes() {
         try {
@@ -338,7 +364,12 @@ public class frmVenta extends javax.swing.JFrame {
             }
         });
 
-        BtnBuscarCLIENTES.setText("jButton2");
+        BtnBuscarCLIENTES.setText("BUSCAR CL");
+        BtnBuscarCLIENTES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarCLIENTESActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelClienteLayout = new javax.swing.GroupLayout(panelCliente);
         panelCliente.setLayout(panelClienteLayout);
@@ -548,11 +579,11 @@ public class frmVenta extends javax.swing.JFrame {
             .addGroup(panelBotonLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelBotonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnProcesar, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(btnProcesar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         panelSubtotal.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -701,7 +732,18 @@ public class frmVenta extends javax.swing.JFrame {
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("Buscar Producto");
 
-        BtnBuscarProducto.setText("jButton2");
+        cbxBuscarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxBuscarProductoActionPerformed(evt);
+            }
+        });
+
+        BtnBuscarProducto.setText("BUSCAR PR");
+        BtnBuscarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarProductoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -724,8 +766,7 @@ public class frmVenta extends javax.swing.JFrame {
                                         .addGap(30, 30, 30)
                                         .addComponent(cbxBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(BtnBuscarProducto)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                        .addComponent(BtnBuscarProducto)))))
                         .addGap(61, 61, 61)
                         .addComponent(panelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1)
@@ -779,7 +820,13 @@ public class frmVenta extends javax.swing.JFrame {
      
 
     }
-
+private void limpiarCamposProducto() {
+    txtCodigoProducto.setText("");
+    txtCantidad.setText("");
+    txtPrecioVenta.setText("");
+    txtBuscarProducto.setText("");
+    txtCodigoProducto.requestFocus();
+}
 
     private void txtIdClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdClienteFocusLost
      
@@ -817,31 +864,86 @@ public class frmVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPrecioVentaKeyPressed
    
     private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
-        //Recorra mi grilla y empieza a insertar las ventas en la base de datos
-         try {
+        try {
+        // Validación básica de campos obligatorios
+        if (txtCodigoProducto.getText().trim().isEmpty() ||
+            txtCantidad.getText().trim().isEmpty() ||
+            txtPrecioVenta.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos de producto deben estar completos.");
+            return;
+        }
+
+        // Cargar producto en la grilla
         String codigo = txtCodigoProducto.getText();
-        String descripcion = "Descripción genérica"; // Después podemos buscar la descripción real del producto.
         int cantidad = Integer.parseInt(txtCantidad.getText());
         double precio = Double.parseDouble(txtPrecioVenta.getText());
         double subtotal = cantidad * precio;
+
+        String descripcion = "";
+        String seleccionado = (String) cbxBuscarProducto.getSelectedItem();
+        if (seleccionado != null && seleccionado.contains(" - ")) {
+            descripcion = seleccionado.split(" - ")[1].trim();
+        } else {
+            descripcion = "Sin descripción";
+        }
 
         DefaultTableModel modelo = (DefaultTableModel) grilla.getModel();
         modelo.addRow(new Object[]{codigo, descripcion, cantidad, precio, subtotal});
 
         limpiarCamposProducto();
 
+        // -----------------------------------------------
+        // ⬇️ 🔽 🔽 Aquí pegás el bloque de validaciones seguras:
+
+        double iva5 = 0, iva10 = 0, totalNeto = 0, totalGs = 0, facturaNro = 0, subtotalVenta = 0;
+        int clienteId = 0;
+
+        try { iva5 = Double.parseDouble(txtIva5.getText().trim()); } catch (NumberFormatException e) {}
+        try { iva10 = Double.parseDouble(txtIva10.getText().trim()); } catch (NumberFormatException e) {}
+        try { totalNeto = Double.parseDouble(txtTotalNeto.getText().trim()); } catch (NumberFormatException e) {}
+        try { totalGs = Double.parseDouble(txtTotalGs.getText().trim()); } catch (NumberFormatException e) {}
+        try { facturaNro = Double.parseDouble(txtFactura.getText().trim()); } catch (NumberFormatException e) {}
+        try { clienteId = Integer.parseInt(txtIdCliente.getText().trim()); } catch (NumberFormatException e) {}
+        try { subtotalVenta = Double.parseDouble(txtSubtotal.getText().trim()); } catch (NumberFormatException e) {}
+
+        // ⬆️ 🔼 🔼 Fin del bloque de validación segura
+
+        // Armar el modelo y guardar la venta
+        modeloVenta venta = new modeloVenta();
+        venta.setFecha(java.sql.Date.valueOf("2025-04-29")); // Por ahora fija, podés cambiar a dinámico después
+
+        venta.setSaldo(0);
+        venta.setTotalCosto(0);
+        venta.setSubtotal(subtotalVenta);
+        venta.setIva0(0);
+        venta.setIva5(iva5);
+        venta.setIva10(iva10);
+        venta.setEstado(1);
+        venta.setFacturaNro(facturaNro);
+        venta.setTipoVenta(cbxTipo.getSelectedItem().toString());
+        venta.setTotalNeto(totalNeto);
+        venta.setTtlPago(totalGs);
+        venta.setTtlDescuento(0);
+        venta.setTtlSaldo(0);
+        venta.setFkCliente(clienteId);
+        venta.setFkCaja(1);
+        venta.setFkUsuario(oSesion.getIdUsuario());
+
+        abmVenta daoVenta = new abmVenta();
+        if (daoVenta.agregarVenta(venta)) {
+            JOptionPane.showMessageDialog(this, "Venta guardada exitosamente.");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo guardar la venta.");
+        }
+
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Error en los datos ingresados: " + e.getMessage());
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error procesando venta: " + ex.getMessage());
     }
 
-
     }//GEN-LAST:event_btnProcesarActionPerformed
-private void limpiarCamposProducto() {
-    txtCodigoProducto.setText("");
-    txtCantidad.setText("");
-    txtPrecioVenta.setText("");
-    txtCodigoProducto.requestFocus();
-}
+
     
    
 
@@ -917,6 +1019,39 @@ private void limpiarCamposProducto() {
     private void cbxBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBuscarClienteActionPerformed
         
     }//GEN-LAST:event_cbxBuscarClienteActionPerformed
+
+    private void BtnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarProductoActionPerformed
+        String criterio = txtBuscarProducto.getText().trim();
+        cargarProductos(criterio);
+    }//GEN-LAST:event_BtnBuscarProductoActionPerformed
+
+    private void cbxBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBuscarProductoActionPerformed
+
+         String itemSeleccionado = (String) cbxBuscarProducto.getSelectedItem();
+    if (itemSeleccionado != null && itemSeleccionado.contains(" - ")) {
+        try {
+            // Obtener ID del producto
+            int idProducto = Integer.parseInt(itemSeleccionado.split(" - ")[0].trim());
+
+            // Buscar el producto por ID
+            abm.abmProducto dao = new abm.abmProducto();
+            modelo.modeloProducto p = new modelo.modeloProducto();
+            p.setId_producto(idProducto);
+            p = dao.productoExiste(p);
+
+            // Cargar los campos del formulario
+            txtCodigoProducto.setText(String.valueOf(p.getId_producto()));
+            txtPrecioVenta.setText(String.valueOf(p.getPrecio()));
+            txtCantidad.setText("1");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar el producto: " + ex.getMessage());
+        }
+    }
+    }//GEN-LAST:event_cbxBuscarProductoActionPerformed
+
+    private void BtnBuscarCLIENTESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarCLIENTESActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnBuscarCLIENTESActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

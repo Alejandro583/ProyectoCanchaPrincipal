@@ -85,23 +85,23 @@ public class modeloProducto
         this.Fk_proveedor = Fk_proveedor;
     }  
 
-    public void setIdProducto(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public int getIdProducto() {
+    return this.Id_producto;
+}
 
-    public void setNombre(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+public void setIdProducto(int idProducto) {
+    this.Id_producto = idProducto;
+}
 
-    public void setPrecioVenta(double aDouble) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+public String getNombre() {
+    return this.Nombre_producto;
+}
 
-    public String getIdProducto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+public void setNombre(String nombre) {
+    this.Nombre_producto = nombre;
+}
 
-    public String getNombre() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+public void setPrecioVenta(double precioVenta) {
+    this.Precio = (float) precioVenta;
+}
 }
