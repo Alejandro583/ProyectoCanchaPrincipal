@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -21,6 +22,10 @@ public class abmProducto extends config.conexion
     public abmProducto(sesion pSesion) 
     {
         oSesion = pSesion;
+    }
+
+    public abmProducto() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
@@ -257,4 +262,25 @@ public class abmProducto extends config.conexion
             return 0;
         } 
     }
+    public List<modeloProducto> listarProductosPorNombre(String criterio) throws Exception {
+        List<modeloProducto> lista = new ArrayList<>();
+        String sql = "SELECT id_producto, nombre, precio_venta FROM producto "
+                   + "WHERE estado = 1 AND nombre LIKE ?";
+        try (Connection cn = this.getAbrirConexion();
+             PreparedStatement ps = cn.prepareStatement(sql)) {
+            ps.setString(1, "%" + criterio + "%");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    modeloProducto p = new modeloProducto();
+                    p.setIdProducto(rs.getInt("id_producto"));
+                    p.setNombre(rs.getString("nombre"));
+                    p.setPrecioVenta(rs.getDouble("precio_venta"));
+                    lista.add(p);
+                }
+            }
+        }
+        return lista;
+    }
+    
+    
 }
