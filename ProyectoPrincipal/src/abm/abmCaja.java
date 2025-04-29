@@ -199,5 +199,9 @@ public boolean reversionTotal(double monto, int id_caja) {
     public boolean eliminarCaja(modeloCaja oModeloCaja) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public boolean cargarTabla(modeloCaja oModeloCaja) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
 

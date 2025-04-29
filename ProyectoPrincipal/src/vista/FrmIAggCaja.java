@@ -1,29 +1,49 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vista;
 
+import abm.abmCaja;
+import config.sesion;
+import javax.swing.JOptionPane;
 import modelo.modeloCaja;
 
-/**
- *
- * @author HP
- */
 public class FrmIAggCaja extends javax.swing.JInternalFrame {
+    
+    FrmCaja ofrmCaja;
+    abmCaja oAbmCaja = new abmCaja (null);
+    modeloCaja oModeloCaja;
+    String opcion;
+    sesion Osesion = new sesion();
 
-    /**
-     * Creates new form FrmIAggCaja
-     */
     public FrmIAggCaja() {
         initComponents();
     }
+    
+    public FrmIAggCaja(String operacion,modeloCaja oCaja,FrmCaja pFrmCaja) {
+        initComponents();
+        
+        initComponents() ;
+        opcion = operacion;
+        ofrmCaja = pFrmCaja;
+        if(opcion.equals("GUARDAR"))
+        {
+            btnAgregar.setText(opcion);
+        }
+        else
+        {
+            btnAgregar.setText(opcion);
+            txtIdUsuario.setText(oCaja.getFk_usuario()+"");
+            txtIdCaja.setText(oCaja.getId_caja()+"");
+            txtTotal.setText(oCaja.getTotal() + "");
+//            txtStock.setText(oproducto.getStock()+"");
+//            txtCodigo.setText(oproducto.getId_producto()+"");
+        }
 
-    FrmIAggCaja(String modificar, modeloCaja oModeloCaja, FrmCaja aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
+    
+        
 
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,23 +54,26 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         btnAgregar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtUsuario = new javax.swing.JTextField();
         txtIdUsuario = new javax.swing.JTextField();
         txtIdCaja = new javax.swing.JTextField();
         txtTotal = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         btnAgregar.setText("AGREGAR");
-
-        btnCancelar.setText("CANCELAR");
-
-        jLabel1.setText("USUARIO");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("ID USUARIO");
 
@@ -91,12 +114,12 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(148, 148, 148)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
@@ -104,42 +127,34 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtIdCaja, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtIdUsuario, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAgregar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancelar)))
-                .addContainerGap(186, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(195, 195, 195)
+                        .addComponent(btnAgregar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(65, 65, 65)
                         .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtIdCaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
+                        .addGap(66, 66, 66)
                         .addComponent(jLabel2)
                         .addGap(13, 13, 13)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)))
+                        .addComponent(jLabel3)))
                 .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar)
-                    .addComponent(btnCancelar))
-                .addGap(73, 73, 73))
+                .addComponent(btnAgregar)
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         pack();
@@ -149,11 +164,54 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalActionPerformed
 
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
+      public void realizarOperacion()
+    {
+        oModeloCaja = new modeloCaja();
+        if (opcion.equals("GUARDAR"))
+        {
+            oModeloCaja.setTotal(Float.parseFloat(txtTotal.getText()));
+            //oModeloCaja.setEstado(1);
+            //oModeloCaja.setFk_usuario(txtIdCaja.getText());
+            oModeloCaja.setId_caja(Integer.parseInt(txtIdCaja.getText()));
+            //oModeloCaja.setId_caja(Integer.parseInt(txtIdCaja.getText()));
+            //oModeloProducto.setStock(Integer.parseInt(txtStock.getText())); 
+            oModeloCaja.setFk_usuario(1);
+            boolean resultado = oAbmCaja.cargarTabla(oModeloCaja);
+            if (resultado)
+            {
+                JOptionPane.showMessageDialog(null, "Caja Agregado Correctamente");
+                this.dispose();
+            }else
+            {
+                JOptionPane.showMessageDialog(null, "Error al Guardar el Producto");
+                
+            }
+        }else
+        {
+            oModeloCaja.setTotal(Float.parseFloat(txtTotal.getText()));
+            //oModeloCaja.setEstado(1);
+            oModeloCaja.setId_caja(Integer.parseInt(txtIdCaja.getText()));
+            //oModeloProducto.setNombre_producto(txtProducto.getText());
+           // oModeloProducto.setPrecio(Float.parseFloat(txtPrecio.getText()));
+            //oModeloCaja.set(Integer.parseInt(txtIdUsuario.getText())); 
+            oModeloCaja.setFk_usuario(1);
+            boolean resultado = oAbmCaja.modificarCaja(oModeloCaja);
+            if (resultado)
+            {
+                JOptionPane.showMessageDialog(null, "Producto Modificado Correctamente");
+                this.dispose();
+            }else
+            {
+                JOptionPane.showMessageDialog(null, "Error al Modificar el Producto");
+            }
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -162,6 +220,5 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtIdCaja;
     private javax.swing.JTextField txtIdUsuario;
     private javax.swing.JTextField txtTotal;
-    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
