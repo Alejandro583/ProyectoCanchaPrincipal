@@ -319,6 +319,7 @@ public class FrmCompra extends javax.swing.JFrame {
         jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel34.setText("TOTAL NETO");
 
+        cbxIva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "5", "10" }));
         cbxIva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxIvaActionPerformed(evt);
@@ -343,7 +344,7 @@ public class FrmCompra extends javax.swing.JFrame {
                             .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelSubtotalLayout.createSequentialGroup()
                         .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbxIva, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
@@ -356,13 +357,11 @@ public class FrmCompra extends javax.swing.JFrame {
                         .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
                         .addGap(7, 7, 7))
                     .addComponent(txtSubtotal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(panelSubtotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelSubtotalLayout.createSequentialGroup()
-                        .addComponent(cbxIva, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGap(14, 14, 14)
+                .addGroup(panelSubtotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbxIva, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(panelSubtotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(panelSubtotalLayout.createSequentialGroup()
                         .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -484,9 +483,9 @@ public class FrmCompra extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(34, 34, 34)
                 .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addComponent(btnCompraDetalle)
                 .addGap(26, 26, 26))
         );
@@ -625,7 +624,13 @@ public class FrmCompra extends javax.swing.JFrame {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         
-        
+        if(montoTotal > 0)
+        {
+            JOptionPane.showMessageDialog(null,"VENTA PROCESADO CORRECTAMENTE");
+        }else
+        {
+            JOptionPane.showMessageDialog(null,"NO SE PUDO PROCESAR LA VENTA");
+        }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     public void Aceptar(){
@@ -707,7 +712,9 @@ public class FrmCompra extends javax.swing.JFrame {
             
             //{"CODIGO", "PRODUCTO", "COSTO", "PROVEEDOR","FECHA","CANTIDAD"});
 });
+        txtCodigoProducto.setText(oModeloProducto.getId_producto()+"");
        montoTotal +=  oModeloProducto.getCosto() * Integer.parseInt(txtCantidad.getText());
+       txtCompraId.setText(oAbmCompra.obtenerUltimoIdCompra()+1+"");
         double iva = transformarValorSeleccionado(cbxIva);
         calcularMontoTotal(montoTotal,iva);
       txtSubtotal.setText(montoTotal+"");
