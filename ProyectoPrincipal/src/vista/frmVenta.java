@@ -37,14 +37,16 @@ public class frmVenta extends javax.swing.JFrame {
         }
     });
 }
-    
-    
-    public frmVenta(sesion pSesion) {
+    FrmMenuCancha oFrmMenu;
+    abmProducto oAbmProducto;
+    public frmVenta(sesion pSesion,FrmMenuCancha menu) {
     initComponents();
     this.oSesion = pSesion;
     inicializarTabla();
+    oFrmMenu = menu;
+    oAbmProducto = new abmProducto(pSesion);
+    cbxBuscarProducto.setModel(oAbmProducto.cargarProducto());
     cargarClientes();
-    cargarProductos("");
     
     // 👉 Aquí también agregás:
     BtnBuscarProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -996,7 +998,8 @@ private void limpiarCamposProducto() {
 
     DefaultTableModel modelo = (DefaultTableModel) grilla.getModel();
     modelo.setRowCount(0); // Limpia todas las filas de la tabla
-
+        setVisible(false);
+        oFrmMenu.setVisible(true);
 
     }//GEN-LAST:event_btnCancelarActionPerformed
 

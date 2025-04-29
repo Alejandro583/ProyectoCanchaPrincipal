@@ -293,7 +293,9 @@ public class FrmMenuCancha extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        frmVenta oFrmVenta = new frmVenta(oSesion,this);
+        this.setVisible(false);
+        oFrmVenta.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -301,7 +303,9 @@ public class FrmMenuCancha extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        
+        FrmProveedor oFrmProveedor = new FrmProveedor(oSesion, this);
+        oFrmProveedor.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
