@@ -147,5 +147,26 @@ public class abmCompra extends conexion {
 
     return modelo;
 }
+    
+    public int obtenerUltimoIdCompra() {
+    int ultimoId = -1; // Usamos -1 como valor por defecto si no se encuentra nada
+    String sql = "SELECT MAX(Id_compra) AS ultimo_id FROM compra";
+
+    try (Connection conex = getAbrirConexion();
+         PreparedStatement stmt = conex.prepareStatement(sql);
+         ResultSet rs = stmt.executeQuery()) {
+
+        if (rs.next()) {
+            ultimoId = rs.getInt("ultimo_id");
+        }
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al obtener el último ID de compra: " + e.getMessage(),
+                oSesion.getTituloMensaje(), JOptionPane.ERROR_MESSAGE);
+    }
+
+    return ultimoId;
+}
+
 }
 
