@@ -277,6 +277,12 @@ public class frmVenta extends javax.swing.JFrame {
             }
         });
 
+        cbxBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxBuscarClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelClienteLayout = new javax.swing.GroupLayout(panelCliente);
         panelCliente.setLayout(panelClienteLayout);
         panelClienteLayout.setHorizontalGroup(
@@ -843,6 +849,10 @@ private void limpiarCamposProducto() {
     private void txtBuscarProductoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarProductoKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarProductoKeyPressed
+
+    private void cbxBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBuscarClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxBuscarClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
