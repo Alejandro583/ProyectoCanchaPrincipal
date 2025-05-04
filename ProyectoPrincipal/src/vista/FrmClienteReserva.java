@@ -675,7 +675,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         
         //actualizamos el horario
         
-        cbxHorarios1.setModel(oAbmReserva.cargarHorarios(1, cbxFecha.getSelectedItem().toString()));
+        cbxHorarios1.setModel(oAbmReserva.cargarHorarios(1, fecha));
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void txtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyPressed

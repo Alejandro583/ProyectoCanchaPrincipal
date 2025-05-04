@@ -37,6 +37,7 @@ public class frmVenta extends javax.swing.JFrame {
     modeloProducto oModeloProducto;
     modeloCliente oModeloCliente;
     DefaultTableModel modeloTabla;
+    
     public frmVenta(sesion pSesion,FrmMenuCancha menu) {
     initComponents();
     this.oSesion = pSesion;
@@ -875,24 +876,27 @@ public class frmVenta extends javax.swing.JFrame {
 
         // Armar el modelo y guardar la venta
         modeloVenta venta = new modeloVenta();
-        venta.setFecha(java.sql.Date.valueOf("2025-04-29")); // Por ahora fija, podés cambiar a dinámico después
-
-        venta.setSaldo(0);
-        venta.setTotalCosto(0);
-        venta.setSubtotal(subtotalVenta);
-        venta.setIva0(0);
-        venta.setIva5(iva5);
-        venta.setIva10(iva10);
-        venta.setEstado(1);
-        venta.setFacturaNro(facturaNro);
-        venta.setTipoVenta(cbxTipo.getSelectedItem().toString());
-        venta.setTotalNeto(totalNeto);
-        venta.setTtlPago(totalGs);
-        venta.setTtlDescuento(0);
-        venta.setTtlSaldo(0);
-        venta.setFkCliente(clienteId);
-        venta.setFkCaja(1);
-        venta.setFkUsuario(oSesion.getIdUsuario());
+        
+        if(cbxTipo.getSelectedItem().equals("Credito"))
+        {
+            venta.setFecha(java.sql.Date.valueOf(txtFecha.getText())); // Por ahora fija, podés cambiar a dinámico después
+            venta.setSaldo(Float.parseFloat(txtTotalNeto.getText()));
+            venta.setTotalCosto(0);
+            venta.setSubtotal(subtotalVenta);
+            venta.setIva0(0);
+            venta.setIva5(iva5);
+            venta.setIva10(iva10);
+            venta.setEstado(1);
+            venta.setFacturaNro(facturaNro);
+            venta.setTipoVenta(cbxTipo.getSelectedItem().toString());
+            venta.setTotalNeto(totalNeto);
+            venta.setTtlPago(totalGs);
+            venta.setTtlDescuento(0);
+            venta.setTtlSaldo(0);
+            venta.setFkCliente(clienteId);
+            venta.setFkCaja(1);
+            venta.setFkUsuario(oSesion.getIdUsuario());
+        }
 
         abmVenta daoVenta = new abmVenta();
         if (daoVenta.agregarVenta(venta)) {

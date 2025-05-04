@@ -17,11 +17,12 @@ public class FrmMenuCancha extends javax.swing.JFrame {
     public FrmMenuCancha() {
         initComponents();
     }
-
+    frmVenta oFrmVenta;
     public FrmMenuCancha(sesion pSesion) {
         initComponents();
         oSesion = pSesion;
         txtUsuario.setText("  " + oSesion.getNombreUsuario());
+        oFrmVenta = new frmVenta(oSesion,this);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -293,7 +294,6 @@ public class FrmMenuCancha extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        frmVenta oFrmVenta = new frmVenta(oSesion,this);
         this.setVisible(false);
         oFrmVenta.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
