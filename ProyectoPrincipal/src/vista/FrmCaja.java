@@ -194,18 +194,16 @@ public class FrmCaja extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         FrmIAggCaja oFrmIAggCaja = new FrmIAggCaja();
-        panelCaja.add(oFrmIAggCaja);
+        panelPrincipal.add(oFrmIAggCaja);
         oFrmIAggCaja.setVisible(true);
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
        int filaSeleccionada = grillaCaja.getSelectedRow();
-        oModeloCaja = new modeloCaja();
         if (filaSeleccionada != -1) { 
             int  id = Integer.parseInt(grillaCaja.getValueAt(filaSeleccionada, 0).toString()); 
-            oModeloCaja.setId_caja(id);
-            oModeloCaja = oAbmCaja.CargarCaja(oModeloCaja);
-            boolean resultado = oAbmCaja.eliminarCaja(oModeloCaja);
+            boolean resultado = oAbmCaja.eliminarCaja(id);
             if(resultado)
             {
                 JOptionPane.showMessageDialog(null, "Caja Eliminado correctamente");
@@ -239,9 +237,9 @@ public class FrmCaja extends javax.swing.JFrame {
         if (filaSeleccionada != -1) { 
             int  id = Integer.parseInt(grillaCaja.getValueAt(filaSeleccionada, 0).toString()); 
             oModeloCaja.setId_caja(id);
-            oModeloCaja = oAbmCaja.CargarCaja(oModeloCaja);
+            oModeloCaja = oAbmCaja.CargarCaja(id);
             FrmIAggCaja oFrmCaja = new FrmIAggCaja("MODIFICAR",oModeloCaja,this);
-            panelCaja.add(oFrmCaja);
+            panelPrincipal.add(oFrmCaja);
             oFrmCaja.setVisible(true);
         }
     }//GEN-LAST:event_btnModificarActionPerformed

@@ -26,7 +26,7 @@ public class abmCaja extends conexion {
         String sql = "";
         ResultSet resultado = null;
         try {
-            sql = "SELECT * FROM caja " + condicion;
+            sql = "SELECT * FROM caja WHERE Estado = 1 " + condicion;
             preparaConsulta = conex.prepareStatement(sql);
             resultado = preparaConsulta.executeQuery();
 

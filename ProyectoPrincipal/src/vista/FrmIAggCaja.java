@@ -34,10 +34,10 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
             //txtIdUsuario.setText(oCaja.getFk_usuario()+"");
             txtIdCaja.setText(oCaja.getId_caja()+"");
             txtTotal.setText(oCaja.getTotal() + "");
-            txtEfectivo.setText(oCaja.getTotal() + "");
-            txtTarjeta.setText(oCaja.getTotal() + "");
-            txtFecha.setText(oCaja.getTotal() + "");
-            txtEstado.setText(oCaja.getTotal() + "");
+            txtEfectivo.setText(oCaja.getEfectivo() + "");
+            txtTarjeta.setText(oCaja.getTarjeta() + "");
+            txtFecha.setText(oCaja.getFecha() + "");
+            txtEstado.setText("1");
             
 //            txtStock.setText(oproducto.getStock()+"");
 //            txtCodigo.setText(oproducto.getId_producto()+"");
