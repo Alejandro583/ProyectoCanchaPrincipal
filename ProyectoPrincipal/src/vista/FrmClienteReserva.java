@@ -275,6 +275,12 @@ public class FrmClienteReserva extends javax.swing.JFrame {
             }
         });
 
+        cbxHorarios1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxHorarios1ActionPerformed(evt);
+            }
+        });
+
         cbxCancha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxCanchaActionPerformed(evt);
@@ -625,7 +631,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxFechaActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
+        oAbmReserva = new abmReserva(oSesion);
         if(oAbmCliente.clienteExiste(txtCI.getText())== null)
         {
             oModeloCliente = new modeloCliente();
@@ -641,7 +647,9 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         String horario = cbxHorarios1.getSelectedItem().toString();
         // Separar en dos partes: Inicio y Fin
         String[] partesHorario = horario.split("-");
-        
+        String fecha = cbxFecha.getSelectedItem().toString();
+        String[] partesFecha = fecha.split("-");
+        fecha = partesFecha[1].trim();
         // Quitar espacios extra
         String horarioInicio = partesHorario[0].trim();
         String horarioFin = partesHorario[1].trim();
@@ -651,17 +659,17 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         oModeloReserva.setFk_cliente(oModeloCliente.getId_cliente());
         oModeloReserva.setHorario_inicio(horarioInicio);
         oModeloReserva.setHorario_fin(horarioFin);
-        oModeloReserva.setFechaReserva(cbxFecha.getSelectedItem().toString());
+        oModeloReserva.setFechaReserva(fecha);
         oModeloReserva.setObs(txtObservacion.getText());
         oAbmReserva.agregarReserva(oModeloReserva);
-        oModeloDetllaVenta.setCantidad(1);
-        oModeloDetllaVenta.setCosto(BigDecimal.ZERO);
-        oModeloDetllaVenta.setPrecio(BigDecimal.valueOf(100000));
-        oModeloDetllaVenta.setVenta_producto(BigDecimal.ZERO);
-        oModeloDetllaVenta.setCantidad(1);
-        oModeloDetllaVenta.setFk_reserva(oModeloReserva.getId_reserva());
-        oModeloDetllaVenta.setId_venta_detalle(recibirIdVenta);
-        oAbmDetalleVenta.agregarDetalleVenta(oModeloDetllaVenta);
+//        oModeloDetllaVenta.setCantidad(1);
+//        oModeloDetllaVenta.setCosto(BigDecimal.ZERO);
+//        oModeloDetllaVenta.setPrecio(BigDecimal.valueOf(100000));
+//        oModeloDetllaVenta.setVenta_producto(BigDecimal.ZERO);
+//        oModeloDetllaVenta.setCantidad(1);
+//        oModeloDetllaVenta.setFk_reserva(oModeloReserva.getId_reserva());
+        //oModeloDetllaVenta.setId_venta_detalle(recibirIdVenta);
+        //oAbmDetalleVenta.agregarDetalleVenta(oModeloDetllaVenta);
         
         JOptionPane.showMessageDialog(null, "Reserva Guardado correctamente");
         
@@ -695,6 +703,10 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         oFrmMenuCancha.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cbxHorarios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxHorarios1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxHorarios1ActionPerformed
 
     public void mostrarBusqueda()
     {

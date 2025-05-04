@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -207,20 +208,21 @@ public class abmReserva extends conexion {
     public DefaultComboBoxModel<String> cargarFechas() {
     DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
 
-    // Formato de fecha (podés cambiarlo si querés)
-    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM");
+    // Formato: "lunes 06/05"
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("EEEE - dd/MM", new Locale("es", "ES"));
 
-    // Día de hoy
     LocalDate hoy = LocalDate.now();
 
-    // Agregar hoy y los próximos 7 días
     for (int i = 0; i <= 7; i++) {
         LocalDate fecha = hoy.plusDays(i);
-        modelo.addElement(fecha.format(formato));
+        String texto = fecha.format(formato);
+        texto = texto.substring(0, 1).toUpperCase() + texto.substring(1); // Capitaliza el día
+        modelo.addElement(texto);
     }
 
     return modelo;
 }
+
     
     
 
