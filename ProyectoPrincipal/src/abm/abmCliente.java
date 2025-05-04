@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.modeloCliente;
@@ -226,5 +227,28 @@ public class abmCliente extends config.conexion
     
     return idCliente;
 }
+    
+    public DefaultComboBoxModel<String> obtenerClientesActivos(String condicion) {
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+        Connection conn = getAbrirConexion();
+        String sql = "SELECT Nombre,Ci FROM cliente WHERE Estado = 1 " + condicion;
+
+        try{
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                
+                String clienteDes = "Nombre : "+rs.getString("Nombre") + " | C.I : " + rs.getString("Ci");
+                
+                
+                modelo.addElement(clienteDes);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return modelo;
+    }
 
 }

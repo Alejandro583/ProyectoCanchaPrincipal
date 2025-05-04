@@ -50,7 +50,7 @@ public class FrmCompra extends javax.swing.JFrame {
         oFrmProducto = new FrmProducto(oSesion,oMenuCancha);
         oAbmProducto = new abmProducto(pSesion);
         oAbmProveedor = new abmProveedor();
-        cbxProducto.setModel(oAbmProducto.cargarProducto());
+        cbxProducto.setModel(oAbmProducto.cargarProducto("",2));
         cbxFecha.setModel(oAbmCompra.cargarFechas());
         cbxProveedor.setModel(oAbmProveedor.cargarProveedor());  
         modeloTabla = new DefaultTableModel();

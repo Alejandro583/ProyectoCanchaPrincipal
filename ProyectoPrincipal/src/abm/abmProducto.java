@@ -29,22 +29,28 @@ public class abmProducto extends config.conexion
     }
     
     
-   public DefaultComboBoxModel cargarProducto() {
+   public DefaultComboBoxModel cargarProducto(String condicion,int CompraVenta) {
     DefaultComboBoxModel modelo = new DefaultComboBoxModel<>();
 
-    String sql = "SELECT Id_producto, Nombre_producto FROM producto WHERE Estado = 1"; // opcionalmente filtramos por Estado=1 si quieres solo activos
+    String sql = "SELECT  Id_producto,Nombre_producto,Precio FROM producto WHERE Estado = 1 " + condicion; // opcionalmente filtramos por Estado=1 si quieres solo activos
 
     try (Connection conex = getAbrirConexion();
          PreparedStatement stmt = conex.prepareStatement(sql);
          ResultSet rs = stmt.executeQuery()) {
-
+        String valor;
         while (rs.next()) {
             int idProducto = rs.getInt("Id_producto");
             String nombreProducto = rs.getString("Nombre_producto");
-
-            // Puedes cargar el id y nombre juntos si quieres mostrar más información
-            String valor = idProducto + " - " + nombreProducto;
-
+            float precioProducto = rs.getFloat("Precio");
+            if(CompraVenta == 1)
+            {
+                // Puedes cargar el id y nombre juntos si quieres mostrar más información
+                valor = nombreProducto + " - " + precioProducto;
+            }
+            else
+            {
+               valor = idProducto + " - "+nombreProducto;
+            }
             modelo.addElement(valor);
         }
     } catch (SQLException e) {
@@ -90,9 +96,10 @@ public class abmProducto extends config.conexion
         ResultSet resultado = null;
         try 
         {
-            sql = "SELECT * FROM producto WHERE Id_producto = ?";
+            sql = "SELECT * FROM producto WHERE Id_producto = ? OR nombre_producto = ?";
             consulta = conex.prepareStatement(sql);
             consulta.setInt(1, pProducto.getId_producto());
+            consulta.setString(2, pProducto.getNombre_producto());
             resultado = consulta.executeQuery();
             if(resultado.next() == true)
             {
@@ -262,43 +269,5 @@ public class abmProducto extends config.conexion
             return 0;
         } 
     }
-    public List<modeloProducto> listarProductosPorNombre(String criterio) throws Exception {
-        List<modeloProducto> lista = new ArrayList<>();
-        String sql = "SELECT id_producto, nombre, precio_venta FROM producto "
-                   + "WHERE estado = 1 AND nombre LIKE ?";
-        try (Connection cn = this.getAbrirConexion();
-             PreparedStatement ps = cn.prepareStatement(sql)) {
-            ps.setString(1, "%" + criterio + "%");
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    modeloProducto p = new modeloProducto();
-                    p.setIdProducto(rs.getInt("id_producto"));
-                    p.setNombre(rs.getString("nombre"));
-                    p.setPrecioVenta(rs.getDouble("precio_venta"));
-                    lista.add(p);
-                }
-            }
-        }
-        return lista;
-    }
-    public modeloProducto buscarProductoPorId(int idProducto) throws Exception {
-    modeloProducto p = null;
-    String sql = "SELECT * FROM producto WHERE Id_producto = ?";
-    try (Connection cn = getAbrirConexion();
-         PreparedStatement ps = cn.prepareStatement(sql)) {
-        ps.setInt(1, idProducto);
-        try (ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) {
-                p = new modeloProducto();
-                p.setId_producto(rs.getInt("Id_producto"));
-                p.setNombre_producto(rs.getString("Nombre_producto"));
-                p.setPrecio(rs.getFloat("Precio"));
-            }
-        }
-    }
-    return p;
-}
-
-    
-    
+       
 }
