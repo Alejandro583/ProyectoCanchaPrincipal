@@ -786,7 +786,7 @@ public class frmVenta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarCienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCienteActionPerformed
-        FrmAgregarCliente oAgregarCliente = new FrmAgregarCliente();
+        FrmAgregarCliente oAgregarCliente = new FrmAgregarCliente(oSesion,this);
         oAgregarCliente.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnAgregarCienteActionPerformed
@@ -1050,6 +1050,10 @@ public class frmVenta extends javax.swing.JFrame {
 });
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+    public void actualizarListaCliente()
+    {
+        cbxBuscarCliente.setModel(oAbmCliente.obtenerClientesActivos(""));
+    }
     public  String obtenerFechaHoy() {
         LocalDate hoy = LocalDate.now();
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
