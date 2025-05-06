@@ -658,15 +658,14 @@ public class FrmCompra extends javax.swing.JFrame {
     detalle.setEstado(1); // o el estado que corresponda
 
     // Insertar en la base
-     if(oAbmCompraDetalle.agregarDetalle(detalle))
-     {
+    
+     
+     
+} 
          JOptionPane.showMessageDialog(null, "Compra Registrada Correctamente");
          this.setVisible(false);
          oFrmMenuCancha.setVisible(true);
-     }
      
-     
-}
         
     }//GEN-LAST:event_btnAceptarActionPerformed
 

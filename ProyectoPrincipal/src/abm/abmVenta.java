@@ -139,4 +139,24 @@ public class abmVenta extends config.conexion {
             return false;
         }
     }
+    
+    
+    public int obtenerUltimoIdVenta() {
+    int idVenta = -1;  // Valor por defecto si no hay registros
+    String sql = "SELECT Id_venta FROM venta ORDER BY Id_venta DESC LIMIT 1";
+    Connection conn = getAbrirConexion();
+    try (PreparedStatement stmt = conn.prepareStatement(sql);
+         ResultSet rs = stmt.executeQuery()) {
+
+        if (rs.next()) {
+            idVenta = rs.getInt("Id_venta");
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();  // Puedes reemplazar por manejo con logger si usas uno
+    }
+
+    return idVenta;
+}
+
 }

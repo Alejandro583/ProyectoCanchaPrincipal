@@ -3,12 +3,16 @@ package vista;
 
 
 import abm.abmCliente;
+import abm.abmDetalleVenta;
 import abm.abmVenta;
 import abm.abmProducto;
 import config.sesion;
+import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
@@ -18,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelo.modeloCliente;
+import modelo.modeloDetalleVenta;
 import modelo.modeloProducto;
 import modelo.modeloVenta;
 
@@ -38,6 +43,8 @@ public class frmVenta extends javax.swing.JFrame {
     modeloCliente oModeloCliente;
     DefaultTableModel modeloTabla;
     double montoTotal;
+    abmVenta oAbmVenta;
+    abmDetalleVenta oabDetalleVenta;
     public frmVenta(sesion pSesion,FrmMenuCancha menu) {
     initComponents();
     this.oSesion = pSesion;
@@ -47,6 +54,8 @@ public class frmVenta extends javax.swing.JFrame {
     oAbmProducto = new abmProducto(pSesion);
     cbxBuscarProducto.setModel(oAbmProducto.cargarProducto("",1));
     txtFecha.setText(obtenerFechaHoy());
+    oAbmVenta = new abmVenta();
+    oabDetalleVenta = new abmDetalleVenta();
     this.setExtendedState(this.MAXIMIZED_BOTH);
     cbxBuscarCliente.setModel(oAbmCliente.obtenerClientesActivos(""));
 }
@@ -761,85 +770,61 @@ public class frmVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPrecioVentaKeyPressed
    
     private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
-        try {
-        // Validación básica de campos obligatorios
-        if (txtCodigoProducto.getText().trim().isEmpty() ||
-            txtCantidad.getText().trim().isEmpty() ||
-            txtPrecioVenta.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Todos los campos de producto deben estar completos.");
-            return;
-        }
+        // Crear y poblar modeloVenta
+modeloVenta oModeloVenta = new modeloVenta();
+oModeloVenta.setEstado(1);
+oModeloVenta.setFecha(Date.valueOf(txtFecha.getText())); // o cbxFecha.getSelectedItem().toString() si usás combo
+oModeloVenta.setFkCliente(1); // puedes cambiar esto según el cliente seleccionado
+oModeloVenta.setFkCaja(1);    // según la caja actual
+oModeloVenta.setFkUsuario(oSesion.getIdUsuario());
+oModeloVenta.setSubtotal(montoTotal);
+oModeloVenta.setTotalNeto(montoTotal);
+oModeloVenta.setTotalCosto(0); // si lo calculás, colocarlo
+oModeloVenta.setIva10(10); // o el valor correspondiente
+oModeloVenta.setIva5(0);
+oModeloVenta.setIva0(0);
+oModeloVenta.setTipoVenta("CONTADO"); // o "CREDITO", según lógica
+oModeloVenta.setTtlPago(montoTotal); // total pagado
+oModeloVenta.setTtlDescuento(0); // si hay descuentos
+oModeloVenta.setTtlSaldo(0); // saldo restante
+oModeloVenta.setFacturaNro(0); // si manejás facturas
+DefaultTableModel modeloTabla = (DefaultTableModel) grilla.getModel();
 
-        // Cargar producto en la grilla
-        String codigo = txtCodigoProducto.getText();
-        int cantidad = Integer.parseInt(txtCantidad.getText());
-        double precio = Double.parseDouble(txtPrecioVenta.getText());
-        double subtotal = cantidad * precio;
+// Insertar venta en la base
+oAbmVenta.agregarVenta(oModeloVenta);
+int idVenta = oAbmVenta.obtenerUltimoIdVenta();
 
-        String descripcion = "";
-        String seleccionado = (String) cbxBuscarProducto.getSelectedItem();
-        if (seleccionado != null && seleccionado.contains(" - ")) {
-            descripcion = seleccionado.split(" - ")[1].trim();
-        } else {
-            descripcion = "Sin descripción";
-        }
+for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+    int idProducto = Integer.parseInt(modeloTabla.getValueAt(i, 0).toString()); // Código
+    int cantidad = Integer.parseInt(modeloTabla.getValueAt(i, 2).toString());   // Cantidad
+    float precio = Float.parseFloat(modeloTabla.getValueAt(i, 3).toString());   // Precio Unitario
+    float subtotal = Float.parseFloat(modeloTabla.getValueAt(i, 4).toString()); // Subtotal
 
-        DefaultTableModel modelo = (DefaultTableModel) grilla.getModel();
-        modelo.addRow(new Object[]{codigo, descripcion, cantidad, precio, subtotal});
+    // Buscar el modeloProducto por ID (reutiliza tu método productoExiste)
+    modeloProducto producto = new modeloProducto();
+    producto.setId_producto(idProducto);
+    producto = oAbmProducto.productoExiste(producto); // Asumimos que devuelve producto completo
+
+    // Crear y poblar modeloVentaDetalle
+    modeloDetalleVenta detalle = new modeloDetalleVenta();
+    detalle.setFk_venta(idVenta);
+    detalle.setFk_reserva(15); // Si no aplica reserva
+    detalle.setCosto(BigDecimal.valueOf(producto.getCosto())); // Extraído del modeloProducto
+    detalle.setPrecio(BigDecimal.valueOf(precio));             // Precio de venta unitario
+    detalle.setVenta_producto(BigDecimal.valueOf(subtotal));   // Subtotal (precio × cantidad)
+    detalle.setCantidad(cantidad);
+
+    
+}
+
+// Confirmación
+JOptionPane.showMessageDialog(null, "Venta registrada correctamente");
+this.setVisible(false);
+oFrmMenu.setVisible(true);
 
 
-        // -----------------------------------------------
-        // ⬇️ 🔽 🔽 Aquí pegás el bloque de validaciones seguras:
 
-        double iva5 = 0, iva10 = 0, totalNeto = 0, totalGs = 0, facturaNro = 0, subtotalVenta = 0;
-        int clienteId = 0;
 
-        //try { iva5 = Double.parseDouble(txtIva5.getText().trim()); } catch (NumberFormatException e) {}
-        //try { iva10 = Double.parseDouble(txtIva10.getText().trim()); } catch (NumberFormatException e) {}
-        try { totalNeto = Double.parseDouble(txtTotalNeto.getText().trim()); } catch (NumberFormatException e) {}
-        try { totalGs = Double.parseDouble(txtTotalGs.getText().trim()); } catch (NumberFormatException e) {}
-        try { facturaNro = Double.parseDouble(txtFactura.getText().trim()); } catch (NumberFormatException e) {}
-        try { clienteId = Integer.parseInt(txtCICliente.getText().trim()); } catch (NumberFormatException e) {}
-        try { subtotalVenta = Double.parseDouble(txtSubtotal.getText().trim()); } catch (NumberFormatException e) {}
-
-        // ⬆️ 🔼 🔼 Fin del bloque de validación segura
-
-        // Armar el modelo y guardar la venta
-        modeloVenta venta = new modeloVenta();
-        
-        if(cbxTipo.getSelectedItem().equals("Credito"))
-        {
-            venta.setFecha(java.sql.Date.valueOf(txtFecha.getText())); // Por ahora fija, podés cambiar a dinámico después
-            venta.setSaldo(Float.parseFloat(txtTotalNeto.getText()));
-            venta.setTotalCosto(0);
-            venta.setSubtotal(subtotalVenta);
-            venta.setIva0(0);
-            venta.setIva5(iva5);
-            venta.setIva10(iva10);
-            venta.setEstado(1);
-            venta.setFacturaNro(facturaNro);
-            venta.setTipoVenta(cbxTipo.getSelectedItem().toString());
-            venta.setTotalNeto(totalNeto);
-            venta.setTtlPago(totalGs);
-            venta.setTtlDescuento(0);
-            venta.setTtlSaldo(0);
-            venta.setFkCliente(clienteId);
-            venta.setFkCaja(1);
-            venta.setFkUsuario(oSesion.getIdUsuario());
-        }
-
-        abmVenta daoVenta = new abmVenta();
-        if (daoVenta.agregarVenta(venta)) {
-            JOptionPane.showMessageDialog(this, "Venta guardada exitosamente.");
-        } else {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar la venta.");
-        }
-
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Error en los datos ingresados: " + e.getMessage());
-    } catch (Exception ex) {
-        JOptionPane.showMessageDialog(this, "Error procesando venta: " + ex.getMessage());
-    }
 
     }//GEN-LAST:event_btnProcesarActionPerformed
 
@@ -956,6 +941,13 @@ public class frmVenta extends javax.swing.JFrame {
 
     }//GEN-LAST:event_cbxBuscarProductoActionPerformed
 
+    public static String formatearFechaSQL(Date fecha) {
+        if (fecha == null) {
+            return null;
+        }
+        SimpleDateFormat formatoSQL = new SimpleDateFormat("yyyy-MM-dd");
+        return formatoSQL.format(fecha);
+    }
     private void BtnBuscarCLIENTESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarCLIENTESActionPerformed
         String condicion = " AND Ci = " + txtCICliente.getText().trim();
         cbxBuscarCliente.setModel(oAbmCliente.obtenerClientesActivos(condicion));
@@ -987,11 +979,12 @@ public class frmVenta extends javax.swing.JFrame {
     {
         cbxBuscarCliente.setModel(oAbmCliente.obtenerClientesActivos(""));
     }
-    public  String obtenerFechaHoy() {
-        LocalDate hoy = LocalDate.now();
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return hoy.format(formato);
-    }
+    public String obtenerFechaHoy() {
+    LocalDate hoy = LocalDate.now();
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    return hoy.format(formato);
+}
+
     
     public void eliminarFilaSeleccionada(JTable tabla) {
     DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
@@ -1011,6 +1004,33 @@ public class frmVenta extends javax.swing.JFrame {
     }
     //txtSubtotal.setText(montoTotal+"");
 }
+    
+    public int obtenerIdClienteDesdeItem(String itemComboBox) {
+    modeloCliente oModeloCliente2 = new modeloCliente();
+
+    try {
+        // Extraer la cédula desde el ítem (formato: "12345678 - Nombre")
+        String cedula = itemComboBox.split(" - ")[0].trim();
+
+        // Establecer la cédula en el modelo
+        oModeloCliente2.setCi(cedula);
+
+        // Buscar el cliente en la base de datos por cédula
+        oModeloCliente2 = oAbmCliente.clienteExiste(cedula);
+
+        if (oModeloCliente2 != null) {
+            return oModeloCliente2.getId_cliente();
+        } else {
+            return -1; // Cliente no encontrado
+        }
+    } catch (Exception e) {
+        System.err.println("Error al obtener ID del cliente: " + e.getMessage());
+        return -1; // Error al buscar
+    }
+}
+
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBuscarCLIENTES;
     private javax.swing.JButton BtnBuscarProducto;
