@@ -130,23 +130,20 @@ public class abmCompra extends conexion {
     }
     
     
-    public DefaultComboBoxModel<String> cargarFechas() {
+   public DefaultComboBoxModel<String> cargarFechas() {
     DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
 
-    // Formato de fecha (podés cambiarlo si querés)
-    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM");
-
-    // Día de hoy
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate hoy = LocalDate.now();
 
-    // Agregar hoy y los próximos 7 días
     for (int i = 0; i <= 7; i++) {
         LocalDate fecha = hoy.plusDays(i);
-        modelo.addElement(fecha.format(formato));
+        modelo.addElement(fecha.format(formato)); // compatible con MySQL
     }
 
     return modelo;
 }
+
     
     public int obtenerUltimoIdCompra() {
     int ultimoId = -1; // Usamos -1 como valor por defecto si no se encuentra nada

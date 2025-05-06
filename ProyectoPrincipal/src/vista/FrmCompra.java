@@ -3,6 +3,7 @@
 package vista;
 
 import abm.abmCompra;
+import abm.abmCompraDetalle;
 import abm.abmProducto;
 import abm.abmProveedor;
 import config.sesion;
@@ -12,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelo.modeloCompra;
+import modelo.modeloCompraDetalle;
 import modelo.modeloProducto;
 import modelo.modeloProveedor;
 
@@ -19,7 +21,7 @@ import modelo.modeloProveedor;
 public class FrmCompra extends javax.swing.JFrame {
     //sesion oSesion = new sesion();
 
-    
+    abmCompraDetalle oAbmCompraDetalle;
     modeloCompra oModeloCompra;
     abmCompra oAbmCompra;
     sesion oSesion;
@@ -56,6 +58,7 @@ public class FrmCompra extends javax.swing.JFrame {
         modeloTabla = new DefaultTableModel();
         modeloTabla.setColumnIdentifiers(new Object[]{"CODIGO", "PRODUCTO", "COSTO", "PROVEEDOR","FECHA","CANTIDAD"});
         grillaCompra.setModel(modeloTabla);
+        oAbmCompraDetalle = new abmCompraDetalle(pSesion);
         
     }
 
@@ -89,7 +92,7 @@ public class FrmCompra extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         txtTotalNeto = new javax.swing.JTextField();
         jLabel34 = new javax.swing.JLabel();
-        cbxIva = new javax.swing.JComboBox<>();
+        txtIva = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         cbxProducto = new javax.swing.JComboBox<>();
         cbxProveedor = new javax.swing.JComboBox<>();
@@ -310,7 +313,7 @@ public class FrmCompra extends javax.swing.JFrame {
 
         jLabel32.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel32.setText("IVA");
+        jLabel32.setText("IVA  10%");
 
         txtTotalNeto.setEditable(false);
         txtTotalNeto.setBackground(new java.awt.Color(255, 255, 255));
@@ -319,10 +322,11 @@ public class FrmCompra extends javax.swing.JFrame {
         jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel34.setText("TOTAL NETO");
 
-        cbxIva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "5", "10" }));
-        cbxIva.addActionListener(new java.awt.event.ActionListener() {
+        txtIva.setEditable(false);
+        txtIva.setBackground(new java.awt.Color(255, 255, 255));
+        txtIva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxIvaActionPerformed(evt);
+                txtIvaActionPerformed(evt);
             }
         });
 
@@ -344,8 +348,8 @@ public class FrmCompra extends javax.swing.JFrame {
                             .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelSubtotalLayout.createSequentialGroup()
                         .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbxIva, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIva, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         panelSubtotalLayout.setVerticalGroup(
@@ -359,9 +363,9 @@ public class FrmCompra extends javax.swing.JFrame {
                     .addComponent(txtSubtotal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(panelSubtotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxIva, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                    .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIva, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(panelSubtotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(panelSubtotalLayout.createSequentialGroup()
                         .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -421,8 +425,8 @@ public class FrmCompra extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnSelecionar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
@@ -464,7 +468,7 @@ public class FrmCompra extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btnAceptar.setText("PROCESAR");
+        btnAceptar.setText("PROCESAR COMPRA");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAceptarActionPerformed(evt);
@@ -484,8 +488,8 @@ public class FrmCompra extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(btnCompraDetalle)
                 .addGap(26, 26, 26))
         );
@@ -493,10 +497,11 @@ public class FrmCompra extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAceptar)
-                    .addComponent(btnCompraDetalle))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(btnCompraDetalle)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAceptar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         grillaCompra.setModel(new javax.swing.table.DefaultTableModel(
@@ -624,13 +629,45 @@ public class FrmCompra extends javax.swing.JFrame {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         
-        if(montoTotal > 0)
-        {
-            JOptionPane.showMessageDialog(null,"VENTA PROCESADO CORRECTAMENTE");
-        }else
-        {
-            JOptionPane.showMessageDialog(null,"NO SE PUDO PROCESAR LA VENTA");
-        }
+        oModeloCompra = new modeloCompra();
+        oModeloCompra.setEstado(1);
+        oModeloCompra.setFecha(cbxFecha.getSelectedItem().toString());
+        oModeloCompra.setFk_proveedor(1);
+        oModeloCompra.setFk_usuario(oSesion.getIdUsuario());
+        oModeloCompra.setSubtotal(montoTotal);
+        oModeloCompra.setTotal_neto(montoTotal);
+        oModeloCompra.setIva10(10);
+        oModeloCompra.setTipo_compra("CONTADO");
+       oAbmCompra.agregarCompra(oModeloCompra);
+       
+        DefaultTableModel modeloTabla = (DefaultTableModel) grillaCompra.getModel();
+
+    for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+    int idProducto = Integer.parseInt(modeloTabla.getValueAt(i, 0).toString()); // CODIGO
+    float costo = Float.parseFloat(modeloTabla.getValueAt(i, 2).toString());    // COSTO
+    int cantidad = Integer.parseInt(modeloTabla.getValueAt(i, 5).toString());   // CANTIDAD
+    String fecha = modeloTabla.getValueAt(i, 4).toString();                     // FECHA
+    int idProveedor = 1; // PROVEEDOR
+    
+    // Crear modelo del detalle
+    modeloCompraDetalle detalle = new modeloCompraDetalle();
+    detalle.setFk_compra(oAbmCompra.obtenerUltimoIdCompra());
+    detalle.setFk_producto(idProducto);
+    detalle.setCosto(costo);
+    detalle.setCantidad(cantidad);
+    detalle.setEstado(1); // o el estado que corresponda
+
+    // Insertar en la base
+     if(oAbmCompraDetalle.agregarDetalle(detalle))
+     {
+         JOptionPane.showMessageDialog(null, "Compra Registrada Correctamente");
+         this.setVisible(false);
+         oFrmMenuCancha.setVisible(true);
+     }
+     
+     
+}
+        
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     public void Aceptar(){
@@ -687,7 +724,7 @@ public class FrmCompra extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         eliminarFilaSeleccionada(grillaCompra);
-        double iva = transformarValorSeleccionado(cbxIva);
+        double iva = 0.1;
         calcularMontoTotal(montoTotal,iva);
         
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -695,10 +732,6 @@ public class FrmCompra extends javax.swing.JFrame {
     private void txtPrecioVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioVentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrecioVentaActionPerformed
-
-    private void cbxIvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxIvaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxIvaActionPerformed
 
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
        
@@ -715,11 +748,15 @@ public class FrmCompra extends javax.swing.JFrame {
         txtCodigoProducto.setText(oModeloProducto.getId_producto()+"");
        montoTotal +=  oModeloProducto.getCosto() * Integer.parseInt(txtCantidad.getText());
        txtCompraId.setText(oAbmCompra.obtenerUltimoIdCompra()+1+"");
-        double iva = transformarValorSeleccionado(cbxIva);
+        double iva = 0.1;
         calcularMontoTotal(montoTotal,iva);
       txtSubtotal.setText(montoTotal+"");
-        
+      
     }//GEN-LAST:event_btnSelecionarActionPerformed
+
+    private void txtIvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIvaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIvaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -757,11 +794,14 @@ public class FrmCompra extends javax.swing.JFrame {
     }
     
     public void seleccionarItemPorNombre(JComboBox<String> comboBox, String nombreABuscar) {
+    
     String[] partes = nombreABuscar.split(" - ");
     int idBuscado = Integer.parseInt(partes[0].trim());
-    oModeloProducto.setId_producto(idBuscado);
-    oModeloProducto = oAbmProducto.productoExiste(oModeloProducto);
-    txtPrecioVenta.setText(oModeloProducto.getCosto()+"");
+    modeloProducto nuevomodelo = new modeloProducto();
+    nuevomodelo.setId_producto(idBuscado);
+    nuevomodelo = oAbmProducto.productoExiste(nuevomodelo);
+    txtPrecioVenta.setText(nuevomodelo.getCosto()+"");
+    oModeloProducto = nuevomodelo;
 }
     
     public void seleccionarItemProveedor(JComboBox<String> comboBox, String nombreABuscar) {
@@ -809,8 +849,9 @@ public double transformarValorSeleccionado(JComboBox<String> comboBox) {
 }
  public  void calcularMontoTotal(double subtotal, double ivaPorcentaje) {
         double iva = subtotal * ivaPorcentaje;  // Calculamos el IVA
-        montoIva = subtotal + iva;    // Sumamos el IVA al subtotal
-        txtTotalNeto.setText(montoIva+"");
+        montoIva = iva;    // Sumamos el IVA al subtotal
+        txtTotalNeto.setText(subtotal+"");
+        txtIva.setText(montoIva+"");
     }
     
 
@@ -821,7 +862,6 @@ public double transformarValorSeleccionado(JComboBox<String> comboBox) {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnSelecionar;
     private javax.swing.JComboBox<String> cbxFecha;
-    private javax.swing.JComboBox<String> cbxIva;
     private javax.swing.JComboBox<String> cbxProducto;
     private javax.swing.JComboBox<String> cbxProveedor;
     private javax.swing.JTable grillaCompra;
@@ -847,6 +887,7 @@ public double transformarValorSeleccionado(JComboBox<String> comboBox) {
     public javax.swing.JTextField txtCodigoProducto;
     private javax.swing.JTextField txtCompraId;
     private javax.swing.JTextField txtFactura;
+    private javax.swing.JTextField txtIva;
     private javax.swing.JTextField txtPrecioVenta;
     private javax.swing.JTextField txtSubtotal;
     private javax.swing.JTextField txtTotalNeto;
