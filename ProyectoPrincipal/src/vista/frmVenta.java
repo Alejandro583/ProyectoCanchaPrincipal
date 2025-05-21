@@ -58,6 +58,7 @@ public class frmVenta extends javax.swing.JFrame {
     oabDetalleVenta = new abmDetalleVenta();
     this.setExtendedState(this.MAXIMIZED_BOTH);
     cbxBuscarCliente.setModel(oAbmCliente.obtenerClientesActivos(""));
+    txtVenda_ID.setText((oAbmVenta.obtenerUltimoIdVenta()+1)+"");
 }
 
     

@@ -806,8 +806,10 @@ public class FrmCompra extends javax.swing.JFrame {
     public void seleccionarItemProveedor(JComboBox<String> comboBox, String nombreABuscar) {
     String[] partes = nombreABuscar.split(" - ");
     int idBuscado = Integer.parseInt(partes[0].trim());
-    oModeloProveedor.setId_proveedor(idBuscado);
-    oModeloProveedor = oAbmProveedor.proveedorExiste(oModeloProveedor);
+    modeloProveedor nuevomodeloProveedor = new modeloProveedor();
+    nuevomodeloProveedor.setIdProveedor(idBuscado);
+    nuevomodeloProveedor = oAbmProveedor.proveedorExiste(oModeloProveedor);
+    oModeloProveedor = nuevomodeloProveedor;
     
 }
     
