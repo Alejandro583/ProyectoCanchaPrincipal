@@ -627,6 +627,17 @@ public class FrmCompra extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtPrecioVentaKeyTyped
 
+    
+    //COSAS QUE FALTAN AJUSTAR EN ESTA FUNCION 
+    /*
+    1 - VERIFICAR CANTIDAD DE PRODUCTO EN STOCK 
+    2 - AUMENTAR STOCK POR CADA COMPRA REALIZADA
+    3 - VERIFICAR SI EL MONTO EN CAJA ES SUFICIENTE PARA PAGAR LA COMPRA
+    4 - VERIFICAR QUE NO PERMITA NUMEROS NEGATIVOS EN CANTIDAD 
+    5 - VERIFICAR QUE EL MONTO NO SEA NEGATIVO
+    6 - verificar que el id proveedor sea correcto
+    */
+    
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         
         oModeloCompra = new modeloCompra();
