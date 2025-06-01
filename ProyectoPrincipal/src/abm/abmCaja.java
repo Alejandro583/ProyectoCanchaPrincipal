@@ -174,6 +174,42 @@ public boolean aumentarTarjeta(double monto, int id_caja) {
     }
 }
 
+  public boolean disminuirEfectivo(double monto, int id_caja) {
+    Connection conex = getAbrirConexion();
+    PreparedStatement consulta = null;
+    String sql;
+    try {
+        sql = "UPDATE caja SET Efectivo = Efectivo - ?, Total = Total - ? WHERE Id_caja = ?";
+        consulta = conex.prepareStatement(sql);
+        consulta.setDouble(1, monto);
+        consulta.setDouble(2, monto);
+        consulta.setInt(3, id_caja);
+        consulta.executeUpdate();
+        return true;
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+        return false;
+    }
+}
+    
+
+public boolean disminuirTarjeta(double monto, int id_caja) {
+    Connection conex = getAbrirConexion();
+    PreparedStatement consulta = null;
+    String sql;
+    try {
+        sql = "UPDATE caja SET Tarjeta = Tarjeta - ?, Total = Total - ? WHERE Id_caja = ?";
+        consulta = conex.prepareStatement(sql);
+        consulta.setDouble(1, monto);
+        consulta.setDouble(2, monto);
+        consulta.setInt(3, id_caja);
+        consulta.executeUpdate();
+        return true;
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+        return false;
+    }
+}
 public boolean reversionTotal(double monto, int id_caja) {
     Connection conex = getAbrirConexion();
     PreparedStatement consulta = null;

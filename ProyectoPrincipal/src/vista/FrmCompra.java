@@ -2,6 +2,7 @@
 
 package vista;
 
+import abm.abmCaja;
 import abm.abmCompra;
 import abm.abmCompraDetalle;
 import abm.abmProducto;
@@ -130,7 +131,6 @@ public class FrmCompra extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("FACTURA");
 
-        txtFactura.setEnabled(false);
         txtFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFacturaActionPerformed(evt);
@@ -546,7 +546,7 @@ public class FrmCompra extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelEncabezado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -661,7 +661,9 @@ public class FrmCompra extends javax.swing.JFrame {
     
      
      
-} 
+}
+    abmCaja oAbmCaja = new abmCaja(oSesion);
+    oAbmCaja.disminuirEfectivo(montoTotal, 1);
          JOptionPane.showMessageDialog(null, "Compra Registrada Correctamente");
          this.setVisible(false);
          oFrmMenuCancha.setVisible(true);
@@ -718,7 +720,7 @@ public class FrmCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxFechaActionPerformed
 
     private void cbxProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProveedorActionPerformed
-        seleccionarItemPorNombre(cbxProveedor, cbxProveedor.getSelectedItem().toString());
+        seleccionarItemProveedor(cbxProveedor, cbxProveedor.getSelectedItem().toString());
     }//GEN-LAST:event_cbxProveedorActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -744,7 +746,7 @@ public class FrmCompra extends javax.swing.JFrame {
             
             //{"CODIGO", "PRODUCTO", "COSTO", "PROVEEDOR","FECHA","CANTIDAD"});
 });
-        txtCodigoProducto.setText(oModeloProducto.getId_producto()+"");
+       txtCodigoProducto.setText(oModeloProducto.getId_producto()+"");
        montoTotal +=  oModeloProducto.getCosto() * Integer.parseInt(txtCantidad.getText());
        txtCompraId.setText(oAbmCompra.obtenerUltimoIdCompra()+1+"");
         double iva = 0.1;
@@ -808,7 +810,7 @@ public class FrmCompra extends javax.swing.JFrame {
     int idBuscado = Integer.parseInt(partes[0].trim());
     modeloProveedor nuevomodeloProveedor = new modeloProveedor();
     nuevomodeloProveedor.setIdProveedor(idBuscado);
-    nuevomodeloProveedor = oAbmProveedor.proveedorExiste(oModeloProveedor);
+    nuevomodeloProveedor = oAbmProveedor.proveedorExiste(nuevomodeloProveedor);
     oModeloProveedor = nuevomodeloProveedor;
     
 }

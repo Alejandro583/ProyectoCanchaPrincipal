@@ -270,6 +270,8 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         
+        
+        
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -319,7 +321,7 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
     cbxFecha1.setModel(oAbmReservae.cargarFechas());
     cbxHorario.setModel(oAbmReservae.cargarHorarios(1, oModeloreserva.getFechaReserva()));
 
-    // Ahora seleccionamos los valores correctos
+    //Ahora seleccionamos los valores correctos
     seleccionarItemPorNombre(cbxFecha1, oModeloreserva.getFechaReserva());
     seleccionarItemPorNombre(cbxHorario, oModeloreserva.getHorario_inicio() + " - " + oModeloreserva.getHorario_fin());
 }

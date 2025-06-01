@@ -157,7 +157,7 @@ public class FrmICompraDetalle extends javax.swing.JInternalFrame {
                     .addComponent(btnModificar)
                     .addComponent(btnEliminar)
                     .addComponent(btnCancelar))
-                .addContainerGap(313, Short.MAX_VALUE))
+                .addContainerGap(279, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

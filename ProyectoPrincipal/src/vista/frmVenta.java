@@ -2,6 +2,7 @@ package vista;
 
 
 
+import abm.abmCaja;
 import abm.abmCliente;
 import abm.abmDetalleVenta;
 import abm.abmVenta;
@@ -21,6 +22,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import modelo.modeloCaja;
 import modelo.modeloCliente;
 import modelo.modeloDetalleVenta;
 import modelo.modeloProducto;
@@ -813,10 +815,13 @@ for (int i = 0; i < modeloTabla.getRowCount(); i++) {
     detalle.setCosto(BigDecimal.valueOf(producto.getCosto())); // Extraído del modeloProducto
     detalle.setPrecio(BigDecimal.valueOf(precio));             // Precio de venta unitario
     detalle.setVenta_producto(BigDecimal.valueOf(subtotal));   // Subtotal (precio × cantidad)
-    detalle.setCantidad(cantidad);
-
-    
+    detalle.setCantidad(cantidad);  
 }
+
+//sumar el monto a la caja 
+abmCaja oAbmCaja = new abmCaja(oSesion);
+ 
+oAbmCaja.aumentarEfectivo(montoTotal, 1);
 
 // Confirmación
 JOptionPane.showMessageDialog(null, "Venta registrada correctamente");
@@ -824,9 +829,20 @@ this.setVisible(false);
 oFrmMenu.setVisible(true);
 
 
+   
+    txtFactura.setText("");
+    txtCICliente.setText("");
+    txtCodigoProducto.setText("");
+    txtCantidad.setText("");
+    txtPrecioVenta.setText("");
+    txtSubtotal.setText("");
+    txtIva.setText("");
+    txtTotalNeto.setText("");
+    txtTotalGeneral.setText("");
+    txtTotalGs.setText("");
 
-
-
+    DefaultTableModel modelo = (DefaultTableModel) grilla.getModel();
+    modelo.setRowCount(0);
     }//GEN-LAST:event_btnProcesarActionPerformed
 
     
