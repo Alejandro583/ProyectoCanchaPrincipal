@@ -2,6 +2,7 @@
 package vista;
 
 import abm.abmProducto;
+import abm.abmProveedor;
 import config.sesion;
 import javax.swing.JOptionPane;
 import modelo.modeloProducto;
@@ -20,13 +21,16 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
     modeloProducto oModeloProducto;
     String opcion;
     sesion Osesion = new sesion();
+    abmProveedor oAbmProveedor;
     public FrmIProducto(String operacion,modeloProducto oproducto,FrmProducto pFrmProducto) {
         initComponents();
         opcion = operacion;
         ofrmProducto = pFrmProducto;
+        oAbmProveedor = new abmProveedor();
         if(opcion.equals("GUARDAR"))
         {
             btnGuardar.setText(opcion);
+            cbxProveedor.setModel(oAbmProveedor.cargarProveedor());
         }
         else
         {
@@ -36,6 +40,7 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
             txtProducto.setText(oproducto.getNombre_producto());
             txtStock.setText(oproducto.getStock()+"");
             txtCodigo.setText(oproducto.getId_producto()+"");
+            cbxProveedor.setModel(oAbmProveedor.cargarProveedor());
         }
     }
 
@@ -130,6 +135,12 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
             }
         });
 
+        cbxProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxProveedorActionPerformed(evt);
+            }
+        });
+
         txtCodigo.setEnabled(false);
         txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -195,7 +206,7 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -260,6 +271,10 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoKeyPressed
 
+    private void cbxProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProveedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxProveedorActionPerformed
+
     public void realizarOperacion()
     {
         oModeloProducto = new modeloProducto();
@@ -270,7 +285,9 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
             oModeloProducto.setNombre_producto(txtProducto.getText());
             oModeloProducto.setPrecio(Float.parseFloat(txtPrecio.getText()));
             oModeloProducto.setStock(Integer.parseInt(txtStock.getText())); 
-            oModeloProducto.setFk_proveedor(1);
+            String[] partes = cbxProveedor.getSelectedItem().toString().split(" - ");
+            int idProveedor = Integer.parseInt(partes[0].trim());
+            oModeloProducto.setFk_proveedor(idProveedor);
             boolean resultado = oAbmProducto.cargarProducto(oModeloProducto);
             if (resultado)
             {
