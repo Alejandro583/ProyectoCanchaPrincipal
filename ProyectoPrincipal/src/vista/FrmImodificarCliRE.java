@@ -27,12 +27,16 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
     modeloCliente oModeloCliente;
     modeloReserva oModeloreserva;
     FrmIclienteReserva OfrmFrmIclienteReserva;
+    abmReserva oAbmReserva;
+    abmCliente oAbmCliente;
     public FrmImodificarCliRE(modeloCliente pmodeloCliente,modeloReserva pModeloReserva,sesion psesion,FrmIclienteReserva pFrm) {
         initComponents();  
         Osesion = psesion;
         oModeloCliente = pmodeloCliente;
         oModeloreserva = pModeloReserva;
         OfrmFrmIclienteReserva = pFrm;
+        oAbmReserva = new abmReserva(psesion);
+        oAbmCliente = new abmCliente(psesion);
         if(oModeloreserva==null)
         {
             modificarcliente();
@@ -284,18 +288,33 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
         if (oModeloreserva==null)
         {
           //FALTA LA FUNCION PARA CARGAR LAS MODIFICACIONES EN LA BASE DE 
-            OfrmFrmIclienteReserva.oAbmCliente.cargarTabla("");
-            OfrmFrmIclienteReserva.setVisible(true);
-            this.dispose();
+            oModeloCliente.setCi(txtCi.getText());
+            oModeloCliente.setNombre(txtNombre.getText());
+            oModeloCliente.setTelefono(txtTelefono.getText());
+            
+            if (oAbmCliente.modificarCliente(oModeloCliente))
+            {
+                JOptionPane.showMessageDialog(null, "Cliente Modificado Correctamente");
+                OfrmFrmIclienteReserva.setVisible(true);
+                
+                
+                this.dispose();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Error al modificar el cliente");
+            }
+            
         }
         else
         {
             
-          //FALTA LA FUNCION PARA CARGAR LAS MODIFICACIONES EN LA BASE DE 
+          //FALTA LA FUNCION PARA CARGAR LAS MODIFICACIONES EN LA BASE DE DATOS DEBE EXTRAER LOS DATOS DE LOS CAMPOS 
             OfrmFrmIclienteReserva.oAbmReserva.cargarReservas("");
             OfrmFrmIclienteReserva.setVisible(true);
             this.dispose();
         }
+        OfrmFrmIclienteReserva.cargarTablaReserva();
         
         
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -315,7 +334,6 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
 
     public void modificarcliente()
     {
-        abmCliente oAbmcliente = new abmCliente(Osesion);
         txtCi.setText(oModeloCliente.getCi());
         txtNombre.setText(oModeloCliente.getNombre());
         txtTelefono.setText(oModeloCliente.getTelefono());
@@ -349,7 +367,7 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
     seleccionarItemPorNombre(cbxFecha1, oModeloreserva.getFechaReserva());
     seleccionarItemPorNombre(cbxHorario, oModeloreserva.getHorario_inicio() + " - " + oModeloreserva.getHorario_fin());
     
-    oAbmReservae.modificarReserva(oModeloreserva);
+   
 }
 
      

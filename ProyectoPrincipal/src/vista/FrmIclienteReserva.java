@@ -280,7 +280,11 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
         }
     }
     
-    
+    public void cargarTablaReserva()
+    {
+        grillaClienteReserva.setModel(oAbmCliente.cargarTabla(""));
+        oFrmPrincipal.cargarTablas();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscador;

@@ -153,13 +153,13 @@ public class abmCliente extends config.conexion
         try 
         {
             sql = "UPDATE cliente SET Nombre = ?, Estado = ?,Telefono = ?,Ci = ? " + 
-                "WHERE Ci = ?";
+                "WHERE Id_cliente = ?";
             consulta = conex.prepareStatement(sql);
             consulta.setString(1, pCliente.getNombre());
             consulta.setInt(2, pCliente.getEstado());
             consulta.setString(3, pCliente.getTelefono());
             consulta.setString(4, pCliente.getCi());
-            consulta.setString(5, pCliente.getCi());
+            consulta.setInt(5, pCliente.getId_cliente());
             consulta.executeUpdate();
             return true; 
         } 

@@ -753,7 +753,10 @@ public class FrmClienteReserva extends javax.swing.JFrame {
             }
         });
     }
-    
+    public void cargarTablas()
+    {
+        grillaCliente.setModel(oAbmCliente.cargarTabla(""));
+    }
     public void mostrarPanel(FrmImodificarCliRE frm)
     {
         PanelPrincipal.add(frm);
