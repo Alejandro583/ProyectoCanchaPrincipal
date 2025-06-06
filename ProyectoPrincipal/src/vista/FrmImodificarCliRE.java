@@ -26,8 +26,20 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
     sesion Osesion = new sesion();
     modeloCliente oModeloCliente;
     modeloReserva oModeloreserva;
-    public FrmImodificarCliRE() {
+    FrmIclienteReserva OfrmFrmIclienteReserva;
+    public FrmImodificarCliRE(modeloCliente pmodeloCliente,modeloReserva pModeloReserva,sesion psesion,FrmIclienteReserva pFrm) {
         initComponents();  
+        Osesion = psesion;
+        oModeloCliente = pmodeloCliente;
+        oModeloreserva = pModeloReserva;
+        OfrmFrmIclienteReserva = pFrm;
+        if(oModeloreserva==null)
+        {
+            modificarcliente();
+        }else
+        {
+            modificarReserva();
+        }
     }
 
     /**
@@ -269,7 +281,21 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtTelefonoKeyPressed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        
+        if (oModeloreserva==null)
+        {
+          //FALTA LA FUNCION PARA CARGAR LAS MODIFICACIONES EN LA BASE DE 
+            OfrmFrmIclienteReserva.oAbmCliente.cargarTabla("");
+            OfrmFrmIclienteReserva.setVisible(true);
+            this.dispose();
+        }
+        else
+        {
+            
+          //FALTA LA FUNCION PARA CARGAR LAS MODIFICACIONES EN LA BASE DE 
+            OfrmFrmIclienteReserva.oAbmReserva.cargarReservas("");
+            OfrmFrmIclienteReserva.setVisible(true);
+            this.dispose();
+        }
         
         
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -287,10 +313,9 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxFecha1ActionPerformed
 
 
-    public void modificarcliente(modeloCliente cliente)
+    public void modificarcliente()
     {
-        abmCliente oAbmcliente = new abmCliente(null);
-        oModeloCliente = cliente;
+        abmCliente oAbmcliente = new abmCliente(Osesion);
         txtCi.setText(oModeloCliente.getCi());
         txtNombre.setText(oModeloCliente.getNombre());
         txtTelefono.setText(oModeloCliente.getTelefono());
@@ -304,17 +329,16 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
         fecha.setVisible(false);
         
     }
-     public void modificarReserva(modeloReserva reserva, modeloCliente cliente) {
-    abmReserva oAbmReservae = new abmReserva(null);
-    abmCancha oAbmCancha = new abmCancha(null);
+     public void modificarReserva() {
+    abmReserva oAbmReservae = new abmReserva(Osesion);
+    abmCancha oAbmCancha = new abmCancha(Osesion);
 
-    oModeloCliente = cliente;
-    oModeloreserva = reserva;
+    
 
     txtCi.setText(oModeloCliente.getCi());
     txtNombre.setText(oModeloCliente.getNombre());
     txtTelefono.setText(oModeloCliente.getTelefono());
-    txtObservacion.setText(reserva.getObs());
+    txtObservacion.setText(oModeloreserva.getObs());
 
     // Cargamos los combos primero
     cbxCancha1.setModel(oAbmCancha.cargarComboBox(""));
@@ -324,6 +348,8 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
     //Ahora seleccionamos los valores correctos
     seleccionarItemPorNombre(cbxFecha1, oModeloreserva.getFechaReserva());
     seleccionarItemPorNombre(cbxHorario, oModeloreserva.getHorario_inicio() + " - " + oModeloreserva.getHorario_fin());
+    
+    oAbmReservae.modificarReserva(oModeloreserva);
 }
 
      

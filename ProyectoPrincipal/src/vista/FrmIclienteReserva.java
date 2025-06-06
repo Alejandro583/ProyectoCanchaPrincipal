@@ -7,6 +7,7 @@ package vista;
 
 import abm.abmCliente;
 import abm.abmReserva;
+import config.sesion;
 import javax.swing.JOptionPane;
 import modelo.modeloCliente;
 import modelo.modeloReserva;
@@ -31,16 +32,18 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
     String opcion1 = "";
     String valorRecibido;
     FrmClienteReserva oFrmPrincipal;
+    sesion  Osesion;
     public FrmIclienteReserva() {
         initComponents();
         //grillaClienteReserva.setModel(oAbmCliente.cargarTabla(""));
     }
     
 
-    public FrmIclienteReserva(String opcionMostrar,FrmClienteReserva frm) {
+    public FrmIclienteReserva(String opcionMostrar,FrmClienteReserva frm,sesion psesion) {
         initComponents();
         oFrmPrincipal = frm;
         valorRecibido = opcionMostrar;
+        Osesion = psesion;
         if (opcionMostrar.equals("CLIENTE"))
         {
             grillaClienteReserva.setModel(oAbmCliente.cargarTabla(""));
@@ -207,8 +210,8 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         int filaSeleccionada = grillaClienteReserva.getSelectedRow(); // obtengo la fila seleccionada
-        FrmImodificarCliRE oFrmmodificarCliente = new FrmImodificarCliRE();
-        oFrmPrincipal.mostrarPanel(oFrmmodificarCliente);
+        
+        
         if(valorRecibido.equals("CLIENTE"))
         {
             this.setVisible(false);
@@ -218,8 +221,10 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
                 oModeloCliente = new modeloCliente();
                 oModeloCliente.setCi(cedula);
                 cliente = oAbmCliente.clienteExiste(cedula);
+                FrmImodificarCliRE oFrmmodificarCliente = new FrmImodificarCliRE(cliente,null,Osesion,this);
                 this.setVisible(false);
-                oFrmmodificarCliente.modificarcliente(cliente);
+                oFrmmodificarCliente.modificarcliente();
+                oFrmPrincipal.mostrarPanel(oFrmmodificarCliente);
             }
         }
         else
@@ -231,7 +236,9 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
                 oModeloReserva = oAbmReserva.reservaExiste(id);
                 oModeloCliente = oAbmCliente.clienteExiste(oModeloReserva.getFk_cliente());
                 this.setVisible(false);
-                oFrmmodificarCliente.modificarReserva(oModeloReserva,oModeloCliente);
+                FrmImodificarCliRE oFrmmodificarCliente = new FrmImodificarCliRE(oModeloCliente,oModeloReserva,Osesion,this);
+                oFrmmodificarCliente.modificarReserva();
+                oFrmPrincipal.mostrarPanel(oFrmmodificarCliente);
             }
         }
     }//GEN-LAST:event_btnModificarActionPerformed

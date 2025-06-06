@@ -374,8 +374,6 @@ public final class sesion extends conexion {
         }
     }
 
-    public boolean verificarEnter(ActionEvent evt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
         
 }

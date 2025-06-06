@@ -102,7 +102,7 @@ public class abmCaja extends conexion {
     public boolean modificarCaja(modeloCaja caja) {
         Connection conex = getAbrirConexion();
         PreparedStatement ps = null;
-        String sql = "UPDATE caja SET total = ?, Efectivo = ?, Tarjeta = ?, Fecha = ?, Estado = ?, Fk_usuario = ? WHERE Id_caja = ?";
+        String sql = "UPDATE caja SET total = ?, Efectivo = ?, Tarjeta = ?, Fecha = ?, Estado = ? WHERE Id_caja = ?";
 
         try {
             ps = conex.prepareStatement(sql);
@@ -111,8 +111,7 @@ public class abmCaja extends conexion {
             ps.setDouble(3, caja.getTarjeta());
             ps.setDate(4, caja.getFecha());
             ps.setBoolean(5, caja.isEstado());
-            ps.setInt(6, caja.getFk_usuario());
-            ps.setInt(7, caja.getId_caja());
+            ps.setInt(6, caja.getId_caja());
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -228,16 +227,6 @@ public boolean reversionTotal(double monto, int id_caja) {
     }
 }
 
-    public modeloCaja CargarCaja(modeloCaja oModeloCaja) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public boolean eliminarCaja(modeloCaja oModeloCaja) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public boolean cargarTabla(modeloCaja oModeloCaja) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 }
 

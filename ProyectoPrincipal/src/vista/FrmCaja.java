@@ -200,7 +200,7 @@ public class FrmCaja extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        FrmIAggCaja oFrmIAggCaja = new FrmIAggCaja();
+        FrmIAggCaja oFrmIAggCaja = new FrmIAggCaja("GUARDAR", null, this, oSesion);
         panelPrincipal.add(oFrmIAggCaja);
         oFrmIAggCaja.setVisible(true);
         
@@ -231,7 +231,7 @@ public class FrmCaja extends javax.swing.JFrame {
     public void  cajaSeleccionado(int id )
     {
         oModeloCaja.setId_caja(id);
-        oModeloCaja= oAbmCaja.CargarCaja(oModeloCaja);
+        oModeloCaja= oAbmCaja.CargarCaja(id);
     }
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         oFrmMenuCancha.setVisible(true);
@@ -245,7 +245,7 @@ public class FrmCaja extends javax.swing.JFrame {
             int  id = Integer.parseInt(grillaCaja.getValueAt(filaSeleccionada, 0).toString()); 
             oModeloCaja.setId_caja(id);
             oModeloCaja = oAbmCaja.CargarCaja(id);
-            FrmIAggCaja oFrmCaja = new FrmIAggCaja("MODIFICAR",oModeloCaja,this);
+            FrmIAggCaja oFrmCaja = new FrmIAggCaja("MODIFICAR",oModeloCaja,this,oSesion);
             panelPrincipal.add(oFrmCaja);
             oFrmCaja.setVisible(true);
         }

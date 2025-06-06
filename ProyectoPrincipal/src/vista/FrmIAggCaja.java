@@ -3,13 +3,18 @@ package vista;
 
 import abm.abmCaja;
 import config.sesion;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.modeloCaja;
 
 public class FrmIAggCaja extends javax.swing.JInternalFrame {
     
     FrmCaja ofrmCaja;
-    abmCaja oAbmCaja = new abmCaja (null);
+    abmCaja oAbmCaja;
     modeloCaja oModeloCaja;
     String opcion;
     sesion Osesion = new sesion();
@@ -18,12 +23,14 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
         initComponents();
     }
     
-    public FrmIAggCaja(String operacion,modeloCaja oCaja,FrmCaja pFrmCaja) {
+    public FrmIAggCaja(String operacion,modeloCaja oCaja,FrmCaja pFrmCaja,sesion psesion) {
         initComponents();
-        
+        txtIdCaja.requestFocus();
         initComponents() ;
         opcion = operacion;
         ofrmCaja = pFrmCaja;
+        Osesion =  psesion;
+        oAbmCaja = new abmCaja(Osesion);
         if(opcion.equals("GUARDAR"))
         {
             btnAgregar.setText(opcion);
@@ -37,6 +44,7 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
             txtEfectivo.setText(oCaja.getEfectivo() + "");
             txtTarjeta.setText(oCaja.getTarjeta() + "");
             txtFecha.setText(oCaja.getFecha() + "");
+            txtFecha.setEditable(false);
             txtEstado.setText("1");
             
 //            txtStock.setText(oproducto.getStock()+"");
@@ -87,12 +95,23 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
             }
         });
 
+        txtTarjeta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTarjetaKeyPressed(evt);
+            }
+        });
+
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("FECHA");
 
         txtFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFechaActionPerformed(evt);
+            }
+        });
+        txtFecha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFechaKeyPressed(evt);
             }
         });
 
@@ -102,6 +121,11 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
         txtEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEstadoActionPerformed(evt);
+            }
+        });
+        txtEstado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtEstadoKeyPressed(evt);
             }
         });
 
@@ -122,16 +146,31 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
                 txtEfectivoActionPerformed(evt);
             }
         });
+        txtEfectivo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtEfectivoKeyPressed(evt);
+            }
+        });
 
         txtIdCaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdCajaActionPerformed(evt);
             }
         });
+        txtIdCaja.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtIdCajaKeyPressed(evt);
+            }
+        });
 
         txtTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTotalActionPerformed(evt);
+            }
+        });
+        txtTotal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTotalKeyPressed(evt);
             }
         });
 
@@ -209,47 +248,83 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
-       if(Osesion.verificarEnter(evt) == true)
-        {
-            txtTotal.requestFocus();
-        }
+       
     }//GEN-LAST:event_txtTotalActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        realizarOperacion();
+        try {
+            realizarOperacion();
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmIAggCaja.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ofrmCaja.actualizarTabla();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void txtIdCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdCajaActionPerformed
-        if(Osesion.verificarEnter(evt) == true)
-        {
-            txtIdCaja.requestFocus();
-        }
+        
     }//GEN-LAST:event_txtIdCajaActionPerformed
 
     private void txtEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEfectivoActionPerformed
+        
+    }//GEN-LAST:event_txtEfectivoActionPerformed
+
+    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
+        
+    }//GEN-LAST:event_txtFechaActionPerformed
+
+    private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
+        
+    }//GEN-LAST:event_txtEstadoActionPerformed
+
+    private void txtIdCajaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdCajaKeyPressed
+        if(Osesion.verificarEnter(evt) == true)
+        {
+            txtTotal.requestFocus();
+        }
+    }//GEN-LAST:event_txtIdCajaKeyPressed
+
+    private void txtTotalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTotalKeyPressed
         if(Osesion.verificarEnter(evt) == true)
         {
             txtEfectivo.requestFocus();
         }
-    }//GEN-LAST:event_txtEfectivoActionPerformed
+    }//GEN-LAST:event_txtTotalKeyPressed
 
-    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
+    private void txtEfectivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEfectivoKeyPressed
+        // TODO add your handling code here:
+        if(Osesion.verificarEnter(evt) == true)
+        {
+            txtTarjeta.requestFocus();
+        }
+    }//GEN-LAST:event_txtEfectivoKeyPressed
+
+    private void txtTarjetaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTarjetaKeyPressed
         if(Osesion.verificarEnter(evt) == true)
         {
             txtFecha.requestFocus();
         }
-    }//GEN-LAST:event_txtFechaActionPerformed
+    }//GEN-LAST:event_txtTarjetaKeyPressed
 
-    private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
+    private void txtEstadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEstadoKeyPressed
+        if(Osesion.verificarEnter(evt) == true)
+        {
+            try {
+                realizarOperacion();
+            } catch (ParseException ex) {
+                Logger.getLogger(FrmIAggCaja.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_txtEstadoKeyPressed
+
+    private void txtFechaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFechaKeyPressed
         if(Osesion.verificarEnter(evt) == true)
         {
             txtEstado.requestFocus();
         }
-    }//GEN-LAST:event_txtEstadoActionPerformed
+    }//GEN-LAST:event_txtFechaKeyPressed
 
     
-        public void realizarOperacion()
+     public void realizarOperacion() throws ParseException
     {
         oModeloCaja = new modeloCaja();
         if (opcion.equals("GUARDAR"))
@@ -257,39 +332,41 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
             oModeloCaja.setTotal(Float.parseFloat(txtTotal.getText()));
             oModeloCaja.setTarjeta(Float.parseFloat(txtTarjeta.getText()));
            
-            //oModeloCaja.setEstado(1);
-            //oModeloCaja.setFk_usuario(txtIdCaja.getText());
+            oModeloCaja.setEstado(true);
+            oModeloCaja.setFecha(new java.sql.Date(new SimpleDateFormat("dd-MM-yyyy").parse(txtFecha.getText()).getTime()));
+
             oModeloCaja.setId_caja(Integer.parseInt(txtIdCaja.getText()));
-            //oModeloCaja.setId_caja(Integer.parseInt(txtIdCaja.getText()));
-            //oModeloProducto.setStock(Integer.parseInt(txtStock.getText())); 
-            oModeloCaja.setFk_usuario(1);
-            boolean resultado = oAbmCaja.cargarTabla(oModeloCaja);
+            oModeloCaja.setFk_usuario(Osesion.getIdUsuario());
+            boolean resultado = oAbmCaja.agregarCaja(oModeloCaja);
             if (resultado)
             {
                 JOptionPane.showMessageDialog(null, "Caja Agregada Correctamente");
                 this.dispose();
+                ofrmCaja.actualizarTabla();
             }else
             {
-                JOptionPane.showMessageDialog(null, "Error al Guardar el Producto");
+                JOptionPane.showMessageDialog(null, "Error al Guardar Caja");
                 
             }
         }else
         {
             oModeloCaja.setTotal(Float.parseFloat(txtTotal.getText()));
-            //oModeloCaja.setEstado(Float.parseFloat(1));
+            oModeloCaja.setEstado((true));
             oModeloCaja.setId_caja(Integer.parseInt(txtIdCaja.getText()));
-            //oModeloProducto.setNombre_producto(txtProducto.getText());
-           // oModeloProducto.setPrecio(Float.parseFloat(txtPrecio.getText()));
-            //oModeloCaja.set(Integer.parseInt(txtIdUsuario.getText())); 
-            oModeloCaja.setFk_usuario(1);
+            oModeloCaja.setFecha(new java.sql.Date(new SimpleDateFormat("dd-MM-yyyy").parse(txtFecha.getText()).getTime()));
+            oModeloCaja.setEfectivo(Float.parseFloat(txtEfectivo.getText()));
+            oModeloCaja.setTarjeta(Float.parseFloat(txtTarjeta.getText()));
             boolean resultado = oAbmCaja.modificarCaja(oModeloCaja);
+            
+            
             if (resultado)
             {
                 JOptionPane.showMessageDialog(null, "Caja Modificado Correctamente");
                 this.dispose();
+                ofrmCaja.actualizarTabla();
             }else
             {
-                JOptionPane.showMessageDialog(null, "Error al Modificar el Producto");
+                JOptionPane.showMessageDialog(null, "Error al Modificar Caja");
             }
         }
     }
