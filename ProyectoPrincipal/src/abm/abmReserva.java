@@ -29,6 +29,26 @@ public class abmReserva extends conexion {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public int UltimaReserva()
+    {
+        int idVenta = -1;  // Valor por defecto si no hay registros
+        String sql = "SELECT Id_reserva FROM Reserva ORDER BY Id_reserva DESC LIMIT 1";
+        Connection conn = getAbrirConexion();
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) {
+                idVenta = rs.getInt("Id_reserva");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();  // Puedes reemplazar por manejo con logger si usas uno
+        }
+
+        return idVenta;
+    }
+    
+    
     public DefaultComboBoxModel cargarHorarios(int idCanchaSeleccionada,String fechaReserva) {
         List<Franja> franjas = horariosCancha.generarHorarios();
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();

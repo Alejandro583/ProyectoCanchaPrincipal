@@ -258,7 +258,7 @@
                                               <Component id="cbxFecha" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
                                               <Component id="cbxHorarios1" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
                                               <Component id="txtMonto" alignment="1" min="-2" pref="145" max="-2" attributes="0"/>
-                                              <Component id="txtObservacion1" min="-2" pref="145" max="-2" attributes="0"/>
+                                              <Component id="txtObservacion" min="-2" pref="145" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
@@ -313,7 +313,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel6" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="txtObservacion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtObservacion" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -581,10 +581,10 @@
             <Property name="text" type="java.lang.String" value="MONTO PAGADO"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtObservacion1">
+        <Component class="javax.swing.JTextField" name="txtObservacion">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtObservacion1ActionPerformed"/>
-            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtObservacion1KeyPressed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtObservacionActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtObservacionKeyPressed"/>
           </Events>
         </Component>
       </SubComponents>

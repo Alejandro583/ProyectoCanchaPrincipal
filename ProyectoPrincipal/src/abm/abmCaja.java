@@ -102,16 +102,15 @@ public class abmCaja extends conexion {
     public boolean modificarCaja(modeloCaja caja) {
         Connection conex = getAbrirConexion();
         PreparedStatement ps = null;
-        String sql = "UPDATE caja SET total = ?, Efectivo = ?, Tarjeta = ?, Fecha = ?, Estado = ? WHERE Id_caja = ?";
+        String sql = "UPDATE caja SET total = ?, Efectivo = ?, Tarjeta = ?, Estado = ? WHERE Id_caja = ?";
 
         try {
             ps = conex.prepareStatement(sql);
             ps.setDouble(1, caja.getTotal());
             ps.setDouble(2, caja.getEfectivo());
             ps.setDouble(3, caja.getTarjeta());
-            ps.setDate(4, caja.getFecha());
-            ps.setBoolean(5, caja.isEstado());
-            ps.setInt(6, caja.getId_caja());
+            ps.setBoolean(4, caja.isEstado());
+            ps.setInt(5, caja.getId_caja());
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {

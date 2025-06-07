@@ -5,6 +5,7 @@
  */
 package vista;
 
+import abm.abmCaja;
 import abm.abmCancha;
 import abm.abmCliente;
 import abm.abmDetalleVenta;
@@ -16,6 +17,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
+import modelo.modeloCaja;
 import modelo.modeloCliente;
 import modelo.modeloDetalleVenta;
 import modelo.modeloReserva;
@@ -98,7 +100,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        txtObservacion1 = new javax.swing.JTextField();
+        txtObservacion = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -315,14 +317,14 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("MONTO PAGADO");
 
-        txtObservacion1.addActionListener(new java.awt.event.ActionListener() {
+        txtObservacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtObservacion1ActionPerformed(evt);
+                txtObservacionActionPerformed(evt);
             }
         });
-        txtObservacion1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtObservacion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtObservacion1KeyPressed(evt);
+                txtObservacionKeyPressed(evt);
             }
         });
 
@@ -349,7 +351,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         PanelPrincipal.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         PanelPrincipal.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         PanelPrincipal.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        PanelPrincipal.setLayer(txtObservacion1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        PanelPrincipal.setLayer(txtObservacion, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout PanelPrincipalLayout = new javax.swing.GroupLayout(PanelPrincipal);
         PanelPrincipal.setLayout(PanelPrincipalLayout);
@@ -407,7 +409,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
                                             .addComponent(cbxFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(cbxHorarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtMonto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtObservacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(txtObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(PanelPrincipalLayout.createSequentialGroup()
                                         .addGap(21, 21, 21)
                                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -446,7 +448,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtObservacion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -638,8 +640,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
             txtCI.setText(cedula);
             txtNombre.setText(oModeloCliente.getNombre());
             txtTelefono.setText(oModeloCliente.getTelefono());
-            oFrmMenuCancha.setVisible(true);
-            this.dispose();
+            
         }
         else 
         {
@@ -690,30 +691,45 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         oModeloReserva.setHorario_inicio(horarioInicio);
         oModeloReserva.setHorario_fin(horarioFin);
         oModeloReserva.setFechaReserva(fecha);
-        oModeloReserva.setObs(txtMonto.getText());
+        oModeloReserva.setObs(txtObservacion.getText());
         oAbmReserva.agregarReserva(oModeloReserva);
         if(txtMonto.getText() != "0")
         {
+            float saldoDeuda =  100000 - Float.parseFloat(txtMonto.getText());
             LocalDate hoy = LocalDate.now();
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String fechaFormateada = hoy.format(formato);
             abmVenta oAbmVenta = new abmVenta();
             abmDetalleVenta oAbmVentaDetalle = new abmDetalleVenta();
+            
             oModeloDetllaVenta = new modeloDetalleVenta();
             oModeloVenta = new modeloVenta();
             oModeloVenta.setEstado(1);
             oModeloVenta.setFacturaNro(0);
             oModeloVenta.setFecha(Date.valueOf(fechaFormateada));
-            oModeloVenta.setFkCaja(oFrmMenuCancha.oFrmVenta.idcaja);
-            
+            oModeloVenta.setFkCaja(1);
+            oModeloVenta.setFkCliente(oModeloCliente.getId_cliente());
+            oModeloVenta.setFkUsuario(oSesion.getIdUsuario());
+            oModeloVenta.setTotalNeto(Float.parseFloat(txtMonto.getText()));
+            oModeloVenta.setSaldo(saldoDeuda);
+            oModeloVenta.setTtlPago(Float.parseFloat(txtMonto.getText()));
+
             oModeloDetllaVenta.setCantidad(1);
             oModeloDetllaVenta.setCosto(BigDecimal.ZERO);
             oModeloDetllaVenta.setPrecio(BigDecimal.valueOf(Float.parseFloat(txtMonto.getText())));
             oModeloDetllaVenta.setVenta_producto(BigDecimal.ZERO);
             oModeloDetllaVenta.setCantidad(1);
-            oModeloDetllaVenta.setFk_reserva(oModeloReserva.getId_reserva());
+            oModeloDetllaVenta.setFk_reserva(oAbmReserva.UltimaReserva());
             oModeloDetllaVenta.setId_venta_detalle(oModeloVenta.getIdVenta());
+            oModeloDetllaVenta.setFk_venta(oAbmVenta.obtenerUltimoIdVenta());
+            
+            
             oAbmDetalleVenta.agregarDetalleVenta(oModeloDetllaVenta);
+            oAbmVenta.agregarVenta(oModeloVenta);
+            abmCaja oAbCaja = new abmCaja(oSesion);
+            modeloCaja oModeloCaja = new modeloCaja();
+            oModeloCaja = oAbCaja.CargarCaja(oSesion.getIdUsuario());
+            oAbCaja.aumentarEfectivo(Float.parseFloat(txtMonto.getText()),oModeloCaja.getId_caja());
         }
 
         
@@ -722,6 +738,8 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         //actualizamos el horario
         
         cbxHorarios1.setModel(oAbmReserva.cargarHorarios(1, fecha));
+        this.dispose();
+        oFrmMenuCancha.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void txtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyPressed
@@ -754,18 +772,18 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxHorarios1ActionPerformed
 
-    private void txtObservacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtObservacion1ActionPerformed
+    private void txtObservacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtObservacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtObservacion1ActionPerformed
+    }//GEN-LAST:event_txtObservacionActionPerformed
 
-    private void txtObservacion1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObservacion1KeyPressed
+    private void txtObservacionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObservacionKeyPressed
         
         if (oSesion.verificarEnter(evt) == true)
         {
             txtMonto.requestFocus();
         }
         
-    }//GEN-LAST:event_txtObservacion1KeyPressed
+    }//GEN-LAST:event_txtObservacionKeyPressed
 
     public void mostrarBusqueda()
     {
@@ -865,7 +883,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
     private javax.swing.JTextField txtCI;
     private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtObservacion1;
+    private javax.swing.JTextField txtObservacion;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
