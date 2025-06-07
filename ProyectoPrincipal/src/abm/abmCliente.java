@@ -231,6 +231,7 @@ public class abmCliente extends config.conexion
     public DefaultComboBoxModel<String> obtenerClientesActivos(String condicion) {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
         Connection conn = getAbrirConexion();
+        
         String sql = "SELECT id_cliente,Nombre,Ci FROM cliente WHERE Estado = 1 " + condicion;
 
         try{

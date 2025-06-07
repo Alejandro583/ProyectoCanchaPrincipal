@@ -741,8 +741,13 @@ public class frmVenta extends javax.swing.JFrame {
     private void txtCIClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCIClienteKeyPressed
        if(oSesion.verificarEnter(evt)==true)
        {
-           String condicion = " AND Ci = " + txtCICliente.getText().trim();
-           cbxBuscarCliente.setModel(oAbmCliente.obtenerClientesActivos(condicion));
+            String condicion = " AND Ci = " + txtCICliente.getText().trim();
+            cbxBuscarCliente.setModel(oAbmCliente.obtenerClientesActivos(condicion));
+            if(cbxBuscarCliente.getItemCount() < 1)
+            {
+                cbxBuscarCliente.setModel(oAbmCliente.obtenerClientesActivos(""));
+                JOptionPane.showMessageDialog(null, "Cliente no encontrado");           
+            }
        }
     }//GEN-LAST:event_txtCIClienteKeyPressed
 
@@ -935,22 +940,37 @@ oFrmMenu.setVisible(true);
     }//GEN-LAST:event_txtBuscarProductoKeyPressed
 
     private void cbxBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBuscarClienteActionPerformed
-        String cliente[] = cbxBuscarCliente.getSelectedItem().toString().split(" - ");
+        if (cbxBuscarCliente.getSelectedIndex() >= 0) {
+        // Limpiar la tabla
+        modeloTabla.setRowCount(0);
+
+        // Obtener ID del cliente
+        String[] cliente = cbxBuscarCliente.getSelectedItem().toString().split(" - ");
         int id_cliente = Integer.parseInt(cliente[0].trim());
-        modeloVenta pModeloVenta = new modeloVenta();
-        pModeloVenta = oAbmVenta.buscarVentaPorId(id_cliente);
-        
-        if(pModeloVenta.getSaldo() > 0)
-        {
+
+        // Buscar venta por cliente
+        modeloVenta pModeloVenta = oAbmVenta.buscarVentaPorId(id_cliente);
+
+        // Verificar si tiene saldo y agregar
+        if (pModeloVenta != null && pModeloVenta.getSaldo() > 0) {
             modeloTabla.addRow(new Object[]{
-            pModeloVenta.getIdVenta(),
-            "Alquiler Cancha",
-            1,
-            100000,
-            pModeloVenta.getSaldo()
-            //{"Código", "Descripción", "Cantidad", "Precio Unitario", "Subtotal"}
+                pModeloVenta.getIdVenta(),
+                "Alquiler Cancha",
+                1,
+                100000,
+                pModeloVenta.getSaldo()
+                
             });
+           montoTotal =  pModeloVenta.getSaldo();
+        } 
         }
+        
+        txtTotalGs.setText(montoTotal+"");
+        txtTotalGeneral.setText(montoTotal+"");
+        txtTotalNeto.setText(montoTotal+"");
+        txtSubtotal.setText(montoTotal+"");
+        txtIva.setText((montoTotal * 0.10) + "");
+        
     }//GEN-LAST:event_cbxBuscarClienteActionPerformed
 
     private void BtnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarProductoActionPerformed
@@ -999,6 +1019,12 @@ oFrmMenu.setVisible(true);
     private void BtnBuscarCLIENTESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarCLIENTESActionPerformed
         String condicion = " AND Ci = " + txtCICliente.getText().trim();
         cbxBuscarCliente.setModel(oAbmCliente.obtenerClientesActivos(condicion));
+        if(cbxBuscarCliente.getItemCount() < 1)
+        {
+            cbxBuscarCliente.setModel(oAbmCliente.obtenerClientesActivos(""));
+            JOptionPane.showMessageDialog(null, "Cliente no encontrado");           
+        }
+        
     }//GEN-LAST:event_BtnBuscarCLIENTESActionPerformed
 
     private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed

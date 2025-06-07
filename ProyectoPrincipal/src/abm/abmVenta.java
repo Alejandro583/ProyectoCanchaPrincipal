@@ -52,7 +52,7 @@ public class abmVenta extends config.conexion {
         modeloVenta venta = null;
 
         try {
-            sql = "SELECT * FROM Venta WHERE Fk_cliente = ?";
+            sql = "SELECT * FROM Venta WHERE Fk_cliente = ? AND Estado = 1";
             consulta = conex.prepareStatement(sql);
             consulta.setInt(1, id_cliente);
             resultado = consulta.executeQuery();
