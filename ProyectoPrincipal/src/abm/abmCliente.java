@@ -86,7 +86,7 @@ public class abmCliente extends config.conexion
         modeloCliente cliente =  new modeloCliente();
         try 
         {
-            sql = "SELECT * FROM cliente WHERE Ci = ?";
+            sql = "SELECT * FROM cliente WHERE Ci = ? AND Estado = 1";
             consulta = conex.prepareStatement(sql);
             consulta.setString(1, cedula);
             resultado = consulta.executeQuery();

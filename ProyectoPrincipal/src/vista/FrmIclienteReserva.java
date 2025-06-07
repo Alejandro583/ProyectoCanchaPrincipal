@@ -284,6 +284,7 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
     {
         grillaClienteReserva.setModel(oAbmCliente.cargarTabla(""));
         oFrmPrincipal.cargarTablas();
+        grillaClienteReserva.setModel(oAbmReserva.cargarReservas(""));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

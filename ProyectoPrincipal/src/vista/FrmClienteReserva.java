@@ -608,6 +608,8 @@ public class FrmClienteReserva extends javax.swing.JFrame {
             txtCI.setText(cedula);
             txtNombre.setText(oModeloCliente.getNombre());
             txtTelefono.setText(oModeloCliente.getTelefono());
+            oFrmMenuCancha.setVisible(true);
+            this.dispose();
         }
         else 
         {
@@ -648,8 +650,6 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         // Separar en dos partes: Inicio y Fin
         String[] partesHorario = horario.split("-");
         String fecha = cbxFecha.getSelectedItem().toString();
-        String[] partesFecha = fecha.split("-");
-        fecha = partesFecha[1].trim();
         // Quitar espacios extra
         String horarioInicio = partesHorario[0].trim();
         String horarioFin = partesHorario[1].trim();

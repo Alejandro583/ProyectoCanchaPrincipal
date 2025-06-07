@@ -29,6 +29,7 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
     FrmIclienteReserva OfrmFrmIclienteReserva;
     abmReserva oAbmReserva;
     abmCliente oAbmCliente;
+    
     public FrmImodificarCliRE(modeloCliente pmodeloCliente,modeloReserva pModeloReserva,sesion psesion,FrmIclienteReserva pFrm) {
         initComponents();  
         Osesion = psesion;
@@ -308,11 +309,30 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
         }
         else
         {
-            
+            abmCancha oAbCancha = new abmCancha(Osesion);
           //FALTA LA FUNCION PARA CARGAR LAS MODIFICACIONES EN LA BASE DE DATOS DEBE EXTRAER LOS DATOS DE LOS CAMPOS 
-            OfrmFrmIclienteReserva.oAbmReserva.cargarReservas("");
-            OfrmFrmIclienteReserva.setVisible(true);
-            this.dispose();
+           oModeloreserva.setFechaReserva(cbxFecha1.getSelectedItem().toString());
+           oModeloreserva.setFk_cancha(oAbCancha.obtenerIdCanchaPorNombre(cbxCancha1.getSelectedItem().toString())); // OJO: aquí quizás quieras usar getSelectedItem() o un ID real
+           oModeloreserva.setFk_cliente(oModeloCliente.getId_cliente());
+           String horario = cbxHorario.getSelectedItem().toString();
+           String[] partesHorario = horario.split("-");
+            // Quitar espacios extra
+            String horarioInicio = partesHorario[0].trim();
+            String horarioFin = partesHorario[1].trim();
+            oModeloreserva.setHorario_inicio(horarioInicio);
+            oModeloreserva.setHorario_fin(horarioFin);
+            oModeloreserva.setObs(txtObservacion.getText());
+            
+            if(oAbmReserva.modificarReserva(oModeloreserva))
+            {
+                JOptionPane.showMessageDialog(null, "Reserva modificada coreectamente");
+                OfrmFrmIclienteReserva.setVisible(true);
+                this.dispose();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Error al modificar reserva");
+            }
         }
         OfrmFrmIclienteReserva.cargarTablaReserva();
         
@@ -321,6 +341,7 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
+        OfrmFrmIclienteReserva.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cbxCancha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCancha1ActionPerformed
@@ -354,19 +375,24 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
     
 
     txtCi.setText(oModeloCliente.getCi());
+    txtCi.setEditable(false);
     txtNombre.setText(oModeloCliente.getNombre());
+    txtNombre.setEditable(false);
     txtTelefono.setText(oModeloCliente.getTelefono());
+    txtTelefono.setEditable(false);
     txtObservacion.setText(oModeloreserva.getObs());
 
     // Cargamos los combos primero
     cbxCancha1.setModel(oAbmCancha.cargarComboBox(""));
+    JOptionPane.showMessageDialog(null, oModeloreserva.getFechaReserva());
     cbxFecha1.setModel(oAbmReservae.cargarFechas());
     cbxHorario.setModel(oAbmReservae.cargarHorarios(1, oModeloreserva.getFechaReserva()));
 
     //Ahora seleccionamos los valores correctos
-    seleccionarItemPorNombre(cbxFecha1, oModeloreserva.getFechaReserva());
-    seleccionarItemPorNombre(cbxHorario, oModeloreserva.getHorario_inicio() + " - " + oModeloreserva.getHorario_fin());
+    cbxFecha1.setSelectedItem(oModeloreserva.getFechaReserva());
     
+    cbxHorario.addItem(oModeloreserva.getHorario_inicio() + " - " + oModeloreserva.getHorario_fin());
+    cbxHorario.setSelectedItem(oModeloreserva.getHorario_inicio() + " - " + oModeloreserva.getHorario_fin());
    
 }
 
