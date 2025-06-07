@@ -44,7 +44,7 @@ public class abmVenta extends config.conexion {
         }
     }
 
-    public modeloVenta buscarVentaPorId(int idVenta) {
+    public modeloVenta buscarVentaPorId(int id_cliente) {
         Connection conex = getAbrirConexion();
         PreparedStatement consulta = null;
         ResultSet resultado = null;
@@ -52,9 +52,9 @@ public class abmVenta extends config.conexion {
         modeloVenta venta = null;
 
         try {
-            sql = "SELECT * FROM Venta WHERE Id_venta = ?";
+            sql = "SELECT * FROM Venta WHERE Fk_cliente = ?";
             consulta = conex.prepareStatement(sql);
-            consulta.setInt(1, idVenta);
+            consulta.setInt(1, id_cliente);
             resultado = consulta.executeQuery();
 
             if (resultado.next()) {

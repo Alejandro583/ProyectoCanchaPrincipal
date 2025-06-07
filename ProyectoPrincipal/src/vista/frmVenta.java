@@ -935,7 +935,22 @@ oFrmMenu.setVisible(true);
     }//GEN-LAST:event_txtBuscarProductoKeyPressed
 
     private void cbxBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBuscarClienteActionPerformed
+        String cliente[] = cbxBuscarCliente.getSelectedItem().toString().split(" - ");
+        int id_cliente = Integer.parseInt(cliente[0].trim());
+        modeloVenta pModeloVenta = new modeloVenta();
+        pModeloVenta = oAbmVenta.buscarVentaPorId(id_cliente);
         
+        if(pModeloVenta.getSaldo() > 0)
+        {
+            modeloTabla.addRow(new Object[]{
+            pModeloVenta.getIdVenta(),
+            "Alquiler Cancha",
+            1,
+            100000,
+            pModeloVenta.getSaldo()
+            //{"Código", "Descripción", "Cantidad", "Precio Unitario", "Subtotal"}
+            });
+        }
     }//GEN-LAST:event_cbxBuscarClienteActionPerformed
 
     private void BtnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarProductoActionPerformed

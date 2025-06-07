@@ -727,8 +727,9 @@ public class FrmClienteReserva extends javax.swing.JFrame {
             oAbmDetalleVenta.agregarDetalleVenta(oModeloDetllaVenta);
             oAbmVenta.agregarVenta(oModeloVenta);
             abmCaja oAbCaja = new abmCaja(oSesion);
-            modeloCaja oModeloCaja = new modeloCaja();
+            modeloCaja oModeloCaja;
             oModeloCaja = oAbCaja.CargarCaja(oSesion.getIdUsuario());
+            JOptionPane.showMessageDialog(null, oModeloCaja.getId_caja());
             oAbCaja.aumentarEfectivo(Float.parseFloat(txtMonto.getText()),oModeloCaja.getId_caja());
         }
 

@@ -231,7 +231,7 @@ public class abmCliente extends config.conexion
     public DefaultComboBoxModel<String> obtenerClientesActivos(String condicion) {
         DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
         Connection conn = getAbrirConexion();
-        String sql = "SELECT Nombre,Ci FROM cliente WHERE Estado = 1 " + condicion;
+        String sql = "SELECT id_cliente,Nombre,Ci FROM cliente WHERE Estado = 1 " + condicion;
 
         try{
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -239,7 +239,7 @@ public class abmCliente extends config.conexion
 
             while (rs.next()) {
                 
-                String clienteDes = "Nombre : "+rs.getString("Nombre") + " | C.I : " + rs.getString("Ci");
+                String clienteDes = rs.getInt("Id_cliente")+" - "+"Nombre : "+rs.getString("Nombre") + " | C.I : " + rs.getString("Ci");
                 
                 
                 modelo.addElement(clienteDes);
