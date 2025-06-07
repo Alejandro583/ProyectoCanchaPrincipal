@@ -45,16 +45,16 @@ public class abmCaja extends conexion {
         return modeloTabla;
     }
 
-     public modeloCaja CargarCaja(int idCaja) {
+     public modeloCaja CargarCaja(int idUsuario) {
         Connection conex = getAbrirConexion();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM caja WHERE id_caja = ?";
+        String sql = "SELECT * FROM caja WHERE Fk_usuario = ?";
         modeloCaja caja = null;
 
         try {
             ps = conex.prepareStatement(sql);
-            ps.setInt(1, idCaja);
+            ps.setInt(1, idUsuario);
             rs = ps.executeQuery();
 
             if (rs.next()) {

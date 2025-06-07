@@ -47,6 +47,7 @@ public class frmVenta extends javax.swing.JFrame {
     double montoTotal;
     abmVenta oAbmVenta;
     abmDetalleVenta oabDetalleVenta;
+    int idcaja;
     public frmVenta(sesion pSesion,FrmMenuCancha menu) {
     initComponents();
     this.oSesion = pSesion;
@@ -830,8 +831,11 @@ for (int i = 0; i < modeloTabla.getRowCount(); i++) {
     detalle.setCantidad(cantidad);  
 }
 
-//sumar el monto a la caja 
+//sumar el monto a la caja
 abmCaja oAbmCaja = new abmCaja(oSesion);
+modeloCaja oModeloCaja = oAbmCaja.CargarCaja(oSesion.getIdUsuario());
+
+idcaja = oModeloCaja.getId_caja();
  
 oAbmCaja.aumentarEfectivo(montoTotal, 1);
 

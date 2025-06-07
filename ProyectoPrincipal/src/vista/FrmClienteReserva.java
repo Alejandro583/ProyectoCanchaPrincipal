@@ -9,12 +9,17 @@ import abm.abmCancha;
 import abm.abmCliente;
 import abm.abmDetalleVenta;
 import abm.abmReserva;
+import abm.abmVenta;
 import config.sesion;
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import modelo.modeloCliente;
 import modelo.modeloDetalleVenta;
 import modelo.modeloReserva;
+import modelo.modeloVenta;
 
 
 /**
@@ -30,7 +35,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
     FrmMenuCancha oFrmMenuCancha;
     abmDetalleVenta oAbmDetalleVenta;
     modeloDetalleVenta oModeloDetllaVenta;
-    int recibirIdVenta;
+    modeloVenta oModeloVenta;
     public FrmClienteReserva()
     {
         
@@ -83,7 +88,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
         txtCI = new javax.swing.JTextField();
-        txtObservacion = new javax.swing.JTextField();
+        txtMonto = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         grillaCliente = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
@@ -92,6 +97,8 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         cbxCancha = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        txtObservacion1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -241,9 +248,9 @@ public class FrmClienteReserva extends javax.swing.JFrame {
             }
         });
 
-        txtObservacion.addActionListener(new java.awt.event.ActionListener() {
+        txtMonto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtObservacionActionPerformed(evt);
+                txtMontoActionPerformed(evt);
             }
         });
 
@@ -305,6 +312,20 @@ public class FrmClienteReserva extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setText("MONTO PAGADO");
+
+        txtObservacion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtObservacion1ActionPerformed(evt);
+            }
+        });
+        txtObservacion1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtObservacion1KeyPressed(evt);
+            }
+        });
+
         PanelPrincipal.setLayer(cbxBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         PanelPrincipal.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         PanelPrincipal.setLayer(txtBuscarCliente, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -319,7 +340,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         PanelPrincipal.setLayer(txtNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
         PanelPrincipal.setLayer(txtTelefono, javax.swing.JLayeredPane.DEFAULT_LAYER);
         PanelPrincipal.setLayer(txtCI, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        PanelPrincipal.setLayer(txtObservacion, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        PanelPrincipal.setLayer(txtMonto, javax.swing.JLayeredPane.DEFAULT_LAYER);
         PanelPrincipal.setLayer(jScrollPane4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         PanelPrincipal.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         PanelPrincipal.setLayer(cbxFecha, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -327,6 +348,8 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         PanelPrincipal.setLayer(cbxCancha, javax.swing.JLayeredPane.DEFAULT_LAYER);
         PanelPrincipal.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         PanelPrincipal.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        PanelPrincipal.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        PanelPrincipal.setLayer(txtObservacion1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout PanelPrincipalLayout = new javax.swing.GroupLayout(PanelPrincipal);
         PanelPrincipal.setLayout(PanelPrincipalLayout);
@@ -375,17 +398,20 @@ public class FrmClienteReserva extends javax.swing.JFrame {
                                                 .addComponent(jLabel5)
                                                 .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
                                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
                                         .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(cbxCancha, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(cbxFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cbxHorarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(cbxHorarios1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtMonto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtObservacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(PanelPrincipalLayout.createSequentialGroup()
                                         .addGap(21, 21, 21)
-                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(2, 2, 2)))))
                 .addGap(0, 0, 0))
         );
         PanelPrincipalLayout.setVerticalGroup(
@@ -415,12 +441,16 @@ public class FrmClienteReserva extends javax.swing.JFrame {
                         .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbxCancha, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))))
-                .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PanelPrincipalLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtObservacion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(PanelPrincipalLayout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -595,13 +625,13 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCIActionPerformed
 
-    private void txtObservacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtObservacionActionPerformed
+    private void txtMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtObservacionActionPerformed
+    }//GEN-LAST:event_txtMontoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int filaSeleccionada = grillaCliente.getSelectedRow(); // obtengo la fila seleccionada
-        txtObservacion.setText("");
+        txtMonto.setText("");
         if (filaSeleccionada != -1) { // si hay una fila seleccionada
             String  cedula = (grillaCliente.getValueAt(filaSeleccionada, 1).toString()); // columna 0 = primera columna
             oModeloCliente = oAbmCliente.clienteExiste(cedula);
@@ -660,16 +690,32 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         oModeloReserva.setHorario_inicio(horarioInicio);
         oModeloReserva.setHorario_fin(horarioFin);
         oModeloReserva.setFechaReserva(fecha);
-        oModeloReserva.setObs(txtObservacion.getText());
+        oModeloReserva.setObs(txtMonto.getText());
         oAbmReserva.agregarReserva(oModeloReserva);
-//        oModeloDetllaVenta.setCantidad(1);
-//        oModeloDetllaVenta.setCosto(BigDecimal.ZERO);
-//        oModeloDetllaVenta.setPrecio(BigDecimal.valueOf(100000));
-//        oModeloDetllaVenta.setVenta_producto(BigDecimal.ZERO);
-//        oModeloDetllaVenta.setCantidad(1);
-//        oModeloDetllaVenta.setFk_reserva(oModeloReserva.getId_reserva());
-        //oModeloDetllaVenta.setId_venta_detalle(recibirIdVenta);
-        //oAbmDetalleVenta.agregarDetalleVenta(oModeloDetllaVenta);
+        if(txtMonto.getText() != "0")
+        {
+            LocalDate hoy = LocalDate.now();
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String fechaFormateada = hoy.format(formato);
+            abmVenta oAbmVenta = new abmVenta();
+            abmDetalleVenta oAbmVentaDetalle = new abmDetalleVenta();
+            oModeloDetllaVenta = new modeloDetalleVenta();
+            oModeloVenta = new modeloVenta();
+            oModeloVenta.setEstado(1);
+            oModeloVenta.setFacturaNro(0);
+            oModeloVenta.setFecha(Date.valueOf(fechaFormateada));
+            oModeloVenta.setFkCaja(oFrmMenuCancha.oFrmVenta.idcaja);
+            
+            oModeloDetllaVenta.setCantidad(1);
+            oModeloDetllaVenta.setCosto(BigDecimal.ZERO);
+            oModeloDetllaVenta.setPrecio(BigDecimal.valueOf(Float.parseFloat(txtMonto.getText())));
+            oModeloDetllaVenta.setVenta_producto(BigDecimal.ZERO);
+            oModeloDetllaVenta.setCantidad(1);
+            oModeloDetllaVenta.setFk_reserva(oModeloReserva.getId_reserva());
+            oModeloDetllaVenta.setId_venta_detalle(oModeloVenta.getIdVenta());
+            oAbmDetalleVenta.agregarDetalleVenta(oModeloDetllaVenta);
+        }
+
         
         JOptionPane.showMessageDialog(null, "Reserva Guardado correctamente");
         
@@ -695,7 +741,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
     private void txtTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyPressed
         if (oSesion.verificarEnter(evt) == true)
         {
-            txtObservacion.requestFocus();
+            txtMonto.requestFocus();
         }
     }//GEN-LAST:event_txtTelefonoKeyPressed
 
@@ -707,6 +753,19 @@ public class FrmClienteReserva extends javax.swing.JFrame {
     private void cbxHorarios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxHorarios1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxHorarios1ActionPerformed
+
+    private void txtObservacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtObservacion1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtObservacion1ActionPerformed
+
+    private void txtObservacion1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObservacion1KeyPressed
+        
+        if (oSesion.verificarEnter(evt) == true)
+        {
+            txtMonto.requestFocus();
+        }
+        
+    }//GEN-LAST:event_txtObservacion1KeyPressed
 
     public void mostrarBusqueda()
     {
@@ -786,6 +845,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -803,8 +863,9 @@ public class FrmClienteReserva extends javax.swing.JFrame {
     private javax.swing.JTable jTable3;
     private javax.swing.JTextField txtBuscarCliente;
     private javax.swing.JTextField txtCI;
+    private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtObservacion;
+    private javax.swing.JTextField txtObservacion1;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
