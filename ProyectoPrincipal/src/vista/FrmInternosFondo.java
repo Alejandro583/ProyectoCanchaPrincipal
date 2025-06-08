@@ -171,22 +171,33 @@ public class FrmInternosFondo extends javax.swing.JFrame {
     }
     
    public void agregarPanel(JInternalFrame nuevoPanel) {
-    // 1. Buscar y cerrar cualquier frame abierto en PanelPrincipal
+    // 1. Cerrar y eliminar cualquier frame abierto en PanelPrincipal
     JInternalFrame[] frames = PanelPrincipal.getAllFrames();
     for (JInternalFrame frame : frames) {
         try {
-            frame.setClosed(true);  // Cierra el frame
+            frame.setVisible(false);  // Ocultar el frame
+            PanelPrincipal.remove(frame);  // Eliminarlo del contenedor
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-    // 2. Agregar el nuevo frame
+
+    // 2. Validar y repintar antes de agregar el nuevo
+    PanelPrincipal.revalidate();
+    PanelPrincipal.repaint();
+
+    // 3. Agregar el nuevo frame
     PanelPrincipal.add(nuevoPanel);
     nuevoPanel.setVisible(true);
 
-    
+    // 4. Traer al frente
+    try {
+        nuevoPanel.setSelected(true);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
 }
+
 
 
 

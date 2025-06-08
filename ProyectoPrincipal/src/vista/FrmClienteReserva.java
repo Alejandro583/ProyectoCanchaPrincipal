@@ -606,8 +606,9 @@ public class FrmClienteReserva extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         FrmIclienteReserva oFrmClienteReserva = new FrmIclienteReserva("RESERVA",this,oSesion,oFrmInterno);
-        PanelPrincipal.add(oFrmClienteReserva);
-        oFrmClienteReserva.setVisible(true);
+        oFrmInterno.agregarPanel(oFrmClienteReserva);
+        oFrmInterno.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void txtBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarClienteActionPerformed

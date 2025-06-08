@@ -244,9 +244,11 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
                 oModeloReserva = oAbmReserva.reservaExiste(id);
                 oModeloCliente = oAbmCliente.clienteExiste(oModeloReserva.getFk_cliente());
                 this.setVisible(false);
-                FrmImodificarCliRE oFrmmodificarCliente = new FrmImodificarCliRE(oModeloCliente,oModeloReserva,Osesion,this,null);
+                FrmImodificarCliRE oFrmmodificarCliente = new FrmImodificarCliRE(oModeloCliente,oModeloReserva,Osesion,this,FrmFondo);
+                this.setVisible(false);
                 oFrmmodificarCliente.modificarReserva();
-                oFrmPrincipal.mostrarPanel(oFrmmodificarCliente);
+                FrmFondo.agregarPanel(oFrmmodificarCliente);
+                FrmFondo.setVisible(true);
             }
         }
     }//GEN-LAST:event_btnModificarActionPerformed
