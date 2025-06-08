@@ -44,6 +44,7 @@ public class FrmCompra extends javax.swing.JFrame {
     FrmProducto oFrmProducto;
     DefaultTableModel modeloTabla;
     public FrmCompra(sesion pSesion, FrmMenuCancha oMenuCancha) {
+        this.setUndecorated(true);
         initComponents();
         oSesion = pSesion;
         txtCantidad.setText("1");
@@ -60,7 +61,7 @@ public class FrmCompra extends javax.swing.JFrame {
         modeloTabla.setColumnIdentifiers(new Object[]{"CODIGO", "PRODUCTO", "COSTO", "PROVEEDOR","FECHA","CANTIDAD"});
         grillaCompra.setModel(modeloTabla);
         oAbmCompraDetalle = new abmCompraDetalle(pSesion);
-        
+        this.setExtendedState(this.MAXIMIZED_BOTH);
     }
 
     /**

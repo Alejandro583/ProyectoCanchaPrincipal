@@ -19,6 +19,7 @@ public class FrmProducto extends javax.swing.JFrame {
         
     }
     public FrmProducto(sesion psesion,FrmMenuCancha oCancha) {
+        this.setUndecorated(true);
         initComponents();
         oSesion = psesion;
         oFrmMenuCancha = oCancha;
@@ -27,6 +28,7 @@ public class FrmProducto extends javax.swing.JFrame {
         Usuario.setText(oSesion.getNombreUsuario());
         oFrmFondo = new FrmInternosFondo(this);
         actualizarTabla();
+        this.setExtendedState(this.MAXIMIZED_BOTH);
     }
 
     /**

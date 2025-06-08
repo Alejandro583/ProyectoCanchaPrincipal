@@ -27,12 +27,14 @@ public class FrmAgregarCliente extends javax.swing.JFrame {
     abmCliente oAbmCliente;
     modeloCliente oModeloCliente;
     public FrmAgregarCliente(sesion pSesion,frmVenta pFrmventa) {
+        this.setUndecorated(true);
         initComponents();
         oSesion = pSesion;
         oFrmVenta = pFrmventa;
         oAbmCliente = new abmCliente(oSesion);
         txtUsuario.setText(oSesion.getNombreUsuario());
         txtNombre.requestFocus();
+        this.setExtendedState(this.MAXIMIZED_BOTH);
     }
 
     /**

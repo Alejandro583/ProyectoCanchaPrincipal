@@ -23,6 +23,7 @@ public class FrmMenuCancha extends javax.swing.JFrame {
         oSesion = pSesion;
         txtUsuario.setText("  " + oSesion.getNombreUsuario());
         oFrmVenta = new frmVenta(oSesion,this);
+        this.setExtendedState(this.MAXIMIZED_BOTH);
     }
     /**
      * This method is called from within the constructor to initialize the form.

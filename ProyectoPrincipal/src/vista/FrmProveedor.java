@@ -26,12 +26,14 @@ public class FrmProveedor extends javax.swing.JFrame {
     sesion oSesion;
     FrmMenuCancha oFrmMenuCancha;
     FrmInternosFondo oFrmFondo;
+    
     public FrmProveedor()
     {
         
     }
     public FrmProveedor(sesion psesion,FrmMenuCancha oCancha) {
-       initComponents();
+        this.setUndecorated(true);
+        initComponents();
         oSesion = psesion;
         oFrmMenuCancha = oCancha;
         txtBuscarProveedor.requestFocus();
@@ -39,6 +41,7 @@ public class FrmProveedor extends javax.swing.JFrame {
         Usuario.setText(oSesion.getNombreUsuario());
         oFrmFondo = new FrmInternosFondo(this);
         actualizarTabla();
+        this.setExtendedState(this.MAXIMIZED_BOTH);
     }
 
     /**

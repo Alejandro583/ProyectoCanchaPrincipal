@@ -22,6 +22,7 @@ public class FrmCaja extends javax.swing.JFrame {
     //FrmIAggCaja oFrmCaja = new FrmIAggCaja("MODIFICAR",oModeloCaja,this);
     
     public FrmCaja(sesion pSesion,FrmMenuCancha oMenuCancha) {
+        this.setUndecorated(true);
         initComponents();
         
         oSesion = pSesion;
@@ -31,7 +32,7 @@ public class FrmCaja extends javax.swing.JFrame {
         oFondo = new FrmInternosFondo(this);
         //Usuario.setText(oSesion.getNombreUsuario());
         actualizarTabla();
-       
+        this.setExtendedState(this.MAXIMIZED_BOTH);  
     }
 
     /**

@@ -24,8 +24,10 @@ public class FrmInternosFondo extends javax.swing.JFrame {
     }
     
     public FrmInternosFondo(JFrame formularios) {
+        this.setUndecorated(true);
         initComponents();
         FrmPrincipales = formularios;
+        this.setExtendedState(this.MAXIMIZED_BOTH);
     }
 
     /**

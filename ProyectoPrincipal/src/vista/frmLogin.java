@@ -23,6 +23,7 @@ public class frmLogin extends javax.swing.JFrame {
     FrmMenuCancha Omenu;
     public frmLogin() {
         initComponents();
+        
     }
 
     /**

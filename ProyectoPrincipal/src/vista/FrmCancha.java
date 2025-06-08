@@ -25,6 +25,7 @@ public class FrmCancha extends javax.swing.JFrame {
         initComponents();
     }
     public FrmCancha(sesion pSesion,FrmMenuCancha oMenuCancha) {
+        this.setUndecorated(true);
         initComponents();
         oSesion = pSesion;
         oFrmMenuCancha = oMenuCancha;

@@ -44,6 +44,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         
     }
     public FrmClienteReserva(sesion pSesion,FrmMenuCancha oCancha) {
+        this.setUndecorated(true);
         initComponents();
         oSesion = pSesion;
         oFrmMenuCancha = oCancha;
@@ -58,6 +59,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         oModeloDetllaVenta = new modeloDetalleVenta();
         Usuario.setText(pSesion.getNombreUsuario());
         oFrmInterno = new FrmInternosFondo(this);
+        this.setExtendedState(this.MAXIMIZED_BOTH);
     }
 
     /**

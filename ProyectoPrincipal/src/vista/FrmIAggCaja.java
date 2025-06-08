@@ -24,6 +24,7 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
     }
     
     public FrmIAggCaja(String operacion,modeloCaja oCaja,FrmCaja pFrmCaja,sesion psesion,FrmInternosFondo pfondo) {
+        
         initComponents();
         txtIdCaja.requestFocus();
         initComponents() ;
