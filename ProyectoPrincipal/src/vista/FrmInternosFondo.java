@@ -190,16 +190,21 @@ public class FrmInternosFondo extends javax.swing.JFrame {
     PanelPrincipal.add(nuevoPanel);
     nuevoPanel.setVisible(true);
 
+     // 3. Configurar el nuevo JInternalFrame para ocupar todo el espacio
+    nuevoPanel.setClosable(false); // No se puede cerrar
+    nuevoPanel.setIconifiable(false); // No se puede minimizar
+    nuevoPanel.setMaximizable(false); // No se puede maximizar
+    nuevoPanel.setResizable(false); // No se puede redimensionar
+    nuevoPanel.setBorder(null); // Quitar borde si querés
+
     // 4. Traer al frente
     try {
         nuevoPanel.setSelected(true);
     } catch (Exception e) {
         e.printStackTrace();
     }
+    
 }
-
-
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

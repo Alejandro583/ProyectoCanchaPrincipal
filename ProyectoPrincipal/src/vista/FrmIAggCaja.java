@@ -18,12 +18,12 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
     modeloCaja oModeloCaja;
     String opcion;
     sesion Osesion = new sesion();
-
+    FrmInternosFondo oFondo;
     public FrmIAggCaja() {
         initComponents();
     }
     
-    public FrmIAggCaja(String operacion,modeloCaja oCaja,FrmCaja pFrmCaja,sesion psesion) {
+    public FrmIAggCaja(String operacion,modeloCaja oCaja,FrmCaja pFrmCaja,sesion psesion,FrmInternosFondo pfondo) {
         initComponents();
         txtIdCaja.requestFocus();
         initComponents() ;
@@ -31,6 +31,7 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
         ofrmCaja = pFrmCaja;
         Osesion =  psesion;
         oAbmCaja = new abmCaja(Osesion);
+        oFondo = pfondo;
         if(opcion.equals("GUARDAR"))
         {
             btnAgregar.setText(opcion);
@@ -337,6 +338,8 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
 
     private void btnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar1ActionPerformed
         this.dispose();
+        oFondo.setVisible(false);
+        ofrmCaja.setVisible(true);
     }//GEN-LAST:event_btnAgregar1ActionPerformed
 
     
@@ -359,11 +362,14 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Caja Agregada Correctamente");
                 this.dispose();
                 ofrmCaja.actualizarTabla();
+                oFondo.setVisible(false);
+                ofrmCaja.setVisible(true);
             }else
             {
                 JOptionPane.showMessageDialog(null, "Error al Guardar Caja");
                 
             }
+            
         }else
         {
             oModeloCaja.setTotal(Float.parseFloat(txtTotal.getText()));
@@ -380,6 +386,8 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Caja Modificado Correctamente");
                 this.dispose();
                 ofrmCaja.actualizarTabla();
+                oFondo.setVisible(false);
+                ofrmCaja.setVisible(true);
             }else
             {
                 JOptionPane.showMessageDialog(null, "Error al Modificar Caja");
