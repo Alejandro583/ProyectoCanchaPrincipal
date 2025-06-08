@@ -25,6 +25,7 @@ public class FrmProveedor extends javax.swing.JFrame {
     abmProveedor oAbmProveedor;
     sesion oSesion;
     FrmMenuCancha oFrmMenuCancha;
+    FrmInternosFondo oFrmFondo;
     public FrmProveedor()
     {
         
@@ -36,6 +37,7 @@ public class FrmProveedor extends javax.swing.JFrame {
         txtBuscarProveedor.requestFocus();
         oAbmProveedor = new abmProveedor();
         Usuario.setText(oSesion.getNombreUsuario());
+        oFrmFondo = new FrmInternosFondo(this);
         actualizarTabla();
     }
 
@@ -58,11 +60,9 @@ public class FrmProveedor extends javax.swing.JFrame {
         cbxProveedor = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         grillaProveedor = new javax.swing.JTable();
-        btnSeleccionar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         Usuario = new javax.swing.JLabel();
 
@@ -86,7 +86,7 @@ public class FrmProveedor extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("REGISTRO PRODUCTOS");
+        jLabel1.setText("REGISTRO PROVEEDOR");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -148,15 +148,6 @@ public class FrmProveedor extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(grillaProveedor);
 
-        btnSeleccionar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Seleccionar.png"))); // NOI18N
-        btnSeleccionar.setText("SELECCIONAR");
-        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarActionPerformed(evt);
-            }
-        });
-
         btnAgregar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Agregar.png"))); // NOI18N
         btnAgregar.setText("AGREGAR");
@@ -184,24 +175,13 @@ public class FrmProveedor extends javax.swing.JFrame {
             }
         });
 
-        btnEliminar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Eliminar.png"))); // NOI18N
-        btnEliminar.setText("ELIMINAR");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
         panelProducto.setLayer(btnBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelProducto.setLayer(txtBuscarProveedor, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelProducto.setLayer(cbxProveedor, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelProducto.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        panelProducto.setLayer(btnSeleccionar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelProducto.setLayer(btnAgregar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelProducto.setLayer(btnModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelProducto.setLayer(btnCancelar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        panelProducto.setLayer(btnEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelProductoLayout = new javax.swing.GroupLayout(panelProducto);
         panelProducto.setLayout(panelProductoLayout);
@@ -221,17 +201,11 @@ public class FrmProveedor extends javax.swing.JFrame {
             .addGroup(panelProductoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(14, 14, 14)
-                .addComponent(btnSeleccionar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEliminar)
-                .addGap(18, 18, 18)
+                .addGap(61, 61, 61)
                 .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(panelProductoLayout.createSequentialGroup()
-                .addGap(203, 203, 203)
+                .addGap(55, 55, 55)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(54, 54, 54))
         );
         panelProductoLayout.setVerticalGroup(
             panelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,13 +220,10 @@ public class FrmProveedor extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(panelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(58, 58, 58))
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 0));
@@ -319,8 +290,9 @@ public class FrmProveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        FrmIProveedor oFrmIProveedor = new FrmIProveedor("GUARDAR", oModeloProveedor, this);
-        panelProducto.add(oFrmIProveedor);
+        FrmIProveedor oFrmIProveedor = new FrmIProveedor("GUARDAR", oModeloProveedor, this,oFrmFondo);
+        oFrmFondo.agregarPanel(oFrmIProveedor);
+        oFrmFondo.setVisible(true);
 
         oFrmIProveedor.setVisible(true);
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -331,9 +303,9 @@ public class FrmProveedor extends javax.swing.JFrame {
             int id = Integer.parseInt(grillaProveedor.getValueAt(filaSeleccionada, 0).toString());
             oModeloProveedor = oAbmProveedor.proveedorExiste("Id_proveedor", String.valueOf(id));
             if (oModeloProveedor != null) {
-                FrmIProveedor oFrmIProveedor = new FrmIProveedor("MODIFICAR", oModeloProveedor, this);
-                panelProducto.add(oFrmIProveedor);
-
+                FrmIProveedor oFrmIProveedor = new FrmIProveedor("MODIFICAR", oModeloProveedor, this,oFrmFondo);
+                oFrmFondo.agregarPanel(oFrmIProveedor);
+                oFrmFondo.setVisible(true);
                 oFrmIProveedor.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Proveedor no encontrado.");
@@ -342,32 +314,6 @@ public class FrmProveedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un proveedor.");
         }
     }//GEN-LAST:event_btnModificarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-         int filaSeleccionada = grillaProveedor.getSelectedRow();
-        if (filaSeleccionada != -1) {
-            int id = Integer.parseInt(grillaProveedor.getValueAt(filaSeleccionada, 0).toString());
-            oModeloProveedor = oAbmProveedor.proveedorExiste("Id_proveedor", String.valueOf(id));
-            if (oModeloProveedor != null) {
-                boolean resultado = oAbmProveedor.eliminarProveedor(oModeloProveedor);
-                if (resultado) {
-                    JOptionPane.showMessageDialog(null, "Proveedor eliminado correctamente.");
-                    actualizarTabla();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al eliminar el proveedor.");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Proveedor no encontrado.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un proveedor.");
-        }
-        
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        
-    }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void cbxProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProveedorActionPerformed
         // TODO add your handling code here:
@@ -431,9 +377,7 @@ public class FrmProveedor extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
-    public javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cbxProveedor;
     private javax.swing.JTable grillaProveedor;
     private javax.swing.JLabel jLabel1;

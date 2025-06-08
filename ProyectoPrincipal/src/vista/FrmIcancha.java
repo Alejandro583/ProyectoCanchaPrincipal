@@ -20,12 +20,14 @@ public class FrmIcancha extends javax.swing.JInternalFrame {
     abmCancha oAbmCancha = new abmCancha(null);
     sesion oSesion= new sesion();
     FrmCancha ofrmCancha;
+    FrmInternosFondo OfrmFondo;
     //Variable para cambiar el texto del boton dependiendo si es guardar o modificar 
     String opcion;
-    public FrmIcancha(String operacion,modeloCancha cancha,FrmCancha FrmPadre) {
+    public FrmIcancha(String operacion,modeloCancha cancha,FrmCancha FrmPadre,FrmInternosFondo pFondo) {
         initComponents();
         opcion = operacion;
         ofrmCancha = FrmPadre;
+        OfrmFondo = pFondo;
         if(opcion.equals("GUARDAR"))
         {
             btnOperacion.setText(opcion);
@@ -258,6 +260,8 @@ public class FrmIcancha extends javax.swing.JInternalFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.setVisible(false);
+        OfrmFondo.setVisible(false);
+        ofrmCancha.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnOperacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOperacionActionPerformed
@@ -313,6 +317,8 @@ public class FrmIcancha extends javax.swing.JInternalFrame {
             {
                 JOptionPane.showMessageDialog(null, "Cancha Agregado correctamente");
                 this.setVisible(false);
+                OfrmFondo.setVisible(false);
+                ofrmCancha.setVisible(true);
             }else
             {
                 JOptionPane.showMessageDialog(null, "Error al agregar la Cancha");
@@ -331,6 +337,8 @@ public class FrmIcancha extends javax.swing.JInternalFrame {
             {
                 JOptionPane.showMessageDialog(null, "Cancha Modificado correctamente");
                 this.setVisible(false);
+                OfrmFondo.setVisible(false);
+                ofrmCancha.setVisible(true);
             }else
             {
                 JOptionPane.showMessageDialog(null, "Error al Modificar la Cancha");

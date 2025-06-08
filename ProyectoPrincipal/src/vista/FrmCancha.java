@@ -20,6 +20,7 @@ public class FrmCancha extends javax.swing.JFrame {
     abmCancha oAbmCancha;
     sesion oSesion;
     FrmMenuCancha oFrmMenuCancha;
+    FrmInternosFondo oFrmFondo;
     public FrmCancha() {
         initComponents();
     }
@@ -30,6 +31,7 @@ public class FrmCancha extends javax.swing.JFrame {
         oAbmCancha = new abmCancha(oSesion);
         grillaCancha.setModel(oAbmCancha.cargarTabla(""));
         Usuario.setText(oSesion.getNombreUsuario());
+        oFrmFondo = new FrmInternosFondo(this);
         this.setExtendedState(this.MAXIMIZED_BOTH);
 
     }
@@ -219,15 +221,17 @@ public class FrmCancha extends javax.swing.JFrame {
             int  id = Integer.parseInt(grillaCancha.getValueAt(filaSeleccionada, 0).toString()); // columna 0 = primera columna
             oModeloCancha.setId_cancha(id);
             oModeloCancha = oAbmCancha.canchaExiste(oModeloCancha);
-            FrmIcancha oFrmcancha = new FrmIcancha("MODIFICAR",oModeloCancha,this);
-            panelCancha.add(oFrmcancha);
+            FrmIcancha oFrmcancha = new FrmIcancha("MODIFICAR",oModeloCancha,this,oFrmFondo);
+            oFrmFondo.agregarPanel(oFrmcancha);
+            oFrmFondo.setVisible(true);
             oFrmcancha.setVisible(true);
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        FrmIcancha oFrmcancha = new FrmIcancha("GUARDAR",oModeloCancha,this);
-        panelCancha.add(oFrmcancha);
+        FrmIcancha oFrmcancha = new FrmIcancha("GUARDAR",oModeloCancha,this,oFrmFondo);
+        oFrmFondo.agregarPanel(oFrmcancha);
+        oFrmFondo.setVisible(true);
         oFrmcancha.setVisible(true);
     }//GEN-LAST:event_btnAgregarActionPerformed
 

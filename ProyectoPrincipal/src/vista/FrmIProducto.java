@@ -22,11 +22,13 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
     String opcion;
     sesion Osesion = new sesion();
     abmProveedor oAbmProveedor;
-    public FrmIProducto(String operacion,modeloProducto oproducto,FrmProducto pFrmProducto) {
+    FrmInternosFondo oFrmFondo;
+    public FrmIProducto(String operacion,modeloProducto oproducto,FrmProducto pFrmProducto,FrmInternosFondo pFondo) {
         initComponents();
         opcion = operacion;
         ofrmProducto = pFrmProducto;
         oAbmProveedor = new abmProveedor();
+        oFrmFondo = pFondo;
         if(opcion.equals("GUARDAR"))
         {
             btnGuardar.setText(opcion);
@@ -235,7 +237,8 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.dispose();
+        oFrmFondo.setVisible(false);
+        ofrmProducto.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtProductoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductoKeyPressed
@@ -293,6 +296,8 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
             {
                 JOptionPane.showMessageDialog(null, "Producto Agregado Correctamente");
                 this.dispose();
+                oFrmFondo.setVisible(false);
+                ofrmProducto.setVisible(true);
             }else
             {
                 JOptionPane.showMessageDialog(null, "Error al Guardar el Producto");
@@ -312,6 +317,8 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
             {
                 JOptionPane.showMessageDialog(null, "Producto Modificado Correctamente");
                 this.dispose();
+                oFrmFondo.setVisible(false);
+                ofrmProducto.setVisible(true);
             }else
             {
                 JOptionPane.showMessageDialog(null, "Error al Modificar el Producto");

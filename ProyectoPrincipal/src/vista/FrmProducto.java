@@ -13,6 +13,7 @@ public class FrmProducto extends javax.swing.JFrame {
     abmProducto oAbmProducto;
     sesion oSesion;
     FrmMenuCancha oFrmMenuCancha;
+    FrmInternosFondo oFrmFondo;
     public FrmProducto()
     {
         
@@ -24,6 +25,7 @@ public class FrmProducto extends javax.swing.JFrame {
         txtBuscarProducto.requestFocus();
         oAbmProducto = new abmProducto(oSesion);
         Usuario.setText(oSesion.getNombreUsuario());
+        oFrmFondo = new FrmInternosFondo(this);
         actualizarTabla();
     }
 
@@ -46,11 +48,9 @@ public class FrmProducto extends javax.swing.JFrame {
         cbxProducto = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         grillaProducto = new javax.swing.JTable();
-        btnSeleccionar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         Usuario = new javax.swing.JLabel();
 
@@ -126,15 +126,6 @@ public class FrmProducto extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(grillaProducto);
 
-        btnSeleccionar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Seleccionar.png"))); // NOI18N
-        btnSeleccionar.setText("SELECCIONAR");
-        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeleccionarActionPerformed(evt);
-            }
-        });
-
         btnAgregar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Agregar.png"))); // NOI18N
         btnAgregar.setText("AGREGAR");
@@ -162,24 +153,13 @@ public class FrmProducto extends javax.swing.JFrame {
             }
         });
 
-        btnEliminar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Eliminar.png"))); // NOI18N
-        btnEliminar.setText("ELIMINAR");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
         panelProducto.setLayer(btnBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelProducto.setLayer(txtBuscarProducto, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelProducto.setLayer(cbxProducto, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelProducto.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        panelProducto.setLayer(btnSeleccionar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelProducto.setLayer(btnAgregar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelProducto.setLayer(btnModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelProducto.setLayer(btnCancelar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        panelProducto.setLayer(btnEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelProductoLayout = new javax.swing.GroupLayout(panelProducto);
         panelProducto.setLayout(panelProductoLayout);
@@ -199,17 +179,11 @@ public class FrmProducto extends javax.swing.JFrame {
             .addGroup(panelProductoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(14, 14, 14)
-                .addComponent(btnSeleccionar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEliminar)
-                .addGap(18, 18, 18)
+                .addGap(62, 62, 62)
                 .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(panelProductoLayout.createSequentialGroup()
-                .addGap(203, 203, 203)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(51, 51, 51)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75))
         );
         panelProductoLayout.setVerticalGroup(
             panelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,13 +198,10 @@ public class FrmProducto extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(panelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(58, 58, 58))
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 0));
@@ -297,8 +268,9 @@ public class FrmProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        FrmIProducto oFrmIProducto = new FrmIProducto("GUARDAR",oModeloProducto,this);
-        panelProducto.add(oFrmIProducto);
+        FrmIProducto oFrmIProducto = new FrmIProducto("GUARDAR",oModeloProducto,this,oFrmFondo);
+        oFrmFondo.agregarPanel(oFrmIProducto);
+        oFrmFondo.setVisible(true);
         oFrmIProducto.setVisible(true);
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -309,42 +281,12 @@ public class FrmProducto extends javax.swing.JFrame {
             int  id = Integer.parseInt(grillaProducto.getValueAt(filaSeleccionada, 0).toString()); // columna 0 = primera columna
             oModeloProducto.setId_producto(id);
             oModeloProducto = oAbmProducto.productoExiste(oModeloProducto);
-            FrmIProducto oFrmIProducto = new FrmIProducto("MODIFICAR",oModeloProducto,this);
-            panelProducto.add(oFrmIProducto);
+            FrmIProducto oFrmIProducto = new FrmIProducto("MODIFICAR",oModeloProducto,this,oFrmFondo);
+            oFrmFondo.agregarPanel(oFrmIProducto);
+            oFrmFondo.setVisible(true);
             oFrmIProducto.setVisible(true);
         }
     }//GEN-LAST:event_btnModificarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int filaSeleccionada = grillaProducto.getSelectedRow();
-        oModeloProducto = new modeloProducto();
-        if (filaSeleccionada != -1) { // si hay una fila seleccionada
-            int  id = Integer.parseInt(grillaProducto.getValueAt(filaSeleccionada, 0).toString()); // columna 0 = primera columna
-            oModeloProducto.setId_producto(id);
-            oModeloProducto = oAbmProducto.productoExiste(oModeloProducto);
-            boolean resultado = oAbmProducto.eliminarProducto(oModeloProducto);
-            if (resultado)
-            {
-                JOptionPane.showMessageDialog(null, "Producto Eliminado Correctamente");
-                actualizarTabla();
-                
-            }else
-            {
-                JOptionPane.showMessageDialog(null, "Error al Eliminar el Producto");
-            }
-        }
-        
-        
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        int filaSeleccionada = grillaProducto.getSelectedRow();
-        oModeloProducto = new modeloProducto();
-        if (filaSeleccionada != -1) { // si hay una fila seleccionada
-            int  id = Integer.parseInt(grillaProducto.getValueAt(filaSeleccionada, 0).toString()); // columna 0 = primera columna
-            productoSeleccionado(id);
-        }
-    }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     public void  productoSeleccionado(int id )
     {
@@ -409,9 +351,7 @@ public class FrmProducto extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
-    public javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cbxProducto;
     private javax.swing.JTable grillaProducto;
     private javax.swing.JLabel jLabel1;
