@@ -8,6 +8,7 @@ package vista;
 import abm.abmCliente;
 import abm.abmReserva;
 import config.sesion;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelo.modeloCliente;
 import modelo.modeloReserva;
@@ -25,6 +26,7 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
     abmReserva oAbmReserva = new abmReserva();
     modeloReserva oModeloReserva;
     modeloCliente oModeloCliente;
+    JFrame FrmFondo;
     //Esta variable sirva para realizar las consultas de manera correcta supongamos que el usuario 
     //seleciono para modificar reserva en la consulta estan involucradas dos tamblas en cambio en la consulta de cliente 
     //solo una tabla entonces cuando el cliente entre en reserva esta variable va a tener un valor y si entra en cliente va a estar vacia
@@ -39,11 +41,12 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
     }
     
 
-    public FrmIclienteReserva(String opcionMostrar,FrmClienteReserva frm,sesion psesion) {
+    public FrmIclienteReserva(String opcionMostrar,FrmClienteReserva frm,sesion psesion,JFrame fondo) {
         initComponents();
         oFrmPrincipal = frm;
         valorRecibido = opcionMostrar;
         Osesion = psesion;
+        FrmFondo = fondo;
         if (opcionMostrar.equals("CLIENTE"))
         {
             grillaClienteReserva.setModel(oAbmCliente.cargarTabla(""));
@@ -206,11 +209,13 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.setVisible(false);
+        apagarFrmFondo();
+        oFrmPrincipal.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         int filaSeleccionada = grillaClienteReserva.getSelectedRow(); // obtengo la fila seleccionada
-        
+        FrmInternosFondo pFrmFondo;
         
         if(valorRecibido.equals("CLIENTE"))
         {
@@ -221,10 +226,13 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
                 oModeloCliente = new modeloCliente();
                 oModeloCliente.setCi(cedula);
                 cliente = oAbmCliente.clienteExiste(cedula);
-                FrmImodificarCliRE oFrmmodificarCliente = new FrmImodificarCliRE(cliente,null,Osesion,this);
+                pFrmFondo = new FrmInternosFondo();
+                FrmImodificarCliRE oFrmmodificarCliente = new FrmImodificarCliRE(cliente,null,Osesion,this,pFrmFondo);
                 this.setVisible(false);
                 oFrmmodificarCliente.modificarcliente();
-                oFrmPrincipal.mostrarPanel(oFrmmodificarCliente);
+                pFrmFondo.agregarPanel(oFrmmodificarCliente);
+                FrmFondo.setVisible(false);
+                pFrmFondo.setVisible(true);
             }
         }
         else
@@ -236,7 +244,7 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
                 oModeloReserva = oAbmReserva.reservaExiste(id);
                 oModeloCliente = oAbmCliente.clienteExiste(oModeloReserva.getFk_cliente());
                 this.setVisible(false);
-                FrmImodificarCliRE oFrmmodificarCliente = new FrmImodificarCliRE(oModeloCliente,oModeloReserva,Osesion,this);
+                FrmImodificarCliRE oFrmmodificarCliente = new FrmImodificarCliRE(oModeloCliente,oModeloReserva,Osesion,this,null);
                 oFrmmodificarCliente.modificarReserva();
                 oFrmPrincipal.mostrarPanel(oFrmmodificarCliente);
             }
@@ -291,6 +299,11 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
         oFrmPrincipal.cargarTablas();
     }
 
+    public void apagarFrmFondo()
+    {
+        FrmFondo.dispose();
+        FrmFondo.setVisible(false);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscador;
     private javax.swing.JButton btnCancelar;

@@ -10,6 +10,7 @@ import abm.abmCliente;
 import abm.abmReserva;
 import config.sesion;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelo.modeloCliente;
 import modelo.modeloReserva;
@@ -29,8 +30,8 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
     FrmIclienteReserva OfrmFrmIclienteReserva;
     abmReserva oAbmReserva;
     abmCliente oAbmCliente;
-    
-    public FrmImodificarCliRE(modeloCliente pmodeloCliente,modeloReserva pModeloReserva,sesion psesion,FrmIclienteReserva pFrm) {
+    JFrame oFondo;
+    public FrmImodificarCliRE(modeloCliente pmodeloCliente,modeloReserva pModeloReserva,sesion psesion,FrmIclienteReserva pFrm,JFrame fondo) {
         initComponents();  
         Osesion = psesion;
         oModeloCliente = pmodeloCliente;
@@ -38,6 +39,7 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
         OfrmFrmIclienteReserva = pFrm;
         oAbmReserva = new abmReserva(psesion);
         oAbmCliente = new abmCliente(psesion);
+        oFondo = fondo;
         if(oModeloreserva==null)
         {
             modificarcliente();
@@ -298,8 +300,12 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Cliente Modificado Correctamente");
                 OfrmFrmIclienteReserva.setVisible(true);
                 OfrmFrmIclienteReserva.cargarTablaCliente();
-                
+                apagarFondo();
+                OfrmFrmIclienteReserva.setVisible(true);
                 this.dispose();
+                FrmInternosFondo pFondo = new FrmInternosFondo();
+                pFondo.agregarPanel(OfrmFrmIclienteReserva);
+                pFondo.setVisible(true);
             }
             else
             {
@@ -329,6 +335,12 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
                 OfrmFrmIclienteReserva.setVisible(true);
                 OfrmFrmIclienteReserva.cargarTablaReserva();
                 this.dispose();
+                apagarFondo();
+                OfrmFrmIclienteReserva.setVisible(true);
+                
+                FrmInternosFondo pFondo = new FrmInternosFondo();
+                pFondo.agregarPanel(OfrmFrmIclienteReserva);
+                pFondo.setVisible(true);
             }
             else
             {
@@ -339,7 +351,9 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
-        OfrmFrmIclienteReserva.setVisible(true);
+        FrmInternosFondo pFondo = new FrmInternosFondo();
+        pFondo.agregarPanel(OfrmFrmIclienteReserva);
+        pFondo.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cbxCancha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCancha1ActionPerformed
@@ -406,6 +420,10 @@ public void seleccionarItemPorNombre(JComboBox<String> comboBox, String nombreAB
     }
 }
 
+public void apagarFondo()
+{
+    oFondo.setVisible(false);
+}
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
