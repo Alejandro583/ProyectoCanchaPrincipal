@@ -49,12 +49,13 @@ public class abmCaja extends conexion {
         Connection conex = getAbrirConexion();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM Caja WHERE Fk_usuario = ? AND Estado = 1";
+        String sql = "SELECT * FROM Caja WHERE (Fk_usuario = ? OR Id_caja = ?) AND Estado = 1";
         modeloCaja caja = null;
 
         try {
             ps = conex.prepareStatement(sql);
             ps.setInt(1, idUsuario);
+            ps.setInt(2, idUsuario);
             rs = ps.executeQuery();
 
             if (rs.next()) {

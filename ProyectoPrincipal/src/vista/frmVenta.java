@@ -471,6 +471,7 @@ public class frmVenta extends javax.swing.JFrame {
 
         panelInfoPrecio.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Seleccionar.png"))); // NOI18N
         btnAceptar.setText("ACEPTAR");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -494,6 +495,7 @@ public class frmVenta extends javax.swing.JFrame {
 
         panelBoton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnProcesar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/ProcesarCompra.png"))); // NOI18N
         btnProcesar.setText("PROCESAR VENTA");
         btnProcesar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -501,7 +503,8 @@ public class frmVenta extends javax.swing.JFrame {
             }
         });
 
-        btnCancelar.setText("CANCELAR");
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/flecha-hacia-atras.png"))); // NOI18N
+        btnCancelar.setText("ATRAS");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);

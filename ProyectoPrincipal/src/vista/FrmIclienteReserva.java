@@ -121,8 +121,8 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(grillaClienteReserva);
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Cancelar.png"))); // NOI18N
-        btnCancelar.setText("CANCELAR");
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/flecha-hacia-atras.png"))); // NOI18N
+        btnCancelar.setText("ATRAS");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -282,9 +282,13 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
     
     public void cargarTablaReserva()
     {
+        grillaClienteReserva.setModel(oAbmReserva.cargarReservas(""));
+        oFrmPrincipal.cargarTablas();
+    }
+    public void cargarTablaCliente()
+    {
         grillaClienteReserva.setModel(oAbmCliente.cargarTabla(""));
         oFrmPrincipal.cargarTablas();
-        grillaClienteReserva.setModel(oAbmReserva.cargarReservas(""));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

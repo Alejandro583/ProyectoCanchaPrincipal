@@ -627,6 +627,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnAceptar">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagen/Seleccionar.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="ACEPTAR"/>
           </Properties>
           <Events>
@@ -679,6 +682,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnProcesar">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagen/ProcesarCompra.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="PROCESAR VENTA"/>
           </Properties>
           <Events>
@@ -687,7 +693,10 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnCancelar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="CANCELAR"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagen/flecha-hacia-atras.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="ATRAS"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>

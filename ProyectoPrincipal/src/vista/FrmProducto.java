@@ -154,8 +154,8 @@ public class FrmProducto extends javax.swing.JFrame {
         });
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Cancelar.png"))); // NOI18N
-        btnCancelar.setText("CANCELAR");
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/flecha-hacia-atras.png"))); // NOI18N
+        btnCancelar.setText("ATRAS");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -411,7 +411,7 @@ public class FrmProducto extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnSeleccionar;
+    public javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cbxProducto;
     private javax.swing.JTable grillaProducto;
     private javax.swing.JLabel jLabel1;

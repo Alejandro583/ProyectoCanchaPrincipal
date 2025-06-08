@@ -138,8 +138,8 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
         });
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Cancelar.png"))); // NOI18N
-        jButton1.setText("CANCELAR");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/flecha-hacia-atras.png"))); // NOI18N
+        jButton1.setText("ATRAS");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -297,7 +297,7 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
             {
                 JOptionPane.showMessageDialog(null, "Cliente Modificado Correctamente");
                 OfrmFrmIclienteReserva.setVisible(true);
-                
+                OfrmFrmIclienteReserva.cargarTablaCliente();
                 
                 this.dispose();
             }
@@ -327,16 +327,14 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
             {
                 JOptionPane.showMessageDialog(null, "Reserva modificada coreectamente");
                 OfrmFrmIclienteReserva.setVisible(true);
+                OfrmFrmIclienteReserva.cargarTablaReserva();
                 this.dispose();
             }
             else
             {
                 JOptionPane.showMessageDialog(null, "Error al modificar reserva");
             }
-        }
-        OfrmFrmIclienteReserva.cargarTablaReserva();
-        
-        
+        }    
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -384,7 +382,7 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
 
     // Cargamos los combos primero
     cbxCancha1.setModel(oAbmCancha.cargarComboBox(""));
-    JOptionPane.showMessageDialog(null, oModeloreserva.getFechaReserva());
+
     cbxFecha1.setModel(oAbmReservae.cargarFechas());
     cbxHorario.setModel(oAbmReservae.cargarHorarios(1, oModeloreserva.getFechaReserva()));
 
