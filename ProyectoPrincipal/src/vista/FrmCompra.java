@@ -33,6 +33,7 @@ public class FrmCompra extends javax.swing.JFrame {
     modeloProveedor oModeloProveedor = new modeloProveedor();
     float montoTotal;
     double montoIva;
+    FrmInternosFondo oFrmFondo;
     public FrmCompra() {
         initComponents();
         
@@ -61,6 +62,7 @@ public class FrmCompra extends javax.swing.JFrame {
         modeloTabla.setColumnIdentifiers(new Object[]{"CODIGO", "PRODUCTO", "COSTO", "PROVEEDOR","FECHA","CANTIDAD"});
         grillaCompra.setModel(modeloTabla);
         oAbmCompraDetalle = new abmCompraDetalle(pSesion);
+        oFrmFondo = new FrmInternosFondo(this);
         this.setExtendedState(this.MAXIMIZED_BOTH);
     }
 
@@ -481,6 +483,7 @@ public class FrmCompra extends javax.swing.JFrame {
         });
 
         btnCompraDetalle.setText("DETALLES DE COMPRAS");
+        btnCompraDetalle.setEnabled(false);
         btnCompraDetalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCompraDetalleActionPerformed(evt);
@@ -711,9 +714,12 @@ public class FrmCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCompraIdActionPerformed
 
     private void btnCompraDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompraDetalleActionPerformed
-        FrmICompraDetalle oFrmICompraDetalle = new FrmICompraDetalle();
-        oFrmICompraDetalle.setVisible(true);
+        FrmICompraDetalle oFrmICompraDetalle = new FrmICompraDetalle(oSesion, oFrmMenuCancha, oFrmFondo);
+        oFrmFondo.agregarPanel(oFrmICompraDetalle);
+        oFrmFondo.setVisible(true);
         this.setVisible(false);
+        btnCompraDetalle.setVisible(false);
+        btnCompraDetalle.setEnabled(false);
     }//GEN-LAST:event_btnCompraDetalleActionPerformed
 
     private void txtSubtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubtotalActionPerformed

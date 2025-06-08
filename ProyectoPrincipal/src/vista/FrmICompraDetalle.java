@@ -11,16 +11,18 @@ public class FrmICompraDetalle extends javax.swing.JInternalFrame {
     abmCompraDetalle oAbmCompraDetallea;
     sesion oSesion;
     FrmMenuCancha oFrmMenuCancha;
+    FrmInternosFondo oFrmFondo;
     public FrmICompraDetalle() {
         initComponents();
     }
     
-    public FrmICompraDetalle(sesion pSesion,FrmMenuCancha oMenuCancha) {
+    public FrmICompraDetalle(sesion pSesion,FrmMenuCancha oMenuCancha,FrmInternosFondo pFondo) {
         initComponents();
         oSesion = pSesion;
         oFrmMenuCancha = oMenuCancha;
         oAbmCompraDetallea = new abmCompraDetalle(oSesion);
         grillaCompraDetalle.setModel(oAbmCompraDetallea.cargarTabla(""));
+        oFrmFondo = pFondo;
     }
 
     FrmICompraDetalle(sesion oSesion) {
@@ -41,9 +43,7 @@ public class FrmICompraDetalle extends javax.swing.JInternalFrame {
         panelDetalle = new javax.swing.JDesktopPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         grillaCompraDetalle = new javax.swing.JTable();
-        btnAgregar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
 
         setClosable(true);
@@ -63,7 +63,7 @@ public class FrmICompraDetalle extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(204, Short.MAX_VALUE)
+                .addContainerGap(120, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(169, 169, 169))
         );
@@ -90,15 +90,6 @@ public class FrmICompraDetalle extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(grillaCompraDetalle);
 
-        btnAgregar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Agregar.png"))); // NOI18N
-        btnAgregar.setText("AGREGAR");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
-
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/flecha-hacia-atras.png"))); // NOI18N
         btnCancelar.setText("ATRAS");
@@ -107,10 +98,6 @@ public class FrmICompraDetalle extends javax.swing.JInternalFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-
-        btnEliminar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Eliminar.png"))); // NOI18N
-        btnEliminar.setText("ELIMINAR");
 
         btnModificar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Editar.png"))); // NOI18N
@@ -122,9 +109,7 @@ public class FrmICompraDetalle extends javax.swing.JInternalFrame {
         });
 
         panelDetalle.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        panelDetalle.setLayer(btnAgregar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelDetalle.setLayer(btnCancelar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        panelDetalle.setLayer(btnEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelDetalle.setLayer(btnModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelDetalleLayout = new javax.swing.GroupLayout(panelDetalle);
@@ -133,16 +118,12 @@ public class FrmICompraDetalle extends javax.swing.JInternalFrame {
             panelDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDetalleLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(panelDetalleLayout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(btnAgregar)
-                .addGap(35, 35, 35)
+                .addGap(122, 122, 122)
                 .addComponent(btnModificar)
-                .addGap(31, 31, 31)
-                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(75, 75, 75)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -153,11 +134,9 @@ public class FrmICompraDetalle extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addGroup(panelDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar)
                     .addComponent(btnModificar)
-                    .addComponent(btnEliminar)
                     .addComponent(btnCancelar))
-                .addContainerGap(279, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -171,9 +150,9 @@ public class FrmICompraDetalle extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
 
         pack();
@@ -188,15 +167,9 @@ public class FrmICompraDetalle extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        
-    }//GEN-LAST:event_btnAgregarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JTable grillaCompraDetalle;
     private javax.swing.JLabel jLabel1;
