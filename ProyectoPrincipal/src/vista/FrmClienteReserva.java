@@ -38,6 +38,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
     abmDetalleVenta oAbmDetalleVenta;
     modeloDetalleVenta oModeloDetllaVenta;
     modeloVenta oModeloVenta;
+    FrmInternosFondo oFrmInterno;
     public FrmClienteReserva()
     {
         
@@ -56,6 +57,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         oAbmDetalleVenta = new abmDetalleVenta();
         oModeloDetllaVenta = new modeloDetalleVenta();
         Usuario.setText(pSesion.getNombreUsuario());
+        oFrmInterno = new FrmInternosFondo(this);
     }
 
     /**
@@ -595,7 +597,6 @@ public class FrmClienteReserva extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        FrmInternosFondo oFrmInterno = new FrmInternosFondo(this);
         FrmIclienteReserva oFrmClienteReserva = new FrmIclienteReserva("CLIENTE",this,oSesion,oFrmInterno);
         oFrmInterno.agregarPanel(oFrmClienteReserva);
         oFrmInterno.setVisible(true);
@@ -604,7 +605,6 @@ public class FrmClienteReserva extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        FrmInternosFondo oFrmInterno = new FrmInternosFondo(this);
         FrmIclienteReserva oFrmClienteReserva = new FrmIclienteReserva("RESERVA",this,oSesion,oFrmInterno);
         PanelPrincipal.add(oFrmClienteReserva);
         oFrmClienteReserva.setVisible(true);

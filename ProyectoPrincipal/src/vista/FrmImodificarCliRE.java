@@ -30,8 +30,8 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
     FrmIclienteReserva OfrmFrmIclienteReserva;
     abmReserva oAbmReserva;
     abmCliente oAbmCliente;
-    JFrame oFondo;
-    public FrmImodificarCliRE(modeloCliente pmodeloCliente,modeloReserva pModeloReserva,sesion psesion,FrmIclienteReserva pFrm,JFrame fondo) {
+    FrmInternosFondo oFondo;
+    public FrmImodificarCliRE(modeloCliente pmodeloCliente,modeloReserva pModeloReserva,sesion psesion,FrmIclienteReserva pFrm,FrmInternosFondo fondo) {
         initComponents();  
         Osesion = psesion;
         oModeloCliente = pmodeloCliente;
@@ -303,9 +303,9 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
                 apagarFondo();
                 OfrmFrmIclienteReserva.setVisible(true);
                 this.dispose();
-                FrmInternosFondo pFondo = new FrmInternosFondo();
-                pFondo.agregarPanel(OfrmFrmIclienteReserva);
-                pFondo.setVisible(true);
+                oFondo.setVisible(false);
+                oFondo.agregarPanel(OfrmFrmIclienteReserva);
+                oFondo.setVisible(true);
             }
             else
             {
@@ -338,9 +338,9 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
                 apagarFondo();
                 OfrmFrmIclienteReserva.setVisible(true);
                 
-                FrmInternosFondo pFondo = new FrmInternosFondo();
-                pFondo.agregarPanel(OfrmFrmIclienteReserva);
-                pFondo.setVisible(true);
+                //FrmInternosFondo pFondo = new FrmInternosFondo();
+                oFondo.agregarPanel(OfrmFrmIclienteReserva);
+                oFondo.setVisible(true);
             }
             else
             {
@@ -350,10 +350,15 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
         this.setVisible(false);
-        FrmInternosFondo pFondo = new FrmInternosFondo();
-        pFondo.agregarPanel(OfrmFrmIclienteReserva);
-        pFondo.setVisible(true);
+        oFondo.dispose();
+        oFondo.setVisible(false);
+        //apagarFondo();
+        //oFondo = new FrmInternosFondo();
+        oFondo.agregarPanel(OfrmFrmIclienteReserva);
+        oFondo.setVisible(true);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cbxCancha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCancha1ActionPerformed

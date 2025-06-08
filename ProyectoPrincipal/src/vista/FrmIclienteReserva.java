@@ -26,7 +26,7 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
     abmReserva oAbmReserva = new abmReserva();
     modeloReserva oModeloReserva;
     modeloCliente oModeloCliente;
-    JFrame FrmFondo;
+    FrmInternosFondo FrmFondo;
     //Esta variable sirva para realizar las consultas de manera correcta supongamos que el usuario 
     //seleciono para modificar reserva en la consulta estan involucradas dos tamblas en cambio en la consulta de cliente 
     //solo una tabla entonces cuando el cliente entre en reserva esta variable va a tener un valor y si entra en cliente va a estar vacia
@@ -41,7 +41,7 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
     }
     
 
-    public FrmIclienteReserva(String opcionMostrar,FrmClienteReserva frm,sesion psesion,JFrame fondo) {
+    public FrmIclienteReserva(String opcionMostrar,FrmClienteReserva frm,sesion psesion,FrmInternosFondo fondo) {
         initComponents();
         oFrmPrincipal = frm;
         valorRecibido = opcionMostrar;
@@ -210,6 +210,7 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.setVisible(false);
         apagarFrmFondo();
+        FrmFondo.setVisible(false);
         oFrmPrincipal.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -222,17 +223,16 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
             this.setVisible(false);
             modeloCliente cliente = new modeloCliente();
             if (filaSeleccionada != -1) { // si hay una fila seleccionada
+                FrmFondo.dispose();
                 String  cedula = (grillaClienteReserva.getValueAt(filaSeleccionada, 1).toString()); // columna 0 = primera columna
                 oModeloCliente = new modeloCliente();
                 oModeloCliente.setCi(cedula);
                 cliente = oAbmCliente.clienteExiste(cedula);
-                pFrmFondo = new FrmInternosFondo();
-                FrmImodificarCliRE oFrmmodificarCliente = new FrmImodificarCliRE(cliente,null,Osesion,this,pFrmFondo);
+                FrmImodificarCliRE oFrmmodificarCliente = new FrmImodificarCliRE(cliente,null,Osesion,this,FrmFondo);
                 this.setVisible(false);
                 oFrmmodificarCliente.modificarcliente();
-                pFrmFondo.agregarPanel(oFrmmodificarCliente);
-                FrmFondo.setVisible(false);
-                pFrmFondo.setVisible(true);
+                FrmFondo.agregarPanel(oFrmmodificarCliente);
+                FrmFondo.setVisible(true);
             }
         }
         else
