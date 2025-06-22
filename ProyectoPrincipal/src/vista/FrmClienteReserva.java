@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.modeloCaja;
 import modelo.modeloCliente;
@@ -59,6 +60,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         oModeloDetllaVenta = new modeloDetalleVenta();
         Usuario.setText(pSesion.getNombreUsuario());
         oFrmInterno = new FrmInternosFondo(this);
+        txtMonto.setText("0");
         this.setExtendedState(this.MAXIMIZED_BOTH);
     }
 
@@ -378,7 +380,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
                             .addGroup(PanelPrincipalLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                         .addGroup(PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
@@ -508,7 +510,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 150, Short.MAX_VALUE)
+            .addGap(0, 189, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -639,7 +641,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int filaSeleccionada = grillaCliente.getSelectedRow(); // obtengo la fila seleccionada
-        txtMonto.setText("");
+        txtMonto.setText("0");
         if (filaSeleccionada != -1) { // si hay una fila seleccionada
             String  cedula = (grillaCliente.getValueAt(filaSeleccionada, 1).toString()); // columna 0 = primera columna
             oModeloCliente = oAbmCliente.clienteExiste(cedula);
@@ -670,7 +672,9 @@ public class FrmClienteReserva extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxFechaActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        oAbmReserva = new abmReserva(oSesion);
+       if(verificarCampos() && verificarPrecio(txtMonto.getText()))
+       {
+            oAbmReserva = new abmReserva(oSesion);
         if(oAbmCliente.clienteExiste(txtCI.getText())== null)
         {
             oModeloCliente = new modeloCliente();
@@ -735,7 +739,6 @@ public class FrmClienteReserva extends javax.swing.JFrame {
             abmCaja oAbCaja = new abmCaja(oSesion);
             modeloCaja oModeloCaja;
             oModeloCaja = oAbCaja.CargarCaja(oSesion.getIdUsuario());
-            JOptionPane.showMessageDialog(null, oModeloCaja.getId_caja());
             oAbCaja.aumentarEfectivo(Float.parseFloat(txtMonto.getText()),oModeloCaja.getId_caja());
         }
 
@@ -747,6 +750,10 @@ public class FrmClienteReserva extends javax.swing.JFrame {
         cbxHorarios1.setModel(oAbmReserva.cargarHorarios(1, fecha));
         this.dispose();
         oFrmMenuCancha.setVisible(true);
+       }else
+       {
+           JOptionPane.showMessageDialog(null,"Todos los campos deben estar rellenados correctamente");
+       }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void txtNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyPressed
@@ -845,6 +852,41 @@ public class FrmClienteReserva extends javax.swing.JFrame {
     {
         PanelPrincipal.add(frm);
         frm.setVisible(true);
+    }
+    public boolean verificarCampos() {
+    ArrayList<String> campos = new ArrayList<>();
+    campos.add(txtCI.getText());
+    campos.add(txtNombre.getText());
+    campos.add(txtTelefono.getText());
+
+    for (String campo : campos) {
+        if (campo == null || campo.trim().isEmpty()) {
+            return false; // Si hay al menos uno vacío, detenemos y devolvemos false
+        }
+    }
+
+    return true; // Si ninguno está vacío, devolvemos true al final
+}
+    public boolean verificarPrecio(String precio)
+    {
+        try
+        {
+            double precioConvertido = Double.parseDouble(precio);
+            if(precioConvertido < 0)
+            {
+                JOptionPane.showMessageDialog(null, "Solo se permiten valores Positivos");
+                return false;
+            }else
+            {
+                return true;
+            }
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,"Solo se permiten valores numericos");
+            return false;
+        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

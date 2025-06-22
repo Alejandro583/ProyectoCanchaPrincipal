@@ -4,6 +4,7 @@ package vista;
 import abm.abmProducto;
 import abm.abmProveedor;
 import config.sesion;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.modeloProducto;
 import modelo.modeloProveedor;
@@ -253,7 +254,9 @@ public class FrmIProveedor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCodigoKeyPressed
 
     private void realizarOperacion() {
-        oModeloProveedor = new modeloProveedor();
+        if (verificarCampos())
+        {
+            oModeloProveedor = new modeloProveedor();
         oModeloProveedor.setRuc(txtRuc.getText());
         oModeloProveedor.setNombre(txtNombre.getText());
         oModeloProveedor.setTelefono(txtTelefono.getText());
@@ -284,7 +287,28 @@ public class FrmIProveedor extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Error al modificar el proveedor");
             }
         }
+        }
+        else
+        {
+          JOptionPane.showMessageDialog(null, "Todos los campos deben ser rellenados correctamente");
+        }
     }
+    
+    public boolean verificarCampos() {
+    ArrayList<String> campos = new ArrayList<>();
+    campos.add(txtDireccion.getText());
+    campos.add(txtNombre.getText());
+    campos.add(txtRuc.getText());
+    campos.add(txtTelefono.getText());
+
+    for (String campo : campos) {
+        if (campo == null || campo.trim().isEmpty()) {
+            return false; // Si hay al menos uno vacío, detenemos y devolvemos false
+        }
+    }
+    return true;
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DIRECCION;

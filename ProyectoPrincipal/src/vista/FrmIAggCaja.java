@@ -6,6 +6,8 @@ import config.sesion;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -33,9 +35,14 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
         Osesion =  psesion;
         oAbmCaja = new abmCaja(Osesion);
         oFondo = pfondo;
+        txtFecha.setEditable(false);
+        txtEstado.setEditable(false);
         if(opcion.equals("GUARDAR"))
         {
             btnAgregar.setText(opcion);
+            txtFecha.setText(LocalDate.now().toString());
+            txtEstado.setText("Activo");
+            
         }
         else
         {
@@ -47,7 +54,8 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
             txtTarjeta.setText(oCaja.getTarjeta() + "");
             txtFecha.setText(oCaja.getFecha() + "");
             txtFecha.setEditable(false);
-            txtEstado.setText("1");
+            txtEstado.setText("Activo");
+            
             
 //            txtStock.setText(oproducto.getStock()+"");
 //            txtCodigo.setText(oproducto.getId_producto()+"");
@@ -82,7 +90,7 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
         txtIdCaja = new javax.swing.JTextField();
         txtTotal = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        btnAgregar1 = new javax.swing.JButton();
+        btnAtras = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -180,12 +188,12 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
         jLabel5.setText("REGISTRO CAJA");
 
-        btnAgregar1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnAgregar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/flecha-hacia-atras.png"))); // NOI18N
-        btnAgregar1.setText("ATRAS");
-        btnAgregar1.addActionListener(new java.awt.event.ActionListener() {
+        btnAtras.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/flecha-hacia-atras.png"))); // NOI18N
+        btnAtras.setText("ATRAS");
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregar1ActionPerformed(evt);
+                btnAtrasActionPerformed(evt);
             }
         });
 
@@ -220,7 +228,7 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
                         .addGap(60, 60, 60)
                         .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(btnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(78, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -254,7 +262,7 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
-                    .addComponent(btnAgregar1))
+                    .addComponent(btnAtras))
                 .addContainerGap())
         );
 
@@ -337,16 +345,18 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtFechaKeyPressed
 
-    private void btnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar1ActionPerformed
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         this.dispose();
         oFondo.setVisible(false);
         ofrmCaja.setVisible(true);
-    }//GEN-LAST:event_btnAgregar1ActionPerformed
+    }//GEN-LAST:event_btnAtrasActionPerformed
 
     
      public void realizarOperacion() throws ParseException
     {
-        oModeloCaja = new modeloCaja();
+        if(verificarCampos() && verificarNumero(txtEfectivo.getText()) && verificarNumero(txtTarjeta.getText()) && verificarNumero(txtTotal.getText()))
+        {
+            oModeloCaja = new modeloCaja();
         if (opcion.equals("GUARDAR"))
         {
             oModeloCaja.setTotal(Float.parseFloat(txtTotal.getText()));
@@ -394,11 +404,52 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Error al Modificar Caja");
             }
         }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Todos los campos deben ser rellenados correctamente");
+        }
     }
+     
+     public boolean verificarNumero(String precio)
+    {
+        try
+        {
+            double precioConvertido = Double.parseDouble(precio);
+            if(precioConvertido < 0)
+            {
+                JOptionPane.showMessageDialog(null, "Solo se permiten valores Positivos");
+                return false;
+            }else
+            {
+                return true;
+            }
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,"Solo se permiten valores numericos");
+            return false;
+        }
+        
+    }
+     
+     public boolean verificarCampos() {
+    ArrayList<String> campos = new ArrayList<>();
+    campos.add(txtEfectivo.getText());
+    campos.add(txtTarjeta.getText());
+    campos.add(txtTotal.getText());
+
+    for (String campo : campos) {
+        if (campo == null || campo.trim().isEmpty()) {
+            return false; // Si hay al menos uno vacío, detenemos y devolvemos false
+        }
+    }
+    return true;
+     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnAgregar1;
+    private javax.swing.JButton btnAtras;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

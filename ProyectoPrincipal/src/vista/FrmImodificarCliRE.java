@@ -9,6 +9,7 @@ import abm.abmCancha;
 import abm.abmCliente;
 import abm.abmReserva;
 import config.sesion;
+import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -288,7 +289,9 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtTelefonoKeyPressed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        if (oModeloreserva==null)
+        if(verificarCampos())
+        {
+            if (oModeloreserva==null)
         {
           //FALTA LA FUNCION PARA CARGAR LAS MODIFICACIONES EN LA BASE DE 
             oModeloCliente.setCi(txtCi.getText());
@@ -346,7 +349,12 @@ public class FrmImodificarCliRE extends javax.swing.JInternalFrame {
             {
                 JOptionPane.showMessageDialog(null, "Error al modificar reserva");
             }
-        }    
+        }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Todos los campos deben ser rellenados correctamente");
+        } 
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -429,7 +437,21 @@ public void apagarFondo()
 {
     oFondo.setVisible(false);
 }
+public boolean verificarCampos() {
+    ArrayList<String> campos = new ArrayList<>();
+    campos.add(txtCi.getText());
+    campos.add(txtNombre.getText());
+    //campos.add(txtObservacion.getText());
+    campos.add(txtTelefono.getText());
 
+    for (String campo : campos) {
+        if (campo == null || campo.trim().isEmpty()) {
+            return false; // Si hay al menos uno vacío, detenemos y devolvemos false
+        }
+    }
+    return true;
+    }
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnModificar;

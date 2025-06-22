@@ -7,6 +7,7 @@ package vista;
 
 import abm.abmCancha;
 import config.sesion;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.modeloCancha;
 
@@ -305,7 +306,9 @@ public class FrmIcancha extends javax.swing.JInternalFrame {
 
     public void realizarOperacion()
     {
-        oModeloCancha = new modeloCancha();
+        if (verificarCampos() && verificarPrecio(txtPrecio.getText()))
+        {
+            oModeloCancha = new modeloCancha();
         if(opcion.equals("GUARDAR"))
         {
             oModeloCancha.setNombre(txtNombre.getText());
@@ -344,6 +347,48 @@ public class FrmIcancha extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Error al Modificar la Cancha");
             }
         }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Todos los campos deben ser rellenados correctamente");
+        }
+    }
+    
+    public boolean verificarCampos() {
+    ArrayList<String> campos = new ArrayList<>();
+    campos.add(txtDisponible.getText());
+    campos.add(txtPrecio.getText());
+    campos.add(txtMantenimiento.getText());
+    campos.add(txtNombre.getText());
+
+    for (String campo : campos) {
+        if (campo == null || campo.trim().isEmpty()) {
+            return false; // Si hay al menos uno vacío, detenemos y devolvemos false
+        }
+    }
+    return true;
+    }
+    
+    public boolean verificarPrecio(String precio)
+    {
+        try
+        {
+            double precioConvertido = Double.parseDouble(precio);
+            if(precioConvertido < 0)
+            {
+                JOptionPane.showMessageDialog(null, "Solo se permiten valores Positivos");
+                return false;
+            }else
+            {
+                return true;
+            }
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,"Solo se permiten valores numericos");
+            return false;
+        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

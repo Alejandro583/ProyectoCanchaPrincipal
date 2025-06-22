@@ -5,6 +5,7 @@ import abm.abmCompra;
 import abm.abmCompraDetalle;
 
 import config.sesion;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.modeloCompra;
 import modelo.modeloCompraDetalle;
@@ -187,12 +188,7 @@ txtStock.setText(oCDetalle.getCantidad() + "");
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtStock)
                             .addComponent(cbxProveedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCancelar)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -201,7 +197,13 @@ txtStock.setText(oCDetalle.getCantidad() + "");
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(25, 25, 25)))))
+                                .addGap(25, 25, 25))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(93, 93, 93))
         );
         layout.setVerticalGroup(
@@ -232,7 +234,7 @@ txtStock.setText(oCDetalle.getCantidad() + "");
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -286,7 +288,9 @@ txtStock.setText(oCDetalle.getCantidad() + "");
 
     public void realizarOperacion()
     {
-        oModeloCompra = new modeloCompra();
+       if(verificarCampos() && verificarPrecio(txtCosto.getText()) && verificarPrecio(txtPrecio.getText()) && verificarPrecio(txtStock.getText()))
+       {
+            oModeloCompra = new modeloCompra();
         if (opcion.equals("GUARDAR"))
         {
 //            oModeloCompra.setCosto(Float.parseFloat(txtCosto.getText()));
@@ -324,8 +328,50 @@ txtStock.setText(oCDetalle.getCantidad() + "");
                 JOptionPane.showMessageDialog(null, "Error al Modificar el Producto");
             }
         }
+       }
+       else
+       {
+           JOptionPane.showMessageDialog(null, "Todos los campos deben ser rellenados correctamente");
+       }
     }
 
+    
+    public boolean verificarCampos() {
+    ArrayList<String> campos = new ArrayList<>();
+    campos.add(txtCosto.getText());
+    campos.add(txtPrecio.getText());
+    campos.add(txtProducto.getText());
+    campos.add(txtStock.getText());
+
+    for (String campo : campos) {
+        if (campo == null || campo.trim().isEmpty()) {
+            return false; // Si hay al menos uno vacío, detenemos y devolvemos false
+        }
+    }
+    return true;
+    }
+    
+    public boolean verificarPrecio(String precio)
+    {
+        try
+        {
+            double precioConvertido = Double.parseDouble(precio);
+            if(precioConvertido < 0)
+            {
+                JOptionPane.showMessageDialog(null, "Solo se permiten valores Positivos");
+                return false;
+            }else
+            {
+                return true;
+            }
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,"Solo se permiten valores numericos");
+            return false;
+        }
+        
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;

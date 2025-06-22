@@ -4,6 +4,7 @@ package vista;
 import abm.abmProducto;
 import abm.abmProveedor;
 import config.sesion;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.modeloProducto;
 
@@ -177,12 +178,7 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtStock)
                             .addComponent(cbxProveedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCancelar)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -190,7 +186,13 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txtProducto))))
+                            .addComponent(txtProducto)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(93, 93, 93))
         );
         layout.setVerticalGroup(
@@ -221,7 +223,7 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -280,7 +282,9 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
 
     public void realizarOperacion()
     {
-        oModeloProducto = new modeloProducto();
+       if(verificarCampos() && verificarPrecio(txtCosto.getText()) && verificarPrecio(txtPrecio.getText()) && verificarPrecio(txtStock.getText()))
+       {
+            oModeloProducto = new modeloProducto();
         if (opcion.equals("GUARDAR"))
         {
             oModeloProducto.setCosto(Float.parseFloat(txtCosto.getText()));
@@ -324,6 +328,49 @@ public class FrmIProducto extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Error al Modificar el Producto");
             }
         }
+       }
+       else
+       {
+           JOptionPane.showMessageDialog(null, "Todos los campos deben ser rellenados correctamente");
+       }
+    }
+    
+    
+    public boolean verificarCampos() {
+    ArrayList<String> campos = new ArrayList<>();
+    campos.add(txtCosto.getText());
+    campos.add(txtPrecio.getText());
+    campos.add(txtProducto.getText());
+    campos.add(txtStock.getText());
+
+    for (String campo : campos) {
+        if (campo == null || campo.trim().isEmpty()) {
+            return false; // Si hay al menos uno vacío, detenemos y devolvemos false
+        }
+    }
+    return true;
+    }
+    
+    public boolean verificarPrecio(String precio)
+    {
+        try
+        {
+            double precioConvertido = Double.parseDouble(precio);
+            if(precioConvertido < 0)
+            {
+                JOptionPane.showMessageDialog(null, "Solo se permiten valores Positivos");
+                return false;
+            }else
+            {
+                return true;
+            }
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,"Solo se permiten valores numericos");
+            return false;
+        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

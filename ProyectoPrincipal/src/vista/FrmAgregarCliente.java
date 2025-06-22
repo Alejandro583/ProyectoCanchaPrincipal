@@ -7,6 +7,7 @@ package vista;
 
 import abm.abmCliente;
 import config.sesion;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.modeloCliente;
 
@@ -243,21 +244,46 @@ public class FrmAgregarCliente extends javax.swing.JFrame {
         oModeloCliente.setNombre(txtNombre.getText().trim());
         oModeloCliente.setTelefono(txtTelefono.getText().trim());
         oModeloCliente.setEstado(1);
-        boolean resultado = oAbmCliente.agregarCliente(oModeloCliente);
-        if(resultado)
-        {
-            JOptionPane.showMessageDialog(null, "Cliente Agregado Correctamente");
-            this.setVisible(false);
-            oFrmVenta.setVisible(true);
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "Error al Agregar al Cliente");
-        }
+        boolean verificador = verificarCampos();
+       if(verificador == true)
+       {
+            boolean resultado = oAbmCliente.agregarCliente(oModeloCliente);
+            if(resultado)
+            {
+                JOptionPane.showMessageDialog(null, "Cliente Agregado Correctamente");
+                this.setVisible(false);
+                oFrmVenta.setVisible(true);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Error al Agregar al Cliente");
+            }
+       }
+       else
+       {
+           JOptionPane.showMessageDialog(null, "Todos los Campos Deben ser Completados");
+           txtNombre.requestFocus();
+       }
     }
     /**
      * @param args the command line arguments
      */
+    
+    public boolean verificarCampos() {
+    ArrayList<String> campos = new ArrayList<>();
+    campos.add(txtCi.getText());
+    campos.add(txtNombre.getText());
+    campos.add(txtTelefono.getText());
+
+    for (String campo : campos) {
+        if (campo == null || campo.trim().isEmpty()) {
+            return false; // Si hay al menos uno vacío, detenemos y devolvemos false
+        }
+    }
+
+    return true; // Si ninguno está vacío, devolvemos true al final
+}
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

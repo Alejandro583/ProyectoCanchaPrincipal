@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -485,8 +486,8 @@ public class frmVenta extends javax.swing.JFrame {
             panelInfoPrecioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInfoPrecioLayout.createSequentialGroup()
                 .addGap(90, 90, 90)
-                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         panelInfoPrecioLayout.setVerticalGroup(
             panelInfoPrecioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -794,7 +795,9 @@ public class frmVenta extends javax.swing.JFrame {
     9 - ASOCIAR LA VENTA CON EL CLIENTE MOMENTANEAMENTE NO HACE DE FORMA CORRECTA MODIFICAR
     */
     private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
-        // Crear y poblar modeloVenta
+        if(verificarCampos() && verificarPrecio(txtCantidad.getText()))
+        {
+                    // Crear y poblar modeloVenta
 modeloVenta oModeloVenta = new modeloVenta();
 oModeloVenta.setEstado(1);
 oModeloVenta.setFecha(Date.valueOf(txtFecha.getText())); // o cbxFecha.getSelectedItem().toString() si usás combo
@@ -867,6 +870,12 @@ oFrmMenu.setVisible(true);
 
     DefaultTableModel modelo = (DefaultTableModel) grilla.getModel();
     modelo.setRowCount(0);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Todos los campos deben ser rellenados correctamente");
+        }
+
     }//GEN-LAST:event_btnProcesarActionPerformed
 
     
@@ -1035,7 +1044,9 @@ oFrmMenu.setVisible(true);
     }//GEN-LAST:event_txtFechaActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        float subtotal = (oModeloProducto.getPrecio()) * Integer.parseInt(txtCantidad.getText());
+       if(verificarPrecio(txtCantidad.getText()))
+       {
+            float subtotal = (oModeloProducto.getPrecio()) * Integer.parseInt(txtCantidad.getText());
         modeloTabla.addRow(new Object[]{
             oModeloProducto.getId_producto(),
             oModeloProducto.getNombre_producto(),
@@ -1050,6 +1061,7 @@ oFrmMenu.setVisible(true);
         txtTotalNeto.setText(montoTotal+"");
         txtSubtotal.setText(montoTotal+"");
         txtIva.setText((montoTotal * 0.10) + "");
+       }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     public void actualizarListaCliente()
@@ -1105,7 +1117,42 @@ oFrmMenu.setVisible(true);
         return -1; // Error al buscar
     }
 }
+public boolean verificarCampos() {
+    ArrayList<String> campos = new ArrayList<>();
+    //campos.add(txtCICliente.getText());
+    campos.add(txtCantidad.getText());
+    //campos.add(txtFactura.getText());
+    //campos.add(txtBuscarProducto.getText());
 
+    for (String campo : campos) {
+        if (campo == null || campo.trim().isEmpty()) {
+            return false; // Si hay al menos uno vacío, detenemos y devolvemos false
+        }
+    }
+    return true;
+    }
+    
+    public boolean verificarPrecio(String precio)
+    {
+        try
+        {
+            double precioConvertido = Double.parseDouble(precio);
+            if(precioConvertido < 0)
+            {
+                JOptionPane.showMessageDialog(null, "Solo se permiten valores Positivos");
+                return false;
+            }else
+            {
+                return true;
+            }
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,"Solo se permiten valores numericos");
+            return false;
+        }
+        
+    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

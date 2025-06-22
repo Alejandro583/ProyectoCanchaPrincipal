@@ -275,6 +275,10 @@ public class FrmIclienteReserva extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Cliente eliminado Correctamente");
             this.setVisible(false);
         }
+        this.setVisible(false);
+        apagarFrmFondo();
+        FrmFondo.setVisible(false);
+        oFrmPrincipal.setVisible(true);
         
     }//GEN-LAST:event_btnEliminar1ActionPerformed
 
