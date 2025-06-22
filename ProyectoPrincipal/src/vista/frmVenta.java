@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -62,7 +63,8 @@ public class frmVenta extends javax.swing.JFrame {
     oabDetalleVenta = new abmDetalleVenta();
     this.setExtendedState(this.MAXIMIZED_BOTH);
     cbxBuscarCliente.setModel(oAbmCliente.obtenerClientesActivos(""));
-    txtVenda_ID.setText((oAbmVenta.obtenerUltimoIdVenta()+1)+"");
+    txtVenda_ID.setText((oAbmVenta.obtenerUltimoIdVenta()+1+""));
+    //iniciarVenta();
 }
 
     
@@ -143,6 +145,10 @@ public class frmVenta extends javax.swing.JFrame {
         cbxBuscarProducto = new javax.swing.JComboBox<>();
         BtnBuscarProducto = new javax.swing.JButton();
         jLayeredPane1 = new javax.swing.JLayeredPane();
+        campoDescripcion = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        CampoStock = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setIconImages(null);
@@ -473,7 +479,7 @@ public class frmVenta extends javax.swing.JFrame {
         panelInfoPrecio.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Seleccionar.png"))); // NOI18N
-        btnAceptar.setText("ACEPTAR");
+        btnAceptar.setText("SELECCIONAR");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAceptarActionPerformed(evt);
@@ -485,8 +491,8 @@ public class frmVenta extends javax.swing.JFrame {
         panelInfoPrecioLayout.setHorizontalGroup(
             panelInfoPrecioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInfoPrecioLayout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(134, Short.MAX_VALUE))
         );
         panelInfoPrecioLayout.setVerticalGroup(
@@ -654,6 +660,16 @@ public class frmVenta extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        campoDescripcion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel2.setText("STOCK");
+        jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        CampoStock.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel1.setText("DESCRIPCION");
+        jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -663,17 +679,28 @@ public class frmVenta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbxBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(BtnBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(panelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panelEncabezado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(panelEncabezado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(campoDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel14)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cbxBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(BtnBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(CampoStock, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -711,8 +738,19 @@ public class frmVenta extends javax.swing.JFrame {
                     .addComponent(BtnBuscarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(campoDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(CampoStock, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -721,10 +759,7 @@ public class frmVenta extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(panelInfoPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(panelBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(panelSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(panelSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -782,94 +817,37 @@ public class frmVenta extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtPrecioVentaKeyPressed
    
-    //COSAS QUE FALTAN AJUSTAR EN ESTA FUNCION 
-    /*
-    1 - VERIFICAR CANTIDAD DE PRODUCTO EN STOCK 
-    2 - DISMINUIR STOCK POR CADA VENTA REALIZADA
-    3 - QUE AL CAMBIAR DE CLIENTE LIMPIE TODA LA PANTALLA PARA CARGAR LOS PRODUCTOS 
-    4 - FALTA QUE MUESTRE EL NUMERO DE FACTURA 
-    5 - VERIFICAR QUE NO PERMITA NUMEROS NEGATIVOS EN CANTIDAD 
-    6 - SUMAR EL COSTO DEL PRODUCTO PARA AGREGAR EN EL MODELOVENTA 
-    7 - OPCIONAL CREAR UN NUEVO CAMPO PARA EL DESCUENTO 
-    8 - VERIFICAR Y ADAPTAR LA FUNCION PARA ACEPTAR PAGOS CON TARJETA 
-    9 - ASOCIAR LA VENTA CON EL CLIENTE MOMENTANEAMENTE NO HACE DE FORMA CORRECTA MODIFICAR
-    */
+    
     private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
         if(verificarCampos() && verificarPrecio(txtCantidad.getText()))
         {
-                    // Crear y poblar modeloVenta
-modeloVenta oModeloVenta = new modeloVenta();
-oModeloVenta.setEstado(1);
-oModeloVenta.setFecha(Date.valueOf(txtFecha.getText())); // o cbxFecha.getSelectedItem().toString() si usás combo
-oModeloVenta.setFkCliente(1); // puedes cambiar esto según el cliente seleccionado
-oModeloVenta.setFkCaja(1);    // según la caja actual
-oModeloVenta.setFkUsuario(oSesion.getIdUsuario());
-oModeloVenta.setSubtotal(montoTotal);
-oModeloVenta.setTotalNeto(montoTotal);
-oModeloVenta.setTotalCosto(0); // si lo calculás, colocarlo
-oModeloVenta.setIva10(10); // o el valor correspondiente
-oModeloVenta.setIva5(0);
-oModeloVenta.setIva0(0);
-oModeloVenta.setTipoVenta("CONTADO"); // o "CREDITO", según lógica
-oModeloVenta.setTtlPago(montoTotal); // total pagado
-oModeloVenta.setTtlDescuento(0); // si hay descuentos
-oModeloVenta.setTtlSaldo(0); // saldo restante
-oModeloVenta.setFacturaNro(0); // si manejás facturas
-DefaultTableModel modeloTabla = (DefaultTableModel) grilla.getModel();
-
-// Insertar venta en la base
-oAbmVenta.agregarVenta(oModeloVenta);
-int idVenta = oAbmVenta.obtenerUltimoIdVenta();
-
-for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-    int idProducto = Integer.parseInt(modeloTabla.getValueAt(i, 0).toString()); // Código
-    int cantidad = Integer.parseInt(modeloTabla.getValueAt(i, 2).toString());   // Cantidad
-    float precio = Float.parseFloat(modeloTabla.getValueAt(i, 3).toString());   // Precio Unitario
-    float subtotal = Float.parseFloat(modeloTabla.getValueAt(i, 4).toString()); // Subtotal
-
-    // Buscar el modeloProducto por ID (reutiliza tu método productoExiste)
-    modeloProducto producto = new modeloProducto();
-    producto.setId_producto(idProducto);
-    producto = oAbmProducto.productoExiste(producto); // Asumimos que devuelve producto completo
-
-    // Crear y poblar modeloVentaDetalle
-    modeloDetalleVenta detalle = new modeloDetalleVenta();
-    detalle.setFk_venta(idVenta);
-    detalle.setFk_reserva(15); // Si no aplica reserva
-    detalle.setCosto(BigDecimal.valueOf(producto.getCosto())); // Extraído del modeloProducto
-    detalle.setPrecio(BigDecimal.valueOf(precio));             // Precio de venta unitario
-    detalle.setVenta_producto(BigDecimal.valueOf(subtotal));   // Subtotal (precio × cantidad)
-    detalle.setCantidad(cantidad);  
-}
-
-//sumar el monto a la caja
-abmCaja oAbmCaja = new abmCaja(oSesion);
-modeloCaja oModeloCaja = oAbmCaja.CargarCaja(oSesion.getIdUsuario());
-
-idcaja = oModeloCaja.getId_caja();
- 
-oAbmCaja.aumentarEfectivo(montoTotal, 1);
-
-// Confirmación
-JOptionPane.showMessageDialog(null, "Venta registrada correctamente");
-this.setVisible(false);
-oFrmMenu.setVisible(true);
-
-
-   
-    txtFactura.setText("");
-    txtCICliente.setText("");
-    txtCodigoProducto.setText("");
-    txtCantidad.setText("");
-    txtPrecioVenta.setText("");
-    txtSubtotal.setText("");
-    txtIva.setText("");
-    txtTotalNeto.setText("");
-    txtTotalGeneral.setText("");
-    txtTotalGs.setText("");
-
-    DefaultTableModel modelo = (DefaultTableModel) grilla.getModel();
-    modelo.setRowCount(0);
+            // Crear y poblar modeloVenta
+            modeloVenta oModeloVenta = new modeloVenta();
+            oModeloVenta.setEstado(1);
+            oModeloVenta.setFecha(Date.valueOf(txtFecha.getText())); // o cbxFecha.getSelectedItem().toString() si usás combo
+            oModeloVenta.setFkCliente(1); // puedes cambiar esto según el cliente seleccionado
+            oModeloVenta.setFkCaja(1);    // según la caja actual
+            oModeloVenta.setFkUsuario(oSesion.getIdUsuario());
+            oModeloVenta.setSubtotal(montoTotal);
+            oModeloVenta.setTotalNeto(montoTotal);
+            oModeloVenta.setTotalCosto(0); // si lo calculás, colocarlo
+            oModeloVenta.setIva10(10); // o el valor correspondiente
+            oModeloVenta.setIva5(0);
+            oModeloVenta.setIva0(0);
+            oModeloVenta.setTipoVenta(cbxTipo.getSelectedItem().toString()); // o "CREDITO", según lógica
+            oModeloVenta.setTtlPago(montoTotal); // total pagado
+            oModeloVenta.setTtlDescuento(0); // si hay descuentos
+            oModeloVenta.setTtlSaldo(0); // saldo restante
+            oModeloVenta.setFacturaNro(0); // si manejás facturas
+            if(oAbmVenta.guardarVenta(oModeloVenta, modeloTabla,oSesion))
+            {
+                JOptionPane.showMessageDialog(null, "Venta Registrada Correctamente");
+                iniciarVenta();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Error Al Registrar La Venta");
+            }  
         }
         else
         {
@@ -912,20 +890,20 @@ oFrmMenu.setVisible(true);
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
 
-        txtFecha.setText("");
-    txtFactura.setText("");
-    txtCICliente.setText("");
-    txtCodigoProducto.setText("");
-    txtCantidad.setText("");
-    txtPrecioVenta.setText("");
-    txtSubtotal.setText("");
-    txtIva.setText("");
-    txtTotalNeto.setText("");
-    txtTotalGeneral.setText("");
-    txtTotalGs.setText("");
+        //txtFecha.setText("");
+        txtFactura.setText("");
+        //txtCICliente.setText("");
+        txtCodigoProducto.setText("");
+        txtCantidad.setText("");
+        txtPrecioVenta.setText("");
+        txtSubtotal.setText("");
+        txtIva.setText("");
+        txtTotalNeto.setText("");
+        txtTotalGeneral.setText("");
+        txtTotalGs.setText("");
 
-    DefaultTableModel modelo = (DefaultTableModel) grilla.getModel();
-    modelo.setRowCount(0); // Limpia todas las filas de la tabla
+        DefaultTableModel modelo = (DefaultTableModel) grilla.getModel();
+        modelo.setRowCount(0); // Limpia todas las filas de la tabla
         setVisible(false);
         oFrmMenu.setVisible(true);
 
@@ -961,28 +939,30 @@ oFrmMenu.setVisible(true);
         int id_cliente = Integer.parseInt(cliente[0].trim());
 
         // Buscar venta por cliente
-        modeloVenta pModeloVenta = oAbmVenta.buscarVentaPorId(id_cliente);
+       List<modeloVenta> ventas = oAbmVenta.buscarVentasPorCliente(id_cliente);
 
-        // Verificar si tiene saldo y agregar
-        if (pModeloVenta != null && pModeloVenta.getSaldo() > 0) {
-            modeloTabla.addRow(new Object[]{
-                pModeloVenta.getIdVenta(),
-                "Alquiler Cancha",
-                1,
-                100000,
-                pModeloVenta.getSaldo()
-                
-            });
-           montoTotal =  pModeloVenta.getSaldo();
-        } 
-        }
+    for (modeloVenta pModeloVenta : ventas) {
+    // Verificar si tiene saldo
+    if (pModeloVenta.getSaldo() > 0) {
+        modeloTabla.addRow(new Object[] {
+            pModeloVenta.getIdVenta(),
+            "Alquiler Cancha",
+            1,
+            100000,
+            pModeloVenta.getSaldo()
+        });
+
+        montoTotal += pModeloVenta.getSaldo(); // si hay varias, acumulás el monto
+    }
+    }
+
         
         txtTotalGs.setText(montoTotal+"");
         txtTotalGeneral.setText(montoTotal+"");
         txtTotalNeto.setText(montoTotal+"");
         txtSubtotal.setText(montoTotal+"");
         txtIva.setText((montoTotal * 0.10) + "");
-        
+        }   
     }//GEN-LAST:event_cbxBuscarClienteActionPerformed
 
     private void BtnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarProductoActionPerformed
@@ -993,7 +973,7 @@ oFrmMenu.setVisible(true);
     private void cbxBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBuscarProductoActionPerformed
         oModeloProducto = new modeloProducto();
      String itemSeleccionado = (String) cbxBuscarProducto.getSelectedItem();
-
+     
 
     try {
         // Obtener solo el nombre antes del separador " - "
@@ -1010,6 +990,8 @@ oFrmMenu.setVisible(true);
             txtCodigoProducto.setText(String.valueOf(oModeloProducto.getId_producto()));
             txtPrecioVenta.setText(String.valueOf(oModeloProducto.getPrecio()));
             txtCantidad.setText("1");
+            campoDescripcion.setText(oModeloProducto.getNombre_producto());
+            CampoStock.setText(oModeloProducto.getStock()+"");
         } else {
             JOptionPane.showMessageDialog(this, "Producto no encontrado.");
         }
@@ -1044,10 +1026,12 @@ oFrmMenu.setVisible(true);
     }//GEN-LAST:event_txtFechaActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-       if(verificarPrecio(txtCantidad.getText()))
+        int cantidadProducto = Integer.parseInt(txtCantidad.getText());
+        
+        if(verificarPrecio(txtCantidad.getText()) && cantidadProducto <= oModeloProducto.getStock())
        {
             float subtotal = (oModeloProducto.getPrecio()) * Integer.parseInt(txtCantidad.getText());
-        modeloTabla.addRow(new Object[]{
+            modeloTabla.addRow(new Object[]{
             oModeloProducto.getId_producto(),
             oModeloProducto.getNombre_producto(),
             txtCantidad.getText(),
@@ -1060,8 +1044,13 @@ oFrmMenu.setVisible(true);
         txtTotalGeneral.setText(montoTotal+"");
         txtTotalNeto.setText(montoTotal+"");
         txtSubtotal.setText(montoTotal+"");
-        txtIva.setText((montoTotal * 0.10) + "");
+        txtIva.setText((montoTotal * 0.10)+"");   
        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Stock Insuficiente");
+            txtCantidad.requestFocus();
+        }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     public void actualizarListaCliente()
@@ -1153,24 +1142,47 @@ public boolean verificarCampos() {
         }
         
     }
-    
+    public void iniciarVenta()
+    {
+        txtFecha.setText("");
+        txtFactura.setText("");
+        txtCICliente.setText("");
+        txtCodigoProducto.setText("");
+        txtCantidad.setText("");
+        txtPrecioVenta.setText("");
+        txtSubtotal.setText("");
+        txtIva.setText("");
+        txtTotalNeto.setText("");
+        txtTotalGeneral.setText("");
+        txtTotalGs.setText("");
+        modeloVenta mVenta = new modeloVenta();
+        mVenta.setEstado(0);
+        oAbmVenta.agregarVenta(mVenta);
+        DefaultTableModel modelo = (DefaultTableModel) grilla.getModel();
+        modelo.setRowCount(0); // Limpia todas las filas de la tabla
+        txtVenda_ID.setText(oAbmVenta.idVenta()+"");
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBuscarCLIENTES;
     private javax.swing.JButton BtnBuscarProducto;
+    private javax.swing.JLabel CampoStock;
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnAgregarCiente;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnProcesar;
+    private javax.swing.JLabel campoDescripcion;
     private javax.swing.JComboBox<String> cbxBuscarCliente;
     private javax.swing.JComboBox<String> cbxBuscarProducto;
     private javax.swing.JComboBox<String> cbxTipo;
     private javax.swing.JTable grilla;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
