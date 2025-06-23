@@ -12,11 +12,11 @@
 				<reportElement x="23" y="0" width="503" height="69" uuid="6db4fb25-df18-4a55-b445-cbf9b7c11c50"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="191" y="18" width="195" height="36" uuid="63224a65-0a7d-4af1-9e02-7309a6fc9773"/>
+				<reportElement x="164" y="19" width="225" height="36" uuid="63224a65-0a7d-4af1-9e02-7309a6fc9773"/>
 				<textElement>
 					<font size="22" isBold="true"/>
 				</textElement>
-				<text><![CDATA[REGISTRO CAJA]]></text>
+				<text><![CDATA[REGISTRO DE CAJA]]></text>
 			</staticText>
 		</band>
 	</title>
