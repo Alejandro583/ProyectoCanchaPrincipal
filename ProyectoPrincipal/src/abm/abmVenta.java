@@ -17,40 +17,86 @@ import modelo.modeloVenta;
 
 public class abmVenta extends config.conexion {
 
-    public boolean agregarVenta(modeloVenta pVenta) {
-        Connection conex = getAbrirConexion();
-        PreparedStatement consulta = null;
-        String sql;
+   public boolean agregarVenta(modeloVenta pVenta) {
+    Connection conex = getAbrirConexion();
+    PreparedStatement consulta = null;
+    ResultSet rs = null;
+    String sql;
 
+    try {
+        // Paso 1: Verificar si ya hay una venta con Estado = 0
+        sql = "SELECT * FROM Venta WHERE Estado = 0 LIMIT 1";
+        consulta = conex.prepareStatement(sql);
+        rs = consulta.executeQuery();
+
+        if (rs.next()) {
+            // Ya existe una venta con Estado = 0, se retorna ese objeto
+            modeloVenta ventaExistente = new modeloVenta();
+            pVenta.setIdVenta(rs.getInt("Id_venta"));
+            pVenta.setSaldo(rs.getDouble("Saldo"));
+            pVenta.setFecha(rs.getDate("Fecha"));
+            pVenta.setTotalCosto(rs.getDouble("Total_costo"));
+            pVenta.setSubtotal(rs.getDouble("Subtotal"));
+            pVenta.setIva0(rs.getDouble("Iva0"));
+            pVenta.setIva5(rs.getDouble("Iva5"));
+            pVenta.setIva10(rs.getDouble("Iva10"));
+            pVenta.setEstado(rs.getInt("Estado"));
+            pVenta.setFacturaNro(rs.getInt("Factura_nro"));
+            pVenta.setTipoVenta(rs.getString("Tipo_venta"));
+            pVenta.setTotalNeto(rs.getDouble("Total_neto"));
+            pVenta.setTtlPago(rs.getDouble("Ttl_pago"));
+            pVenta.setTtlDescuento(rs.getDouble("Ttl_descuento"));
+            pVenta.setTtlSaldo(rs.getDouble("Ttl_saldo"));
+            pVenta.setFkCliente(rs.getInt("Fk_cliente"));
+            pVenta.setFkCaja(rs.getInt("Fk_caja"));
+            pVenta.setFkUsuario(rs.getInt("Fk_usuario"));
+
+            return true; // Devuelve la venta con estado 0
+        }
+
+        // Paso 2: No hay venta con estado 0, se inserta nueva
+        sql = "INSERT INTO Venta(Saldo, Fecha, Total_costo, Subtotal, Iva0, Iva5, Iva10, Estado, Factura_nro, Tipo_venta, Total_neto, Ttl_pago, Ttl_descuento, Ttl_saldo, Fk_cliente, Fk_caja, Fk_usuario) " +
+              "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        consulta = conex.prepareStatement(sql);
+        consulta.setDouble(1, pVenta.getSaldo());
+        consulta.setDate(2, pVenta.getFecha());
+        consulta.setDouble(3, pVenta.getTotalCosto());
+        consulta.setDouble(4, pVenta.getSubtotal());
+        consulta.setDouble(5, pVenta.getIva0());
+        consulta.setDouble(6, pVenta.getIva5());
+        consulta.setDouble(7, pVenta.getIva10());
+        consulta.setInt(8, 0);
+        consulta.setString(9, String.valueOf(pVenta.getFacturaNro()));
+        consulta.setString(10, pVenta.getTipoVenta());
+        consulta.setDouble(11, pVenta.getTotalNeto());
+        consulta.setDouble(12, pVenta.getTtlPago());
+        consulta.setDouble(13, pVenta.getTtlDescuento());
+        consulta.setDouble(14, pVenta.getTtlSaldo());
+        consulta.setInt(15, pVenta.getFkCliente());
+        consulta.setInt(16, pVenta.getFkCaja());
+        consulta.setInt(17, pVenta.getFkUsuario());
+        consulta.executeUpdate();
+
+        // Obtener el ID generado
+        
+        
+
+        return false;
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        return false;
+    } finally {
         try {
-            sql = "INSERT INTO Venta(Saldo, Fecha, Total_costo, Subtotal, Iva0, Iva5, Iva10, Estado, Factura_nro, Tipo_venta, Total_neto, Ttl_pago, Ttl_descuento, Ttl_saldo, Fk_cliente, Fk_caja, Fk_usuario) " +
-                  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            consulta = conex.prepareStatement(sql);
-            consulta.setDouble(1, pVenta.getSaldo());
-            consulta.setDate(2, pVenta.getFecha());
-            consulta.setDouble(3, pVenta.getTotalCosto());
-            consulta.setDouble(4, pVenta.getSubtotal());
-            consulta.setDouble(5, pVenta.getIva0());
-            consulta.setDouble(6, pVenta.getIva5());
-            consulta.setDouble(7, pVenta.getIva10());
-            consulta.setDouble(8, pVenta.getEstado());
-            consulta.setDouble(9, pVenta.getFacturaNro());
-            consulta.setString(10, pVenta.getTipoVenta());
-            consulta.setDouble(11, pVenta.getTotalNeto());
-            consulta.setDouble(12, pVenta.getTtlPago());
-            consulta.setDouble(13, pVenta.getTtlDescuento());
-            consulta.setDouble(14, pVenta.getTtlSaldo());
-            consulta.setInt(15, pVenta.getFkCliente());
-            consulta.setInt(16, pVenta.getFkCaja());
-            consulta.setInt(17, pVenta.getFkUsuario());
-            consulta.execute();
-            return true;
-
+            if (rs != null) rs.close();
+            if (consulta != null) consulta.close();
+            if (conex != null) conex.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-            return false;
+            System.out.println("Error al cerrar: " + e.getMessage());
         }
     }
+}
+
 
    public List<modeloVenta> buscarVentasPorCliente(int id_cliente) {
     Connection conex = getAbrirConexion();
@@ -60,7 +106,7 @@ public class abmVenta extends config.conexion {
     List<modeloVenta> listaVentas = new ArrayList<>();
 
     try {
-        sql = "SELECT * FROM Venta WHERE Fk_cliente = ? AND Estado = 1";
+        sql = "SELECT * FROM Venta WHERE Fk_cliente = ?  AND Saldo > 1";
         consulta = conex.prepareStatement(sql);
         consulta.setInt(1, id_cliente);
         resultado = consulta.executeQuery();
@@ -107,6 +153,7 @@ public class abmVenta extends config.conexion {
                   "WHERE Id_venta = ?";
             consulta = conex.prepareStatement(sql);
             consulta.setDouble(1, pVenta.getSaldo());
+            
             consulta.setDate(2, pVenta.getFecha());
             consulta.setDouble(3, pVenta.getTotalCosto());
             consulta.setDouble(4, pVenta.getSubtotal());
@@ -123,7 +170,7 @@ public class abmVenta extends config.conexion {
             consulta.setInt(15, pVenta.getFkCliente());
             consulta.setInt(16, pVenta.getFkCaja());
             consulta.setInt(17, pVenta.getFkUsuario());
-            consulta.setInt(18, idVenta());
+            consulta.setInt(18, pVenta.getIdVenta());
             consulta.executeUpdate();
             return true;
 
@@ -228,8 +275,8 @@ if (pVenta.getTipoVenta().equalsIgnoreCase("Contado")) {
 ps.setInt(15, pVenta.getFkCliente());
 ps.setInt(16, pVenta.getFkCaja());
 ps.setInt(17, pVenta.getFkUsuario());
-
-ps.setInt(18, obtenerUltimoIdVenta()+1); // Este es el valor del WHERE
+//JOptionPane.showMessageDialog(null, obtenerUltimoIdVenta());
+ps.setInt(18, obtenerUltimoIdVenta()); // Este es el valor del WHERE
 
 ps.executeUpdate();
 
@@ -246,29 +293,44 @@ ps.executeUpdate();
             ps.setFloat(2, oModeloP.getPrecio());  // Precio de venta
             ps.setFloat(3, oModeloP.getCosto());   // Costo del producto
             ps.setInt(4, Integer.parseInt(pVentaItems.getValueAt(i, 2).toString())); // Cantidad
-            ps.setInt(5, pVenta.getIdVenta());     // FK Venta actual
+            ps.setInt(5, obtenerUltimoIdVenta());     // FK Venta actual
             ps.executeUpdate();
         }
 
         // Acumular cantidades por producto (evita update repetidos)
         Map<Integer, Integer> productos = new HashMap<>();
         for (int i = 0; i < pVentaItems.getRowCount(); i++) {
-            int idProducto = Integer.parseInt(pVentaItems.getValueAt(i, 0).toString());
-            int cantidad = Integer.parseInt(pVentaItems.getValueAt(i, 2).toString());
-            productos.put(idProducto, productos.getOrDefault(idProducto, 0) + cantidad);
+            if(pVentaItems.getValueAt(i, 1).equals("Alquiler Cancha"))
+            {
+                productos.put(7, productos.getOrDefault(0, 0)+0);
+            }
+            else
+            {
+                int idProducto = Integer.parseInt(pVentaItems.getValueAt(i, 0).toString());
+                int cantidad = Integer.parseInt(pVentaItems.getValueAt(i, 2).toString());
+                productos.put(idProducto, productos.getOrDefault(idProducto, 0) + cantidad);
+            }
         }
 
         // Descontar stock de cada producto
-        String sqlStock = "UPDATE Producto SET stock = stock - ? WHERE id_producto = ?";
+        String sqlStock = "UPDATE Producto SET stock = stock - ? WHERE id_producto = ? AND stock >= ?";
+        boolean stockSuficiente = true;
         for (Map.Entry<Integer, Integer> entry : productos.entrySet()) {
             ps = con.prepareStatement(sqlStock);
             ps.setInt(1, entry.getValue());
             ps.setInt(2, entry.getKey());
+            ps.setInt(3, entry.getValue());
             ps.executeUpdate();
+            int filasAfectadas = ps.executeUpdate();
+            if (filasAfectadas == 0) {
+                stockSuficiente = false;
+                JOptionPane.showMessageDialog(null, "Stock insuficiente para el producto con ID: " + entry.getKey());
+                break; // salís del bucle si uno falla
+            }
         }
 
         con.commit();
-        return true;
+        return stockSuficiente;
 
     } catch (SQLException e) {
         try {
@@ -282,5 +344,4 @@ ps.executeUpdate();
         this.setCerrarConexion(con);
     }
 }
-
 }

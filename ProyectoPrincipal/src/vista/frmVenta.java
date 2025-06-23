@@ -48,6 +48,7 @@ public class frmVenta extends javax.swing.JFrame {
     DefaultTableModel modeloTabla;
     double montoTotal;
     abmVenta oAbmVenta;
+    List<modeloVenta> ventas;
     abmDetalleVenta oabDetalleVenta;
     int idcaja;
     public frmVenta(sesion pSesion,FrmMenuCancha menu) {
@@ -57,14 +58,15 @@ public class frmVenta extends javax.swing.JFrame {
     oAbmCliente = new abmCliente(pSesion);
     oFrmMenu = menu;
     oAbmProducto = new abmProducto(pSesion);
+    
     cbxBuscarProducto.setModel(oAbmProducto.cargarProducto("",1));
     txtFecha.setText(obtenerFechaHoy());
     oAbmVenta = new abmVenta();
     oabDetalleVenta = new abmDetalleVenta();
     this.setExtendedState(this.MAXIMIZED_BOTH);
     cbxBuscarCliente.setModel(oAbmCliente.obtenerClientesActivos(""));
-    txtVenda_ID.setText((oAbmVenta.obtenerUltimoIdVenta()+1+""));
-    //iniciarVenta();
+    iniciarVenta();
+    
 }
 
     
@@ -177,7 +179,6 @@ public class frmVenta extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("FACTURA");
 
-        txtFactura.setEnabled(false);
         txtFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFacturaActionPerformed(evt);
@@ -780,7 +781,7 @@ public class frmVenta extends javax.swing.JFrame {
     private void txtCIClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCIClienteKeyPressed
        if(oSesion.verificarEnter(evt)==true)
        {
-            String condicion = " AND Ci = " + txtCICliente.getText().trim();
+            String condicion = " AND Ci LIKE '" + txtCICliente.getText().trim()+"%'";
             cbxBuscarCliente.setModel(oAbmCliente.obtenerClientesActivos(condicion));
             if(cbxBuscarCliente.getItemCount() < 1)
             {
@@ -839,8 +840,19 @@ public class frmVenta extends javax.swing.JFrame {
             oModeloVenta.setTtlDescuento(0); // si hay descuentos
             oModeloVenta.setTtlSaldo(0); // saldo restante
             oModeloVenta.setFacturaNro(0); // si manejás facturas
+            CampoStock.setText("");
+            campoDescripcion.setText("");
             if(oAbmVenta.guardarVenta(oModeloVenta, modeloTabla,oSesion))
             {
+               if (ventas != null && !ventas.isEmpty()) {
+                for (modeloVenta v : ventas) {
+                    v.setSaldo(0);
+                    v.setTtlSaldo(0);
+                    oAbmVenta.modificarVenta(v);               
+                }
+                }
+               
+
                 JOptionPane.showMessageDialog(null, "Venta Registrada Correctamente");
                 iniciarVenta();
             }
@@ -930,6 +942,8 @@ public class frmVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarProductoKeyPressed
 
     private void cbxBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBuscarClienteActionPerformed
+        txtCantidad.setText("0");
+        montoTotal =0;
         if (cbxBuscarCliente.getSelectedIndex() >= 0) {
         // Limpiar la tabla
         modeloTabla.setRowCount(0);
@@ -939,10 +953,11 @@ public class frmVenta extends javax.swing.JFrame {
         int id_cliente = Integer.parseInt(cliente[0].trim());
 
         // Buscar venta por cliente
-       List<modeloVenta> ventas = oAbmVenta.buscarVentasPorCliente(id_cliente);
+       ventas = oAbmVenta.buscarVentasPorCliente(id_cliente);
 
     for (modeloVenta pModeloVenta : ventas) {
     // Verificar si tiene saldo
+    
     if (pModeloVenta.getSaldo() > 0) {
         modeloTabla.addRow(new Object[] {
             pModeloVenta.getIdVenta(),
@@ -950,8 +965,8 @@ public class frmVenta extends javax.swing.JFrame {
             1,
             100000,
             pModeloVenta.getSaldo()
+            
         });
-
         montoTotal += pModeloVenta.getSaldo(); // si hay varias, acumulás el monto
     }
     }
@@ -1011,7 +1026,7 @@ public class frmVenta extends javax.swing.JFrame {
         return formatoSQL.format(fecha);
     }
     private void BtnBuscarCLIENTESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarCLIENTESActionPerformed
-        String condicion = " AND Ci = " + txtCICliente.getText().trim();
+        String condicion = " AND Ci LIKE '" + txtCICliente.getText().trim()+"%'";
         cbxBuscarCliente.setModel(oAbmCliente.obtenerClientesActivos(condicion));
         if(cbxBuscarCliente.getItemCount() < 1)
         {
@@ -1069,6 +1084,22 @@ public class frmVenta extends javax.swing.JFrame {
     int filaSeleccionada = tabla.getSelectedRow();
 //    Object costoPro = tabla.getValueAt(filaSeleccionada, 2);
 //    float costo = Float.parseFloat(costoPro.toString());
+    Object verificarAlquiler = tabla.getValueAt(filaSeleccionada, 1);
+    if(verificarAlquiler.equals("Alquiler Cancha"))
+    {
+        int IdCancha = Integer.parseInt(tabla.getValueAt(filaSeleccionada, 0).toString());
+        int i = 0;
+        for(modeloVenta v : ventas)
+        {
+            
+            if(v.getIdVenta() == IdCancha)
+            {
+                ventas.remove(i);
+            }
+            i++;
+        }
+        
+    }
      Object monto = tabla.getValueAt(filaSeleccionada, 4);
 //    int cantidad = Integer.parseInt(cantidadPro.toString());
 //    //montoTotal -= cantidad*costo;
@@ -1144,7 +1175,7 @@ public boolean verificarCampos() {
     }
     public void iniciarVenta()
     {
-        txtFecha.setText("");
+        //txtFecha.setText("");
         txtFactura.setText("");
         txtCICliente.setText("");
         txtCodigoProducto.setText("");
@@ -1156,8 +1187,14 @@ public boolean verificarCampos() {
         txtTotalGeneral.setText("");
         txtTotalGs.setText("");
         modeloVenta mVenta = new modeloVenta();
+        mVenta.setFkCliente(1);
+        mVenta.setFkCaja(1);
+        mVenta.setFkUsuario(oSesion.getIdUsuario());
         mVenta.setEstado(0);
-        oAbmVenta.agregarVenta(mVenta);
+        if(oAbmVenta.agregarVenta(mVenta))
+        {
+            txtVenda_ID.setText(oAbmVenta.idVenta()+"");
+        }
         DefaultTableModel modelo = (DefaultTableModel) grilla.getModel();
         modelo.setRowCount(0); // Limpia todas las filas de la tabla
         txtVenda_ID.setText(oAbmVenta.idVenta()+"");
