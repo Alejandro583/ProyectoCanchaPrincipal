@@ -715,6 +715,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
             oModeloDetllaVenta = new modeloDetalleVenta();
             oModeloVenta = new modeloVenta();
             oModeloVenta.setEstado(1);
+            oModeloVenta.setIdVenta(oAbmVenta.obtenerUltimoIdVenta());
             oModeloVenta.setFacturaNro(0);
             oModeloVenta.setFecha(Date.valueOf(fechaFormateada));
             oModeloVenta.setFkCaja(1);
@@ -723,6 +724,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
             oModeloVenta.setTotalNeto(Float.parseFloat(txtMonto.getText()));
             oModeloVenta.setSaldo(saldoDeuda);
             oModeloVenta.setTtlPago(Float.parseFloat(txtMonto.getText()));
+            oModeloVenta.setTtlSaldo(saldoDeuda);
 
             oModeloDetllaVenta.setCantidad(1);
             oModeloDetllaVenta.setCosto(BigDecimal.ZERO);
@@ -735,7 +737,7 @@ public class FrmClienteReserva extends javax.swing.JFrame {
             
             
             oAbmDetalleVenta.agregarDetalleVenta(oModeloDetllaVenta);
-            oAbmVenta.agregarVenta(oModeloVenta);
+            oAbmVenta.modificarVenta(oModeloVenta);
             abmCaja oAbCaja = new abmCaja(oSesion);
             modeloCaja oModeloCaja;
             oModeloCaja = oAbCaja.CargarCaja(oSesion.getIdUsuario());
