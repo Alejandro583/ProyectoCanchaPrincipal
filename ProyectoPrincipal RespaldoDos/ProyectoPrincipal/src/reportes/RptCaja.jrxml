@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8b7cabf1-0d8c-4d8c-b6d7-d7e30812983c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT 
+  Id_caja, 
+  Total, 
+  Efectivo, 
+  Tarjeta, 
+  Fecha, 
+  IF(Estado = 1, 'Activo', 'Inactivo') AS Estado
+FROM Caja
+WHERE Estado = 1;
+]]>
+	</queryString>
+	<field name="Id_caja" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Total" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Efectivo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Tarjeta" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Estado" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="93" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="23" y="0" width="503" height="69" uuid="6db4fb25-df18-4a55-b445-cbf9b7c11c50"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="164" y="19" width="225" height="36" uuid="63224a65-0a7d-4af1-9e02-7309a6fc9773"/>
+				<textElement>
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REGISTRO DE CAJA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="23" y="41" width="52" height="20" uuid="34375fe4-6f62-47e9-b1ca-0f7a14b8e84a"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="112" y="41" width="52" height="20" uuid="543ba64e-911f-41fd-896b-c357c8d44fcd"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="41" width="61" height="20" uuid="8dbfe2dc-f7a9-4db0-b251-a33922ded544"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[EFECTIVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="298" y="41" width="57" height="20" uuid="06fd2b23-0c30-4030-a82b-3661767dd689"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[TARJETA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="41" width="52" height="20" uuid="47bd58c7-5533-4121-8b27-a1ca4162de26"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="474" y="41" width="52" height="20" uuid="b6da579d-5eec-4a53-b8bb-4911d35940e5"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="41" splitType="Stretch">
+			<textField>
+				<reportElement x="23" y="17" width="42" height="20" uuid="50d94f0d-e8b8-4689-ba71-92221fd2eaea"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{Id_caja}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="112" y="17" width="52" height="20" uuid="9bf01cbe-4fcd-40c6-b0bf-b4be3578e444"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="17" width="61" height="20" uuid="e5da9730-6ca0-49fc-a7ae-344ce4ed7cbf"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{Efectivo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="298" y="17" width="57" height="20" uuid="fb3e3e5e-cddb-491b-ad8b-aafe5f31ca16"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{Tarjeta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="17" width="52" height="20" uuid="63a5510c-c4eb-4930-a1a0-3af0b07cf23c"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="474" y="17" width="52" height="20" uuid="3b1cc34b-7d21-4f4b-9cd7-ddd3bdc2abe3"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{Estado}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="23" y="40" width="513" height="1" uuid="a4dd1cfc-7679-4713-8f6f-740017786c77"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="3" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
