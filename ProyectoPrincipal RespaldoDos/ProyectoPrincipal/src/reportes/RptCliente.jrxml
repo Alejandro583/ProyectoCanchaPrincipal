@@ -37,8 +37,8 @@ WHERE Estado = 1;]]>
 			</staticText>
 			<image>
 				<reportElement x="429" y="10" width="105" height="69" uuid="5d8e3b15-003b-4c4a-a367-3990323895dc"/>
-				<imageExpression><![CDATA["C:\\Users\\joseg\\OneDrive\\Documentos\\Escritorio\\LogoLogin.png"]]></imageExpression>
-			</image>
+				<imageExpression><![CDATA["src/imagen/LogoLogin.png"]]></imageExpression>
+                        </image>
 			<staticText>
 				<reportElement x="352" y="46" width="77" height="20" forecolor="#FFFFFF" uuid="372c52af-2d3c-4d82-8126-41f172a94aae"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
