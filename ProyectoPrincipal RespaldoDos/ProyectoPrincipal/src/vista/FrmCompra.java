@@ -64,6 +64,7 @@ public class FrmCompra extends javax.swing.JFrame {
         grillaCompra.setModel(modeloTabla);
         oAbmCompraDetalle = new abmCompraDetalle(pSesion);
         oFrmFondo = new FrmInternosFondo(this);
+        txtCompraId.setText(oAbmCompra.obtenerUltimoIdCompra()+1+"");
         this.setExtendedState(this.MAXIMIZED_BOTH);
     }
 
@@ -141,6 +142,7 @@ public class FrmCompra extends javax.swing.JFrame {
             }
         });
 
+        cbxFecha.setEnabled(false);
         cbxFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxFechaActionPerformed(evt);
@@ -647,45 +649,28 @@ public class FrmCompra extends javax.swing.JFrame {
     */
     
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        abmCaja oabCaja = new abmCaja(oSesion);
+        double efectivoCaja = oabCaja.obtenerEfectivoCaja(oSesion.getIdUsuario());
         if(verificarPrecio(txtCantidad.getText()) && verificarPrecio(txtPrecioVenta.getText()) && verificarCampos())
         {
-                 oModeloCompra = new modeloCompra();
-        oModeloCompra.setEstado(1);
-        oModeloCompra.setFecha(cbxFecha.getSelectedItem().toString());
-        oModeloCompra.setFk_proveedor(1);
-        oModeloCompra.setFk_usuario(oSesion.getIdUsuario());
-        oModeloCompra.setSubtotal(montoTotal);
-        oModeloCompra.setTotal_neto(montoTotal);
-        oModeloCompra.setIva10(10);
-        oModeloCompra.setTipo_compra("CONTADO");
-       oAbmCompra.agregarCompra(oModeloCompra);
-       
-        DefaultTableModel modeloTabla = (DefaultTableModel) grillaCompra.getModel();
-
-    for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-    int idProducto = Integer.parseInt(modeloTabla.getValueAt(i, 0).toString()); // CODIGO
-    float costo = Float.parseFloat(modeloTabla.getValueAt(i, 2).toString());    // COSTO
-    int cantidad = Integer.parseInt(modeloTabla.getValueAt(i, 5).toString());   // CANTIDAD
-    String fecha = modeloTabla.getValueAt(i, 4).toString();                     // FECHA
-    int idProveedor = 1; // PROVEEDOR
-    
-    // Crear modelo del detalle
-    modeloCompraDetalle detalle = new modeloCompraDetalle();
-    detalle.setFk_compra(oAbmCompra.obtenerUltimoIdCompra());
-    detalle.setFk_producto(idProducto);
-    detalle.setCosto(costo);
-    detalle.setCantidad(cantidad);
-    detalle.setEstado(1); // o el estado que corresponda
-
-    // Insertar en la base   
-}
-    abmCaja oAbmCaja = new abmCaja(oSesion);
-    oAbmCaja.disminuirEfectivo(montoTotal, 1);
-         JOptionPane.showMessageDialog(null, "Compra Registrada Correctamente");
-         this.setVisible(false);
-         oFrmMenuCancha.setVisible(true);
-     
-        
+            double total = Double.parseDouble(txtTotalNeto.getText());
+            if(total <= efectivoCaja)
+            {
+                oModeloCompra = new modeloCompra();
+                oModeloCompra.setEstado(1);
+                oModeloCompra.setFecha(cbxFecha.getSelectedItem().toString());
+                oModeloCompra.setFk_proveedor(1);
+                oModeloCompra.setFk_usuario(oSesion.getIdUsuario());
+                oModeloCompra.setSubtotal(montoTotal);
+                oModeloCompra.setTotal_neto(montoTotal);
+                oModeloCompra.setIva10(10);
+                oModeloCompra.setTipo_compra("CONTADO");  
+                oAbmCompra.guardarCompraYDetalles(grillaCompra, oModeloCompra);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Saldo insuficiente para realizar la compra");
+            }
         }
         else
         {
@@ -764,7 +749,7 @@ public class FrmCompra extends javax.swing.JFrame {
     private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
        
         modeloTabla.addRow(new Object[]{
-            oAbmCompra.obtenerUltimoIdCompra()+1,
+            oModeloProducto.getId_producto(),
             oModeloProducto.getNombre_producto(),
             oModeloProducto.getCosto(),
             oModeloProveedor.getNombre(),
@@ -835,12 +820,23 @@ public class FrmCompra extends javax.swing.JFrame {
     public void seleccionarItemProveedor(JComboBox<String> comboBox, String nombreABuscar) {
     String[] partes = nombreABuscar.split(" - ");
     int idBuscado = Integer.parseInt(partes[0].trim());
+
+    // Seleccionar el ítem en el combo
+    for (int i = 0; i < comboBox.getItemCount(); i++) {
+        String item = comboBox.getItemAt(i);
+        if (item.startsWith(idBuscado + " -")) {
+            comboBox.setSelectedIndex(i);
+            break;
+        }
+    }
+
+    // Buscar proveedor por ID
     modeloProveedor nuevomodeloProveedor = new modeloProveedor();
     nuevomodeloProveedor.setIdProveedor(idBuscado);
     nuevomodeloProveedor = oAbmProveedor.proveedorExiste(nuevomodeloProveedor);
     oModeloProveedor = nuevomodeloProveedor;
-    
 }
+
     
 public void eliminarFilaSeleccionada(JTable tabla) {
     DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();

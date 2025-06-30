@@ -227,6 +227,37 @@ public boolean reversionTotal(double monto, int id_caja) {
     }
 }
 
+public double obtenerEfectivoCaja(int idUsuario) {
+    Connection conex = getAbrirConexion();
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    String sql = "SELECT Efectivo FROM Caja WHERE (Fk_usuario = ? OR Id_caja = ?) AND Estado = 1";
+    double efectivo = 0.0;
+
+    try {
+        ps = conex.prepareStatement(sql);
+        ps.setInt(1, idUsuario);
+        ps.setInt(2, idUsuario);
+        rs = ps.executeQuery();
+
+        if (rs.next()) {
+            efectivo = rs.getDouble("Efectivo");
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al obtener efectivo: " + e.getMessage());
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            if (conex != null) conex.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    return efectivo;
+}
+
     
 }
 

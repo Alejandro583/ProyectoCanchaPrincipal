@@ -163,6 +163,7 @@ public class FrmIAggCaja extends javax.swing.JInternalFrame {
             }
         });
 
+        txtIdCaja.setEditable(false);
         txtIdCaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdCajaActionPerformed(evt);

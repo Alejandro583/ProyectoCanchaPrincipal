@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import modelo.modeloCaja;
 import modelo.modeloProducto;
 import modelo.modeloVenta;
 
@@ -266,6 +267,10 @@ if (pVenta.getTipoVenta().equalsIgnoreCase("Contado")) {
     ps.setDouble(12, pVenta.getTotalNeto()); // Ttl_pago
     ps.setDouble(13, pVenta.getTtlDescuento());
     ps.setDouble(14, 0); // Ttl_saldo
+    abmCaja oabCaja = new abmCaja(psesion);
+    modeloCaja omodeloCaja = new modeloCaja();
+    omodeloCaja = oabCaja.CargarCaja(psesion.getIdUsuario());
+    oabCaja.aumentarEfectivo(pVenta.getTotalNeto(), omodeloCaja.getId_caja());
 } else {
     ps.setDouble(12, 0); // Ttl_pago
     ps.setDouble(13, pVenta.getTtlDescuento());
@@ -320,7 +325,7 @@ ps.executeUpdate();
             ps.setInt(1, entry.getValue());
             ps.setInt(2, entry.getKey());
             ps.setInt(3, entry.getValue());
-            ps.executeUpdate();
+            //ps.executeUpdate();
             int filasAfectadas = ps.executeUpdate();
             if (filasAfectadas == 0) {
                 stockSuficiente = false;

@@ -5,9 +5,14 @@ import config.sesion;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import modelo.modeloCaja;
 import modelo.modeloCompra;
+import modelo.modeloCompraDetalle;
 
 public class abmCompra extends conexion {
     sesion oSesion;
@@ -164,6 +169,120 @@ public class abmCompra extends conexion {
 
     return ultimoId;
 }
+    
+    public void guardarCompraYDetalles(JTable modeloTabla, modeloCompra compra) {
+    Connection conn = null;
+    PreparedStatement psCompra = null;
+    PreparedStatement psDetalle = null;
+    PreparedStatement ps = null;
+    ResultSet generatedKeys = null;
+
+    try {
+        conn = getAbrirConexion();
+        conn.setAutoCommit(false);
+
+        // Insertar en la tabla compra
+        String sqlCompra = "INSERT INTO compra (Factura_nro, Tipo_compra, Fecha, Subtotal, Iva0, Iva5, Iva10, Total_neto, Saldo, Estado, Fk_usuario, Fk_proveedor) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        psCompra = conn.prepareStatement(sqlCompra, Statement.RETURN_GENERATED_KEYS);
+        psCompra.setString(1, compra.getFactura_nro());
+        psCompra.setString(2, compra.getTipo_compra());
+        psCompra.setDate(3, Date.valueOf(compra.getFecha()));
+        psCompra.setDouble(4, compra.getSubtotal());
+        psCompra.setDouble(5, compra.getIva0());
+        psCompra.setDouble(6, compra.getIva5());
+        psCompra.setDouble(7, compra.getIva10());
+        psCompra.setDouble(8, compra.getTotal_neto());
+        psCompra.setDouble(9, compra.getSaldo());
+        psCompra.setInt(10, compra.getEstado());
+        psCompra.setInt(11, compra.getFk_usuario());
+        psCompra.setInt(12, compra.getFk_proveedor());
+        abmCaja oabCaja = new abmCaja(oSesion);
+        modeloCaja omodeloCaja = new modeloCaja();
+        omodeloCaja = oabCaja.CargarCaja(oSesion.getIdUsuario());
+        oabCaja.disminuirEfectivo(compra.getTotal_neto(), omodeloCaja.getId_caja());
+        int rows = psCompra.executeUpdate();
+        if (rows == 0) {
+            throw new SQLException("Error al insertar la compra, no se generó ID.");
+        }
+
+        // Obtener ID generado
+        generatedKeys = psCompra.getGeneratedKeys();
+        int idCompra = -1;
+        if (generatedKeys.next()) {
+            idCompra = generatedKeys.getInt(1);
+        }
+
+        // Preparar inserción de detalles
+        String sqlDetalle = "INSERT INTO compra_detalle(Costo, Cantidad, Compra_producto, Costo_medio, Iva, Estado, Fk_compra, Fk_producto) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        psDetalle = conn.prepareStatement(sqlDetalle);
+
+        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+            int idProducto = Integer.parseInt(modeloTabla.getValueAt(i, 0).toString()); // Fk_producto
+            String compraProducto = modeloTabla.getValueAt(i, 1).toString();            // Compra_producto
+            float costo = Float.parseFloat(modeloTabla.getValueAt(i, 2).toString());    // Costo
+            //float costoMedio = Float.parseFloat(modeloTabla.getValueAt(i, 3).toString());// Costo_medio
+            //int iva = Integer.parseInt(modeloTabla.getValueAt(i, 4).toString());        // Iva
+            int cantidad = Integer.parseInt(modeloTabla.getValueAt(i, 5).toString());   // Cantidad
+            int estado = 1; // Estado activo por defecto
+
+            psDetalle.setFloat(1, costo);
+            psDetalle.setInt(2, cantidad);
+            psDetalle.setString(3, compraProducto);
+            psDetalle.setFloat(4, 0);
+            psDetalle.setInt(5, 10);
+            psDetalle.setInt(6, estado);
+            psDetalle.setInt(7, idCompra);
+            psDetalle.setInt(8, idProducto);
+
+            psDetalle.executeUpdate();
+        }
+        
+        
+        
+        
+         Map<Integer, Integer> productos = new HashMap<>();
+        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+            int idProducto = Integer.parseInt(modeloTabla.getValueAt(i, 0).toString());  // ID producto
+            int cantidad = Integer.parseInt(modeloTabla.getValueAt(i, 5).toString());   // Cantidad
+
+            productos.put(idProducto, productos.getOrDefault(idProducto, 0) + cantidad);
+        }
+
+        // Actualizar stock sumando
+        String sqlStock = "UPDATE Producto SET stock = stock + ? WHERE id_producto = ?";
+        for (Map.Entry<Integer, Integer> entry : productos.entrySet()) {
+            ps = conn.prepareStatement(sqlStock);
+            ps.setInt(1, entry.getValue());
+            ps.setInt(2, entry.getKey());
+            ps.executeUpdate();
+        }
+        conn.commit();
+        JOptionPane.showMessageDialog(null, "Compra y detalles guardados correctamente");
+
+    } catch (Exception e) {
+        if (conn != null) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al guardar la compra: " + e.getMessage());
+    } finally {
+        try {
+            if (generatedKeys != null) generatedKeys.close();
+            if (psCompra != null) psCompra.close();
+            if (psDetalle != null) psDetalle.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
 
 }
 
