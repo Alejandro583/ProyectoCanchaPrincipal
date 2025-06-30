@@ -46,6 +46,20 @@ WHERE Estado = 1;]]>
 				</textElement>
 				<text><![CDATA[SINTETICA S.A.]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="25" y="46" width="159" height="20" forecolor="#FFFFFF" uuid="aa6375dc-7e8b-43de-927c-ff943ed5575a"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TELEFONO: 09XX -XXX-XXX]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="59" width="159" height="20" forecolor="#FFFFFF" uuid="f6105ff8-8cef-4faf-be5e-f60ae3cdf6bc"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RUC: XXXA-AAAXXZ]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
