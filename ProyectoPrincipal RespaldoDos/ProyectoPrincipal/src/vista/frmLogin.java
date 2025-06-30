@@ -164,7 +164,7 @@ public class frmLogin extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 102, 51));
-        jLabel5.setText("Cancha \n Sintetica S.A.");
+        jLabel5.setText("SINTETICA S.A.");
 
         javax.swing.GroupLayout PanelBlancoLayout = new javax.swing.GroupLayout(PanelBlanco);
         PanelBlanco.setLayout(PanelBlancoLayout);
@@ -184,7 +184,7 @@ public class frmLogin extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(PanelBlancoLayout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addGap(60, 60, 60)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
