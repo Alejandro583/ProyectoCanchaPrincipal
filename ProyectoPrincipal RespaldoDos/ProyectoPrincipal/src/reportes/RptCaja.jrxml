@@ -125,37 +125,37 @@ WHERE Estado = 1;]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="38" splitType="Stretch">
+		<band height="26" splitType="Stretch">
 			<rectangle>
-				<reportElement x="21" y="11" width="514" height="21" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="64881411-1885-45c4-b059-4b8c574e6996"/>
+				<reportElement x="21" y="0" width="514" height="21" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="64881411-1885-45c4-b059-4b8c574e6996"/>
 			</rectangle>
 			<textField>
-				<reportElement x="24" y="12" width="42" height="20" uuid="50d94f0d-e8b8-4689-ba71-92221fd2eaea"/>
+				<reportElement x="24" y="1" width="42" height="20" uuid="50d94f0d-e8b8-4689-ba71-92221fd2eaea"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Id_caja}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="113" y="12" width="52" height="20" uuid="9bf01cbe-4fcd-40c6-b0bf-b4be3578e444"/>
+				<reportElement x="113" y="1" width="52" height="20" uuid="9bf01cbe-4fcd-40c6-b0bf-b4be3578e444"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="201" y="12" width="61" height="20" uuid="e5da9730-6ca0-49fc-a7ae-344ce4ed7cbf"/>
+				<reportElement x="201" y="1" width="61" height="20" uuid="e5da9730-6ca0-49fc-a7ae-344ce4ed7cbf"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Efectivo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="299" y="12" width="57" height="20" uuid="fb3e3e5e-cddb-491b-ad8b-aafe5f31ca16"/>
+				<reportElement x="299" y="1" width="57" height="20" uuid="fb3e3e5e-cddb-491b-ad8b-aafe5f31ca16"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Tarjeta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="390" y="12" width="52" height="20" uuid="63a5510c-c4eb-4930-a1a0-3af0b07cf23c"/>
+				<reportElement x="390" y="1" width="52" height="20" uuid="63a5510c-c4eb-4930-a1a0-3af0b07cf23c"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="475" y="12" width="52" height="20" uuid="3b1cc34b-7d21-4f4b-9cd7-ddd3bdc2abe3"/>
+				<reportElement x="475" y="1" width="52" height="20" uuid="3b1cc34b-7d21-4f4b-9cd7-ddd3bdc2abe3"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Estado}]]></textFieldExpression>
 			</textField>

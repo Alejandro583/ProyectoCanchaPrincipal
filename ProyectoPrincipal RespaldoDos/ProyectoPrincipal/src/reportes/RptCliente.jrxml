@@ -101,29 +101,29 @@ WHERE Estado = 1;]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="40" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<rectangle>
-				<reportElement x="32" y="9" width="456" height="28" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="24487f96-f3dc-4952-af4c-811061d50f0f"/>
+				<reportElement x="32" y="0" width="456" height="28" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="24487f96-f3dc-4952-af4c-811061d50f0f"/>
 			</rectangle>
 			<textField>
-				<reportElement x="111" y="9" width="100" height="20" uuid="a2288481-c482-406e-aa6f-5b893c972d4e"/>
+				<reportElement x="111" y="0" width="100" height="20" uuid="a2288481-c482-406e-aa6f-5b893c972d4e"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="242" y="8" width="100" height="20" uuid="bba0fa2a-6d2d-4b3a-acab-1bef05bd4f4d"/>
+				<reportElement x="36" y="0" width="60" height="20" uuid="d16e2ee7-3cf7-47ca-b6f7-6d8dbb0e3357"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{Id_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="242" y="0" width="100" height="20" uuid="bba0fa2a-6d2d-4b3a-acab-1bef05bd4f4d"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Ci}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="388" y="8" width="100" height="20" uuid="c08da3f9-43c1-457d-a68a-0448e215df97"/>
+				<reportElement x="373" y="0" width="100" height="20" uuid="c08da3f9-43c1-457d-a68a-0448e215df97"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Telefono}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="36" y="9" width="60" height="20" uuid="d16e2ee7-3cf7-47ca-b6f7-6d8dbb0e3357"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[$F{Id_cliente}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -133,7 +133,7 @@ WHERE Estado = 1;]]>
 	<pageFooter>
 		<band height="44" splitType="Stretch">
 			<textField>
-				<reportElement x="231" y="24" width="100" height="20" uuid="6b5e59b1-cd3f-47e9-babd-afb80432e467"/>
+				<reportElement x="242" y="24" width="100" height="20" uuid="6b5e59b1-cd3f-47e9-babd-afb80432e467"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
