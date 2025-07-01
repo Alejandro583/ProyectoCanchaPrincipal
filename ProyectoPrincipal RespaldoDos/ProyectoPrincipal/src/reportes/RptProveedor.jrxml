@@ -72,44 +72,44 @@ WHERE Estado = 1;]]>
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="69" splitType="Stretch">
 			<staticText>
-				<reportElement x="474" y="41" width="52" height="20" forecolor="#666666" uuid="17bbf755-0335-46be-9503-0be97954c3d4"/>
+				<reportElement x="474" y="48" width="52" height="20" forecolor="#666666" uuid="17bbf755-0335-46be-9503-0be97954c3d4"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[ESTADO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="126" y="41" width="52" height="20" forecolor="#666666" uuid="24bcbcfc-8f83-4cc5-af1a-c5ea91cc80f7"/>
+				<reportElement x="126" y="48" width="52" height="20" forecolor="#666666" uuid="24bcbcfc-8f83-4cc5-af1a-c5ea91cc80f7"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[RUC]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="23" y="41" width="52" height="20" forecolor="#666666" uuid="3a8882e2-0eaf-43e1-baed-6bbfbf05863b"/>
+				<reportElement x="23" y="48" width="52" height="20" forecolor="#666666" uuid="3a8882e2-0eaf-43e1-baed-6bbfbf05863b"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CODIGO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="220" y="41" width="70" height="20" forecolor="#666666" uuid="487cf6bf-dfc5-46ee-b692-b30a3f5b65e4"/>
+				<reportElement x="220" y="48" width="70" height="20" forecolor="#666666" uuid="487cf6bf-dfc5-46ee-b692-b30a3f5b65e4"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="12" isBold="true" isUnderline="false" isStrikeThrough="false"/>
 				</textElement>
 				<text><![CDATA[NOMBRE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="347" y="41" width="72" height="20" forecolor="#666666" uuid="16022cfe-e053-4c29-ba08-77bd95865606"/>
+				<reportElement x="347" y="48" width="72" height="20" forecolor="#666666" uuid="16022cfe-e053-4c29-ba08-77bd95865606"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[TELEFONO]]></text>
 			</staticText>
 			<line>
-				<reportElement x="23" y="60" width="519" height="1" uuid="f595e36f-8c2b-4073-b1e9-04f213485eea"/>
+				<reportElement x="23" y="67" width="519" height="1" uuid="f595e36f-8c2b-4073-b1e9-04f213485eea"/>
 			</line>
 		</band>
 	</columnHeader>
