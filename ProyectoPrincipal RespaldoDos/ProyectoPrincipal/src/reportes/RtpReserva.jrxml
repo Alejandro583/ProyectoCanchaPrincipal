@@ -11,8 +11,7 @@
   Fecha_reserva,
   IF(Estado = 1, 'Activo', 'Inactivo') AS Estado
 FROM reserva
-WHERE Estado = 1;
-]]>
+WHERE Estado = 1;]]>
 	</queryString>
 	<field name="Id_reserva" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -33,14 +32,39 @@ WHERE Estado = 1;
 	<title>
 		<band height="102" splitType="Stretch">
 			<rectangle radius="10">
-				<reportElement x="10" y="12" width="503" height="69" uuid="47d0551a-6205-40ea-abb2-5e85fef69fe3"/>
+				<reportElement x="10" y="10" width="503" height="69" forecolor="#FFFFFF" backcolor="#006633" uuid="49af5b40-3f5c-4e36-bc75-8b25fc8d4bf3"/>
 			</rectangle>
+			<image>
+				<reportElement x="429" y="10" width="105" height="69" uuid="c1ecd5e9-9fc1-42c7-89e0-3683a9de4651"/>
+				<imageExpression><![CDATA["src/imagen/LogoLogin.png"]]></imageExpression>
+			</image>
 			<staticText>
-				<reportElement x="110" y="28" width="303" height="36" uuid="ae4bec0c-0931-4353-a982-f37c783d83b6"/>
+				<reportElement x="352" y="46" width="77" height="20" forecolor="#FFFFFF" uuid="9fa25ab3-21f3-4b62-9318-dc50804d5aee"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SINTETICA S.A.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="46" width="159" height="20" forecolor="#FFFFFF" uuid="96972806-767b-4191-a9d9-f14954d2bf79"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TELEFONO: 09XX -XXX-XXX]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="21" width="195" height="25" forecolor="#FFFFFF" uuid="8cefc829-cf65-4b76-8448-9e2481cec0d3"/>
 				<textElement>
-					<font size="22" isBold="true"/>
+					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[REGISTRO DE RESERVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="59" width="159" height="20" forecolor="#FFFFFF" uuid="d4c17eae-f494-40bf-b061-8cd0c419edf3"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RUC: XXXA-AAAXXZ]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -50,72 +74,75 @@ WHERE Estado = 1;
 	<columnHeader>
 		<band height="61" splitType="Stretch">
 			<staticText>
-				<reportElement x="347" y="41" width="72" height="20" uuid="740cb29a-927b-4aa7-a356-5a2d5648855c"/>
+				<reportElement x="347" y="41" width="72" height="20" forecolor="#666666" uuid="740cb29a-927b-4aa7-a356-5a2d5648855c"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font size="12" isBold="true" isUnderline="true"/>
+					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[FECHA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="126" y="41" width="52" height="20" uuid="dfda3587-b0a1-4424-9a9a-60b34d7552b6"/>
+				<reportElement x="126" y="41" width="52" height="20" forecolor="#666666" uuid="dfda3587-b0a1-4424-9a9a-60b34d7552b6"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font size="12" isBold="true" isUnderline="true"/>
+					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[INICIO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="23" y="41" width="52" height="20" uuid="d3d098b8-ba47-4203-a8af-d78d2bbe48c2"/>
+				<reportElement x="23" y="41" width="52" height="20" forecolor="#666666" uuid="d3d098b8-ba47-4203-a8af-d78d2bbe48c2"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font size="12" isBold="true" isUnderline="true"/>
+					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CODIGO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="220" y="41" width="70" height="20" uuid="0d6123a5-d63e-408f-a84e-820b1724e566"/>
+				<reportElement x="220" y="41" width="70" height="20" forecolor="#666666" uuid="0d6123a5-d63e-408f-a84e-820b1724e566"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font size="12" isBold="true" isUnderline="true" isStrikeThrough="false"/>
+					<font size="12" isBold="true" isUnderline="false" isStrikeThrough="false"/>
 				</textElement>
 				<text><![CDATA[FIN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="474" y="41" width="52" height="20" uuid="45284978-3ccb-48bf-84c0-af50b77f2baf"/>
+				<reportElement x="474" y="41" width="52" height="20" forecolor="#666666" uuid="45284978-3ccb-48bf-84c0-af50b77f2baf"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font size="12" isBold="true" isUnderline="true"/>
+					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[ESTADO]]></text>
 			</staticText>
+			<line>
+				<reportElement x="21" y="59" width="515" height="1" uuid="4bf970b4-f8f4-48a4-aebc-b11a80616a5f"/>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="40" splitType="Stretch">
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement x="21" y="0" width="514" height="20" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="8e0cf01c-ee73-423e-ad86-332d81b856d6"/>
+			</rectangle>
 			<textField>
-				<reportElement x="36" y="10" width="22" height="20" uuid="6aaac9b1-b53a-41ef-9bcd-4801bf0f606f"/>
+				<reportElement x="35" y="0" width="22" height="20" uuid="6aaac9b1-b53a-41ef-9bcd-4801bf0f606f"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Id_reserva}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="109" y="10" width="88" height="20" uuid="db2518c5-6fd1-4d19-aad1-aa6ce0ca703f"/>
+				<reportElement x="108" y="0" width="88" height="20" uuid="db2518c5-6fd1-4d19-aad1-aa6ce0ca703f"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Horario_inicio}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="218" y="10" width="72" height="20" uuid="03c59362-3e97-4e8a-8798-b5bc2e9090b8"/>
+				<reportElement x="217" y="0" width="72" height="20" uuid="03c59362-3e97-4e8a-8798-b5bc2e9090b8"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Horario_fin}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="330" y="10" width="100" height="20" uuid="1bc32255-3aad-4e96-add0-4135c0857417"/>
+				<reportElement x="329" y="0" width="100" height="20" uuid="1bc32255-3aad-4e96-add0-4135c0857417"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Fecha_reserva}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="474" y="10" width="62" height="20" uuid="89170cd2-02f1-4937-a23a-f759370ed5a3"/>
+				<reportElement x="473" y="0" width="62" height="20" uuid="89170cd2-02f1-4937-a23a-f759370ed5a3"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Estado}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="8" y="36" width="528" height="4" uuid="d316a910-b832-4c1b-ae67-5efa4253398c"/>
-			</line>
 		</band>
 	</detail>
 	<columnFooter>
@@ -131,6 +158,6 @@ WHERE Estado = 1;
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>
