@@ -125,7 +125,7 @@ WHERE Estado = 1;]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="32" splitType="Stretch">
+		<band height="26" splitType="Stretch">
 			<rectangle>
 				<reportElement x="18" y="0" width="516" height="26" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="9ec36302-278a-4a50-a700-737ba7fb09a7"/>
 			</rectangle>
