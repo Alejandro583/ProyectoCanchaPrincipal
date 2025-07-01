@@ -61,7 +61,7 @@ WHERE Estado = 1;]]>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[REGISTRO DE CLIENTE]]></text>
+				<text><![CDATA[REGISTRO DE CAJA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="25" y="59" width="159" height="20" forecolor="#FFFFFF" uuid="2bd15e1a-43a0-430a-a15b-5b103398c912"/>
