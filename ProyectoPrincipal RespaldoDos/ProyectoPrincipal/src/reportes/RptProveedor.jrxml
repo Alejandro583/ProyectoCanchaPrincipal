@@ -57,7 +57,7 @@ WHERE Estado = 1;]]>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[REGISTRO DE PROVEEDPR]]></text>
+				<text><![CDATA[REGISTRO DE PROVEEDOR]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="25" y="59" width="159" height="20" forecolor="#FFFFFF" uuid="7d7660f1-c6f7-449f-b784-6292ca27110f"/>

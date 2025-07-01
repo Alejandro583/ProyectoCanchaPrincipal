@@ -165,6 +165,7 @@ public class FrmMenuCancha extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 51));
 
+        txtUsuario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/personaLogin.png"))); // NOI18N
 
@@ -289,8 +290,8 @@ public class FrmMenuCancha extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCompraActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        FrmCancha oFrmCancha = new FrmCancha(oSesion,this);
-        oFrmCancha.setVisible(true);
+        FrmCancha oCancha = new FrmCancha(oSesion, this);
+        oCancha.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 

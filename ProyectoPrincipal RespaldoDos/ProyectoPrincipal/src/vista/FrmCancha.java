@@ -31,10 +31,10 @@ public class FrmCancha extends javax.swing.JFrame {
         oFrmMenuCancha = oMenuCancha;
         oAbmCancha = new abmCancha(oSesion);
         grillaCancha.setModel(oAbmCancha.cargarTabla(""));
-        
         oFrmFondo = new FrmInternosFondo(this);
         this.setExtendedState(this.MAXIMIZED_BOTH);
-        Usuario.setText(oSesion.getNombreUsuario());
+        Usuario1.setText(pSesion.getNombreUsuario());
+        
 
     }
 
@@ -139,7 +139,7 @@ public class FrmCancha extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(0, 102, 51));
 
-        Usuario1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Usuario1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Usuario1.setForeground(new java.awt.Color(255, 255, 255));
         Usuario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/personaLogin.png"))); // NOI18N
 
@@ -157,7 +157,7 @@ public class FrmCancha extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Usuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(218, Short.MAX_VALUE))
+                .addContainerGap(277, Short.MAX_VALUE))
         );
 
         panelCancha.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -305,7 +305,6 @@ public class FrmCancha extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Usuario;
     private javax.swing.JLabel Usuario1;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
@@ -314,7 +313,6 @@ public class FrmCancha extends javax.swing.JFrame {
     private javax.swing.JTable grillaCancha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JDesktopPane panelCancha;
