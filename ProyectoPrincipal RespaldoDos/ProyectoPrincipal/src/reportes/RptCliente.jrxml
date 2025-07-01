@@ -38,7 +38,7 @@ WHERE Estado = 1;]]>
 			<image>
 				<reportElement x="429" y="10" width="105" height="69" uuid="5d8e3b15-003b-4c4a-a367-3990323895dc"/>
 				<imageExpression><![CDATA["src/imagen/LogoLogin.png"]]></imageExpression>
-                        </image>
+			</image>
 			<staticText>
 				<reportElement x="352" y="46" width="77" height="20" forecolor="#FFFFFF" uuid="372c52af-2d3c-4d82-8126-41f172a94aae"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -68,60 +68,60 @@ WHERE Estado = 1;]]>
 	<columnHeader>
 		<band height="36" splitType="Stretch">
 			<staticText>
-				<reportElement x="46" y="15" width="25" height="20" forecolor="#666666" uuid="4d26add0-efa3-4405-88c0-7cc6da545b88"/>
+				<reportElement x="53" y="16" width="25" height="20" forecolor="#666666" uuid="4d26add0-efa3-4405-88c0-7cc6da545b88"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="104" y="15" width="100" height="20" forecolor="#666666" uuid="52d1bf14-e512-44f1-964a-e7748d215989"/>
+				<reportElement x="111" y="16" width="100" height="20" forecolor="#666666" uuid="52d1bf14-e512-44f1-964a-e7748d215989"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[NOMBRE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="235" y="15" width="100" height="20" forecolor="#666666" uuid="f444762e-8e21-4ebb-9692-66ab4f3e0b1f"/>
+				<reportElement x="242" y="16" width="100" height="20" forecolor="#666666" uuid="f444762e-8e21-4ebb-9692-66ab4f3e0b1f"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CEDULA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="381" y="15" width="100" height="20" forecolor="#666666" uuid="3334ed89-1ce2-4872-b8ba-ff8b282b77af"/>
+				<reportElement x="388" y="16" width="100" height="20" forecolor="#666666" uuid="3334ed89-1ce2-4872-b8ba-ff8b282b77af"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[TELEFONO]]></text>
 			</staticText>
 			<line>
-				<reportElement x="29" y="34" width="452" height="1" uuid="e55b7623-ace2-4bf2-aa0c-345bebb1b7cc"/>
+				<reportElement x="36" y="35" width="452" height="1" uuid="e55b7623-ace2-4bf2-aa0c-345bebb1b7cc"/>
 			</line>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="40" splitType="Stretch">
 			<rectangle>
-				<reportElement x="25" y="8" width="456" height="28" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="24487f96-f3dc-4952-af4c-811061d50f0f"/>
+				<reportElement x="32" y="9" width="456" height="28" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="24487f96-f3dc-4952-af4c-811061d50f0f"/>
 			</rectangle>
 			<textField>
-				<reportElement x="104" y="8" width="100" height="20" uuid="a2288481-c482-406e-aa6f-5b893c972d4e"/>
+				<reportElement x="111" y="9" width="100" height="20" uuid="a2288481-c482-406e-aa6f-5b893c972d4e"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="235" y="7" width="100" height="20" uuid="bba0fa2a-6d2d-4b3a-acab-1bef05bd4f4d"/>
+				<reportElement x="242" y="8" width="100" height="20" uuid="bba0fa2a-6d2d-4b3a-acab-1bef05bd4f4d"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Ci}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="381" y="7" width="100" height="20" uuid="c08da3f9-43c1-457d-a68a-0448e215df97"/>
+				<reportElement x="388" y="8" width="100" height="20" uuid="c08da3f9-43c1-457d-a68a-0448e215df97"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Telefono}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="29" y="8" width="60" height="20" uuid="d16e2ee7-3cf7-47ca-b6f7-6d8dbb0e3357"/>
+				<reportElement x="36" y="9" width="60" height="20" uuid="d16e2ee7-3cf7-47ca-b6f7-6d8dbb0e3357"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Id_cliente}]]></textFieldExpression>
 			</textField>
@@ -133,7 +133,7 @@ WHERE Estado = 1;]]>
 	<pageFooter>
 		<band height="44" splitType="Stretch">
 			<textField>
-				<reportElement x="218" y="24" width="100" height="20" uuid="6b5e59b1-cd3f-47e9-babd-afb80432e467"/>
+				<reportElement x="231" y="24" width="100" height="20" uuid="6b5e59b1-cd3f-47e9-babd-afb80432e467"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>

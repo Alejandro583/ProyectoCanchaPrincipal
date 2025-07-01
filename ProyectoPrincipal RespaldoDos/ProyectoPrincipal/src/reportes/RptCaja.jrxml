@@ -12,8 +12,7 @@
   Fecha, 
   IF(Estado = 1, 'Activo', 'Inactivo') AS Estado
 FROM Caja
-WHERE Estado = 1;
-]]>
+WHERE Estado = 1;]]>
 	</queryString>
 	<field name="Id_caja" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -37,14 +36,39 @@ WHERE Estado = 1;
 	<title>
 		<band height="93" splitType="Stretch">
 			<rectangle radius="10">
-				<reportElement x="23" y="0" width="503" height="69" uuid="6db4fb25-df18-4a55-b445-cbf9b7c11c50"/>
+				<reportElement x="10" y="10" width="503" height="69" forecolor="#FFFFFF" backcolor="#006633" uuid="f1d9d330-4d5a-48f0-ad2d-4222d2d51d44"/>
 			</rectangle>
+			<image>
+				<reportElement x="429" y="10" width="105" height="69" uuid="1fb50b06-4c55-4e8f-8fcb-c0e68257e281"/>
+				<imageExpression><![CDATA["src/imagen/LogoLogin.png"]]></imageExpression>
+			</image>
 			<staticText>
-				<reportElement x="164" y="19" width="225" height="36" uuid="63224a65-0a7d-4af1-9e02-7309a6fc9773"/>
-				<textElement>
-					<font size="22" isBold="true"/>
+				<reportElement x="352" y="46" width="77" height="20" forecolor="#FFFFFF" uuid="a858bc8a-3f15-47ae-b581-847b8b18b9b8"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[REGISTRO DE CAJA]]></text>
+				<text><![CDATA[SINTETICA S.A.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="46" width="159" height="20" forecolor="#FFFFFF" uuid="5ae611bf-57b3-431f-b7b8-b158713f5b59"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TELEFONO: 09XX -XXX-XXX]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="21" width="195" height="25" forecolor="#FFFFFF" uuid="b3bd6e7d-0443-47e6-ad3f-3d0fc6dcd41f"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REGISTRO DE CLIENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="59" width="159" height="20" forecolor="#FFFFFF" uuid="2bd15e1a-43a0-430a-a15b-5b103398c912"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RUC: XXXA-AAAXXZ]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -54,93 +78,101 @@ WHERE Estado = 1;
 	<columnHeader>
 		<band height="61" splitType="Stretch">
 			<staticText>
-				<reportElement x="23" y="41" width="52" height="20" uuid="34375fe4-6f62-47e9-b1ca-0f7a14b8e84a"/>
+				<reportElement x="23" y="41" width="52" height="20" forecolor="#666666" uuid="34375fe4-6f62-47e9-b1ca-0f7a14b8e84a"/>
 				<textElement textAlignment="Center">
-					<font size="12" isBold="true" isUnderline="true"/>
+					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CODIGO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="112" y="41" width="52" height="20" uuid="543ba64e-911f-41fd-896b-c357c8d44fcd"/>
+				<reportElement x="112" y="41" width="52" height="20" forecolor="#666666" uuid="543ba64e-911f-41fd-896b-c357c8d44fcd"/>
 				<textElement textAlignment="Center">
-					<font size="12" isBold="true" isUnderline="true"/>
+					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[TOTAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="41" width="61" height="20" uuid="8dbfe2dc-f7a9-4db0-b251-a33922ded544"/>
+				<reportElement x="200" y="41" width="61" height="20" forecolor="#666666" uuid="8dbfe2dc-f7a9-4db0-b251-a33922ded544"/>
 				<textElement textAlignment="Center">
-					<font size="12" isBold="true" isUnderline="true" isStrikeThrough="false"/>
+					<font size="12" isBold="true" isUnderline="false" isStrikeThrough="false"/>
 				</textElement>
 				<text><![CDATA[EFECTIVO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="298" y="41" width="57" height="20" uuid="06fd2b23-0c30-4030-a82b-3661767dd689"/>
+				<reportElement x="298" y="41" width="57" height="20" forecolor="#666666" uuid="06fd2b23-0c30-4030-a82b-3661767dd689"/>
 				<textElement textAlignment="Center">
-					<font size="12" isBold="true" isUnderline="true"/>
+					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[TARJETA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="389" y="41" width="52" height="20" uuid="47bd58c7-5533-4121-8b27-a1ca4162de26"/>
+				<reportElement x="389" y="41" width="52" height="20" forecolor="#666666" uuid="47bd58c7-5533-4121-8b27-a1ca4162de26"/>
 				<textElement textAlignment="Center">
-					<font size="12" isBold="true" isUnderline="true"/>
+					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[FECHA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="474" y="41" width="52" height="20" uuid="b6da579d-5eec-4a53-b8bb-4911d35940e5"/>
+				<reportElement x="474" y="41" width="52" height="20" forecolor="#666666" uuid="b6da579d-5eec-4a53-b8bb-4911d35940e5"/>
 				<textElement textAlignment="Center">
-					<font size="12" isBold="true" isUnderline="true"/>
+					<font size="12" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[ESTADO]]></text>
 			</staticText>
+			<line>
+				<reportElement x="21" y="60" width="513" height="1" uuid="a4dd1cfc-7679-4713-8f6f-740017786c77"/>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="41" splitType="Stretch">
+		<band height="38" splitType="Stretch">
+			<rectangle>
+				<reportElement x="21" y="11" width="514" height="21" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="64881411-1885-45c4-b059-4b8c574e6996"/>
+			</rectangle>
 			<textField>
-				<reportElement x="23" y="17" width="42" height="20" uuid="50d94f0d-e8b8-4689-ba71-92221fd2eaea"/>
+				<reportElement x="24" y="12" width="42" height="20" uuid="50d94f0d-e8b8-4689-ba71-92221fd2eaea"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Id_caja}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="112" y="17" width="52" height="20" uuid="9bf01cbe-4fcd-40c6-b0bf-b4be3578e444"/>
+				<reportElement x="113" y="12" width="52" height="20" uuid="9bf01cbe-4fcd-40c6-b0bf-b4be3578e444"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="200" y="17" width="61" height="20" uuid="e5da9730-6ca0-49fc-a7ae-344ce4ed7cbf"/>
+				<reportElement x="201" y="12" width="61" height="20" uuid="e5da9730-6ca0-49fc-a7ae-344ce4ed7cbf"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Efectivo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="298" y="17" width="57" height="20" uuid="fb3e3e5e-cddb-491b-ad8b-aafe5f31ca16"/>
+				<reportElement x="299" y="12" width="57" height="20" uuid="fb3e3e5e-cddb-491b-ad8b-aafe5f31ca16"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Tarjeta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="389" y="17" width="52" height="20" uuid="63a5510c-c4eb-4930-a1a0-3af0b07cf23c"/>
+				<reportElement x="390" y="12" width="52" height="20" uuid="63a5510c-c4eb-4930-a1a0-3af0b07cf23c"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="474" y="17" width="52" height="20" uuid="3b1cc34b-7d21-4f4b-9cd7-ddd3bdc2abe3"/>
+				<reportElement x="475" y="12" width="52" height="20" uuid="3b1cc34b-7d21-4f4b-9cd7-ddd3bdc2abe3"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Estado}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="23" y="40" width="513" height="1" uuid="a4dd1cfc-7679-4713-8f6f-740017786c77"/>
-			</line>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="3" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="46" splitType="Stretch">
+			<textField>
+				<reportElement x="231" y="24" width="100" height="20" uuid="a5029450-82bf-4a86-bf3f-ddefe11ad994"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>
